@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="100%" height="100%">
+  <defs>
+    <!-- Premium Metallic Violet Gradient -->
+    <linearGradient id="violetGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="30%" stop-color="#8b5cf6" />
+      <stop offset="70%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+    <!-- Subtle drop shadow for the icon -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#7c3aed" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Group for Icon Mark -->
+  <g filter="url(#shadow)">
+    <!-- Stylized 'A' Arch -->
+    <path d="M 23,58 L 40,21 L 57,58" 
+          stroke="url(#violetGrad)" 
+          stroke-width="7" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none" />
+    
+    <!-- Smooth Infinity Loop forming the 'A' crossbar -->
+    <path d="M 40,50 C 30,37 16,37 16,50 C 16,63 30,63 40,50 C 50,37 64,37 64,50 C 64,63 50,63 40,50 Z" 
+          stroke="url(#violetGrad)" 
+          stroke-width="7" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          fill="none" />
+          
+    <!-- Decorative Glowing Center Core -->
+    <circle cx="40" cy="50" r="1.5" fill="#ffffff" />
+  </g>
+
+  <!-- Typography: AutoExec -->
+  <text x="85" y="52" 
+        fill="#ffffff" 
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
+        font-size="32" 
+        font-weight="800" 
+        letter-spacing="-0.03em">
+    Auto<tspan fill="#a78bfa">Exec</tspan>
+  </text>
+</svg>

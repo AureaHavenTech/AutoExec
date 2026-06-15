@@ -56,12 +56,9 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row">
       {/* Mobile Header */}
       <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="flex items-center space-x-2">
-          <div className="h-8 w-8 bg-brand-500 rounded flex items-center justify-center">
-            <Zap className="h-4 w-4 text-white fill-white" />
-          </div>
-          <span className="font-bold text-white text-lg">AutoExec</span>
-        </div>
+        <Link href="/" className="flex items-center">
+          <img src="/logo.svg" alt="AutoExec Logo" className="h-7 w-auto" />
+        </Link>
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="text-slate-400 hover:text-white"
@@ -79,11 +76,8 @@ export default function DashboardLayout({
         <div className="space-y-8">
           {/* Logo */}
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2.5">
-              <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
-                <Zap className="h-5 w-5 text-white fill-white" />
-              </div>
-              <span className="font-bold text-white text-xl">AutoExec</span>
+            <Link href="/" className="flex items-center">
+              <img src="/logo.svg" alt="AutoExec Logo" className="h-9 w-auto" />
             </Link>
             <button className="md:hidden text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
               <X className="h-5 w-5" />

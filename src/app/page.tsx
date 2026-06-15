@@ -107,14 +107,9 @@ export default function LandingPage() {
     <div className="min-h-screen bg-slate-950 text-white selection:bg-brand-500 selection:text-white">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-900 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
-            <Zap className="h-5 w-5 text-white fill-white" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-white bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
-            AutoExec
-          </span>
-        </div>
+        <Link href="/" className="flex items-center">
+          <img src="/logo.svg" alt="AutoExec Logo" className="h-9 w-auto" />
+        </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
           <a href="#how-it-works" className="hover:text-white transition-colors">How it Works</a>

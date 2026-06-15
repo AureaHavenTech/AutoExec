@@ -5,8 +5,13 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AutoExec — AI Executive Agent",
-  description: "Describe any research or email outreach goal in plain English. AutoExec deploys cloud agents to search, scrape contacts, draft templates, and send outbound campaigns autonomously.",
+  title: "AutoExec — Your AI Executive Assistant",
+  description: "Tell it what to do. It does the rest. AutoExec researches, builds, emails, and analyzes — 24/7.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon-512.png",
+    apple: "/icon-512.png",
+  },
 };
 
 export default function RootLayout({
@@ -16,6 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#0a0a0a" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="AutoExec" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
