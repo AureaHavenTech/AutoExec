@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,10 +11,20 @@ import {
   Compass,
   Mail,
   Zap,
+  Upload,
+  Camera,
+  CheckCircle2,
+  Loader2,
+  Image as ImageIcon,
+  X,
 } from "lucide-react";
 
 export default function DashboardPage() {
   const [usageStats, setUsageStats] = useState({ used: 42, limit: 200, tier: "pro" });
+  const [uploading, setUploading] = useState(false);
+  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const fetchSession = async () => {
     try {
@@ -37,6 +47,37 @@ export default function DashboardPage() {
   useEffect(() => {
     fetchSession();
   }, []);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadError(null);
+    setUploadedUrl(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setUploadedUrl(data.url);
+      } else {
+        setUploadError(data.error || "Upload failed");
+      }
+    } catch (err) {
+      setUploadError("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
 
   return (
     <div className="space-y-6 h-full flex flex-col">
@@ -101,6 +142,55 @@ export default function DashboardPage() {
           </div>
         </Card>
       </div>
+
+      {/* Photo Upload */}
+      <Card className="p-4 bg-slate-900/30 border-slate-900">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Camera className="h-5 w-5 text-brand-400" />
+            <div>
+              <p className="text-sm font-semibold text-white">Profile Photo</p>
+              <p className="text-[11px] text-slate-500">Upload your photo to personalize your profile and About page</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {uploadedUrl && (
+              <div className="flex items-center gap-2">
+                <img src={uploadedUrl} alt="Uploaded" className="h-10 w-10 rounded-full object-cover border-2 border-emerald-400" />
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+              </div>
+            )}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/gif,image/webp"
+              onChange={handleUpload}
+              className="hidden"
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="h-9"
+            >
+              {uploading ? (
+                <><Loader2 className="h-4 w-4 animate-spin mr-1.5" /> Uploading...</>
+              ) : (
+                <><Upload className="h-4 w-4 mr-1.5" /> Upload Photo</>
+              )}
+            </Button>
+            {uploadedUrl && (
+              <Button variant="ghost" size="sm" onClick={() => setUploadedUrl(null)} className="h-9 text-slate-500">
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        </div>
+        {uploadError && (
+          <p className="text-xs text-rose-400 mt-2">{uploadError}</p>
+        )}
+      </Card>
 
       {/* Chat Interface */}
       <div className="flex-1 bg-slate-900/20 border border-slate-900/80 rounded-2xl p-6 shadow-xl min-h-[500px] flex flex-col">

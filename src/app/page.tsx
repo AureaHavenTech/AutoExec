@@ -141,19 +141,20 @@ export default function LandingPage() {
         <div className="absolute top-40 left-1/3 w-[300px] h-[300px] bg-accent-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <Badge variant="info" className="mb-6 px-4 py-1 text-xs tracking-wider uppercase font-semibold">
-          <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400 animate-pulse" /> Autonomous Executive Agent
+          <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400 animate-pulse" /> Built for people who have more to do than hours in the day
         </Badge>
 
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight max-w-5xl leading-tight md:leading-none text-white">
-          Automate Your Research <br />
+          Tell it what to do. <br />
           <span className="bg-gradient-to-r from-brand-400 via-brand-500 to-accent-400 bg-clip-text text-transparent">
-            & Outreach End-to-End
+            It does the rest.
           </span>
         </h1>
 
         <p className="mt-8 text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed">
-          Describe any research or email outreach goal in plain English. 
-          AutoExec deploys cloud agents to search, scrape contacts, draft templates, and send outbound campaigns autonomously.
+          AutoExec is your autonomous AI executive assistant. Describe any task in plain language — 
+          research, list-building, email outreach, building webpages — and it handles everything 
+          end-to-end. Like a full-time employee who works 24/7, never sleeps, and does anything you can describe.
         </p>
 
         {/* Demo command block */}
@@ -184,6 +185,12 @@ export default function LandingPage() {
           </a>
         </div>
 
+        {/* Trust indicators */}
+        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-emerald-400">
+          <ShieldCheck className="h-4 w-4" />
+          <span>30-day money-back guarantee · No risk</span>
+        </div>
+
         <div className="mt-16 flex flex-wrap justify-center items-center gap-x-12 gap-y-6 text-slate-500 text-sm font-semibold tracking-wider uppercase">
           <div className="flex items-center space-x-2">
             <Globe className="h-5 w-5 text-slate-400" />
@@ -208,7 +215,8 @@ export default function LandingPage() {
               An Executive Assistant built entirely on AI
             </h2>
             <p className="mt-4 text-slate-400 text-lg">
-              No complex setup, APIs, or integration connectors needed. AutoExec acts like a real person, interacting directly with web pages.
+              No complex setup, APIs, or integration connectors needed. AutoExec acts like a real person 
+              — because it was built by one who needed exactly that.
             </p>
           </div>
 
@@ -241,7 +249,8 @@ export default function LandingPage() {
               Watch AutoExec run autonomously
             </h2>
             <p className="mt-4 text-slate-400 text-lg">
-              Three simple steps to save hours of grinding. Let the agent handle it.
+              Three simple steps to save hours of grinding. Let the agent handle it — 
+              like having a full-time employee who never sleeps.
             </p>
           </div>
 
@@ -277,6 +286,28 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Founder Story Section */}
+      <section className="py-24 border-t border-slate-900 bg-slate-900/5 relative">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <Badge variant="info" className="mb-6 px-4 py-1 text-xs tracking-wider uppercase font-semibold">
+            <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400" /> The Story Behind AutoExec
+          </Badge>
+          <blockquote className="text-2xl md:text-3xl font-semibold text-white leading-relaxed max-w-3xl mx-auto">
+            &ldquo;I was juggling multiple businesses from my phone. No laptop. No budget for employees. 
+            I needed an assistant that worked 24/7 without a salary. So I built one.&rdquo;
+          </blockquote>
+          <p className="mt-6 text-slate-400 text-lg max-w-2xl mx-auto">
+            AutoExec was born from real life, real overwhelm, and the need for something that just works. 
+            It&apos;s for everyone else who has more to do than hours in the day.
+          </p>
+          <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-500">
+            <span className="h-px w-8 bg-slate-800" />
+            <span>— Founder, AutoExec</span>
+            <span className="h-px w-8 bg-slate-800" />
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section id="pricing" className="py-24 border-t border-slate-900 bg-slate-950 relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(139,92,246,0.05),transparent_50%)] pointer-events-none" />
@@ -286,7 +317,8 @@ export default function LandingPage() {
               Simple, task-based pricing
             </h2>
             <p className="mt-4 text-slate-400 text-lg">
-              Start free, upgrade as your demand scales. No setup charges or annual locking fees.
+              Start free, upgrade as your demand scales. No setup charges — and a 
+              <span className="text-emerald-400 font-semibold"> 30-day money-back guarantee</span> on every plan.
             </p>
 
             {/* Billing Toggle */}
@@ -340,6 +372,10 @@ export default function LandingPage() {
                       <span className="text-5xl font-extrabold text-white">${price}</span>
                       <span className="text-slate-400 text-sm ml-2">/ month</span>
                     </div>
+                    <div className="mt-2 flex items-center gap-1.5 text-xs text-emerald-400">
+                      <ShieldCheck className="h-3.5 w-3.5" />
+                      <span>30-day money-back guarantee</span>
+                    </div>
                     {isAnnual && (
                       <span className="text-xs text-emerald-400 mt-1.5 block">
                         Billed annually (${price * 12}/yr)
@@ -376,6 +412,33 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* 30-Day Money Back Guarantee */}
+      <section className="py-20 border-t border-slate-900 bg-slate-900/5">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="bg-gradient-to-r from-emerald-500/5 to-brand-500/5 border border-emerald-500/10 rounded-2xl p-10 md:p-14">
+            <ShieldCheck className="h-14 w-14 text-emerald-400 mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-4">
+              30-Day Money-Back Guarantee
+            </h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-2">
+              Try AutoExec risk-free. If you&apos;re not satisfied within 30 days, 
+              get a full refund. No questions asked.
+            </p>
+            <p className="text-sm text-slate-500 max-w-xl mx-auto">
+              We&apos;re confident AutoExec will save you hours every day. But if it doesn&apos;t work 
+              for you, we&apos;ll refund every penny. That&apos;s how sure we are that you&apos;ll love it.
+            </p>
+            <div className="mt-8">
+              <Link href="/dashboard">
+                <Button variant="primary" size="lg" className="text-base px-8 py-4">
+                  Start Your Free Trial <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="border-t border-slate-900 py-12 px-6 bg-slate-950 text-slate-500 text-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
@@ -383,13 +446,21 @@ export default function LandingPage() {
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
             <span className="font-bold text-white tracking-tight">AutoExec</span>
           </div>
-          <div className="flex space-x-6 text-slate-400 mb-4 md:mb-0">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
+            <Link href="/about" className="hover:text-white transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
+            <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
             <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
           </div>
-          <div>
-            &copy; {new Date().getFullYear()} AutoExec AI Inc. All rights reserved.
+          <div className="text-center md:text-right">
+            <div className="flex items-center gap-2 text-emerald-400 text-xs mb-1">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              <span>30-day money-back guarantee</span>
+            </div>
+            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc. All rights reserved.</div>
           </div>
         </div>
       </footer>
