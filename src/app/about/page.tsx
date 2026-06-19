@@ -128,7 +128,30 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Why It Matters */}
+        {/* Follow the Founder */}
+            <section className="mb-16 text-center">
+              <div className="inline-block bg-gradient-to-r from-brand-500/10 to-accent-500/5 border border-brand-500/20 rounded-2xl p-8 md:p-10 px-12">
+                <h2 className="text-2xl font-bold text-white mb-2">Follow the Founder</h2>
+                <p className="text-slate-400 text-sm mb-6">Stay connected with Lindsey and the journey</p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <a href="https://instagram.com/dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                    <span>📸</span> Instagram
+                  </a>
+                  <a href="https://tiktok.com/@dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                    <span>🎵</span> TikTok
+                  </a>
+                  <a href="https://twitter.com/dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                    <span>🐦</span> Twitter/X
+                  </a>
+                  <a href="https://youtube.com/@dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                    <span>▶️</span> YouTube
+                  </a>
+                </div>
+                <p className="text-xs text-slate-600 mt-4">@dmmedemaa — everywhere</p>
+              </div>
+            </section>
+
+            {/* Why It Matters */}
         <section className="mb-24">
           <div className="bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 rounded-2xl p-10 md:p-14">
             <h2 className="text-3xl font-bold mb-8 text-center">Why AutoExec Exists</h2>

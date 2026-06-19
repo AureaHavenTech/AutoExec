@@ -36,6 +36,34 @@ export function getDb(): Database.Database {
         const schemaSql = fs.readFileSync(schemaPath, 'utf8');
         db.exec(schemaSql);
         console.log('Database schema initialized successfully!');
+
+        // Ensure is_admin column exists (for DBs created before this schema update)
+        try {
+          db.exec('ALTER TABLE users ADD COLUMN is_admin INTEGER NOT NULL DEFAULT 0');
+        } catch (e: any) {
+          // Column already exists — ignore
+        }
+
+        // Seed owner codes
+        try {
+          db.exec(`
+            CREATE TABLE IF NOT EXISTS owner_codes (
+              id TEXT PRIMARY KEY,
+              code TEXT UNIQUE NOT NULL,
+              user_id TEXT,
+              description TEXT,
+              is_gift INTEGER NOT NULL DEFAULT 0,
+              used INTEGER NOT NULL DEFAULT 0,
+              max_uses INTEGER NOT NULL DEFAULT 1,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+            );
+            INSERT OR IGNORE INTO owner_codes (id, code, description, is_gift, max_uses) 
+            VALUES ('owner_master_code', 'AUREA2026', 'Owner registration code - grants admin access', 0, 9999);
+          `);
+        } catch (e: any) {
+          console.log('Owner codes setup (may already exist):', e.message);
+        }
         
         // Seed a default mock user for testing if needed
         const insertUser = db.prepare('INSERT OR IGNORE INTO users (id, email, name) VALUES (?, ?, ?)');
