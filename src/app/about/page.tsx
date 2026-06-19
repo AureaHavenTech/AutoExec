@@ -49,57 +49,84 @@ export default function AboutPage() {
         {/* Founder Story - Full width, emotional */}
         <section className="mb-24">
           <div className="grid md:grid-cols-5 gap-10 items-start">
-            {/* CEO Photo Placeholder */}
-            <div className="md:col-span-2">
-              <div className="relative flex flex-col items-center">
-                {/* Circular photo frame */}
-                <div className="relative w-64 h-64 rounded-full bg-gradient-to-br from-brand-500/20 to-accent-500/10 border-4 border-brand-500/30 flex items-center justify-center overflow-hidden shadow-2xl shadow-brand-500/10 group cursor-pointer hover:border-brand-500/50 transition-all duration-300">
-                  <div className="text-center">
-                    <Camera className="h-12 w-12 text-brand-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                    <p className="text-sm text-slate-400">
-                      <span className="text-brand-400 font-semibold">CEO Photo</span>
-                      <br />
-                      <span className="text-xs text-slate-500">Coming Soon</span>
-                    </p>
-                  </div>
-                  {/* Upload hint overlay */}
-                  <div className="absolute inset-0 bg-brand-500/0 hover:bg-brand-500/10 transition-all duration-300 flex items-center justify-center">
-                    <span className="text-white/0 hover:text-white/80 text-xs font-semibold transition-all duration-300">
-                      Upload from dashboard
-                    </span>
-                  </div>
-                </div>
-                <p className="text-xs text-slate-600 mt-4 max-w-[200px] text-center leading-relaxed">
-                  Upload your photo from the dashboard settings to personalize this page.
-                </p>
-              </div>
-            </div>
+            {/* CEO Photo */}
+                            <div className="md:col-span-2">
+                              <div className="relative flex flex-col items-center">
+                                {/* Circular photo frame */}
+                                <div className="relative w-64 h-64 rounded-full border-4 border-brand-500/30 overflow-hidden shadow-2xl shadow-brand-500/10 transition-all duration-300">
+                                  <img
+                                    src="/ceo-photo.png"
+                                    alt="Lindsey - Founder & CEO"
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <p className="text-xs text-slate-500 mt-4 max-w-[200px] text-center leading-relaxed">
+                                  Lindsey — Founder & CEO
+                                </p>
+                              </div>
+                            </div>
 
-            {/* Story text - exact brand narrative */}
-            <div className="md:col-span-3 space-y-6">
-              <div className="relative">
-                <Quote className="h-10 w-10 text-brand-500/20 absolute -top-2 -left-3" />
-                <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed pl-6">
-                  AutoExec was created by a mom who didn&apos;t have time.
-                </p>
-              </div>
+            {/* Story text - Lindsey's personal story */}
+                          <div className="md:col-span-3 space-y-6">
+                            <div className="relative">
+                              <Quote className="h-10 w-10 text-brand-500/20 absolute -top-2 -left-3" />
+                              <p className="text-xl md:text-2xl text-white font-semibold leading-relaxed pl-6">
+                                Hi, I&apos;m Lindsey.
+                              </p>
+                            </div>
 
-              <div className="space-y-5 text-slate-300 leading-relaxed text-lg">
-                <p>
-                  Juggling multiple businesses from her phone with no laptop and no budget for employees, 
-                  she needed an assistant that worked 24/7 without a salary. So she built one.
-                </p>
-                <p>
-                  AutoExec isn&apos;t another Silicon Valley startup — it was born from real life, 
-                  real overwhelm, and the need for something that just works.
-                </p>
-                <p className="text-white font-medium text-xl">
-                  It&apos;s for everyone else who has more to do than hours in the day.
-                </p>
-              </div>
-            </div>
+                            <div className="space-y-5 text-slate-300 leading-relaxed text-lg">
+                              <p>
+                                I&apos;m not a big tech company or a team of executives sitting in a boardroom.
+                                I&apos;m a mom, creator, and entrepreneur who knows what it&apos;s like to feel
+                                overwhelmed while trying to build a life you&apos;re proud of.
+                              </p>
+                              <p>
+                                I built these apps because I needed them myself.
+                              </p>
+                              <p>
+                                I wanted to create, grow, and pursue my dreams without sacrificing my family,
+                                my career, or the parts of myself that often get lost while taking care of everyone else.
+                                I was tired of feeling like I had to choose between showing up for my responsibilities
+                                and showing up for myself.
+                              </p>
+                              <p>
+                                Technology should make life easier, not more overwhelming. It should help people
+                                bring their ideas to life, reclaim their time, and create something meaningful —
+                                even if they only have a few minutes a day.
+                              </p>
+                              <p>
+                                My hope is that these tools give you more than productivity. I hope they give you
+                                confidence, consistency, and the reminder that your dreams still matter.
+                              </p>
+                              <p>
+                                This is especially close to my heart for the busy moms who spend so much of their
+                                lives pouring into everyone else that they forget they deserve something of their
+                                own, too. A purpose. A passion. A chance to build a name, a business, or simply
+                                prove to themselves that they&apos;re capable of more than just surviving.
+                              </p>
+                              <p>
+                                If these apps help you feel a little less overwhelmed, a little more supported,
+                                and a little closer to the life you&apos;re working so hard to create, then
+                                they&apos;ve done exactly what I hoped they would.
+                              </p>
+                              <p className="text-white font-medium text-xl">
+                                From one busy human trying to do it all to another — I&apos;m so glad you&apos;re here.
+                              </p>
+                              <p className="text-brand-400 font-semibold pt-2">
+                                — Lindsey, Founder
+                              </p>
+                            </div>
+                          </div>
           </div>
         </section>
+
+        {/* Dedication */}
+        <div className="text-center mb-16">
+          <p className="text-lg text-slate-400 italic">
+            💜 Dedicated to my mom, who never gives up on me.
+          </p>
+        </div>
 
         {/* Why It Matters */}
         <section className="mb-24">

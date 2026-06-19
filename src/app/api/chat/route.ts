@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { getDb } from "@/lib/db";
 import crypto from "crypto";
-import { performWebSearch, generateWebpage, classifyTask, isSupportQuestion } from "@/lib/agent-engine";
+import { performWebSearch, generateWebpage, generateProductPage, classifyTask, isSupportQuestion } from "@/lib/agent-engine";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -124,7 +124,77 @@ export async function POST(request: NextRequest) {
             },
           });
 
-        } else if (type === "cross_promotion") {
+        } else if (type === "product_page") {
+            sendEvent({ type: "text", content: "🛍️ **Generating product page...**\n\n" });
+            await sleep(400);
+
+            // Extract product info from the message
+            const productName = message
+              .replace(/create|make|build|generate|product page|shopify|listing|ad for|description/gi, "")
+              .trim()
+              .substring(0, 50) || "Premium Product";
+
+            // Auto-detect theme
+            const theme = message.toLowerCase().includes("shopify") || message.toLowerCase().includes("store") 
+              ? "shopify" as const 
+              : "product" as const;
+
+            const themeName = theme === "shopify" ? "Shopify Store" : "Sales Page";
+            sendEvent({ type: "text", content: `📋 **Product:** ${productName}\n` });
+            sendEvent({ type: "text", content: `🎨 **Theme:** ${themeName}\n\n` });
+            await sleep(500);
+
+            // Parse price from message
+            const priceMatch = message.match(/\$(\d+(?:\.\d{2})?)/);
+            const price = priceMatch ? parseFloat(priceMatch[1]) : 29.99;
+
+            sendEvent({ type: "text", content: `📝 **Building product layout...**\n` });
+            await sleep(600);
+
+            // Generate product features from message or defaults
+            const featureKeywords = [
+              "premium quality", "easy to use", "fast delivery", "money-back guarantee",
+              "expert support", "proven results", "trusted by thousands"
+            ];
+
+            const result = await generateProductPage({
+              name: productName,
+              price,
+              comparePrice: price * 1.3,
+              description: `Experience the best ${productName.toLowerCase()} on the market. Designed for those who demand excellence.`,
+              features: featureKeywords.slice(0, 4),
+              specs: [
+                { label: "Material", value: "Premium Grade" },
+                { label: "Warranty", value: "1 Year" },
+                { label: "Shipping", value: "Free Worldwide" },
+                { label: "Returns", value: "30-Day Guarantee" },
+              ],
+              badge: "Best Seller",
+              testimonial: {
+                quote: "This is absolutely incredible. I've never seen anything like it. Worth every penny!",
+                author: "Sarah K., Verified Buyer"
+              },
+              urgency: "Only 12 left in stock — Order now before they're gone!",
+            }, theme);
+
+            sendEvent({ type: "text", content: `✅ **${themeName} page built!**\n\n` });
+            sendEvent({ type: "text", content: `🔗 **Published at:** [${result.url}](${result.url})\n` });
+            sendEvent({ type: "text", content: `💼 **Shopify-ready:** Copy this HTML into any Shopify rich text editor or CMS.\n\n` });
+            await sleep(400);
+
+            sendEvent({
+              type: "result",
+              content: "",
+              metadata: {
+                webpageUrl: result.url,
+                webpagePath: result.path,
+                theme,
+                productName,
+                price,
+              },
+            });
+
+          } else if (type === "cross_promotion") {
           sendEvent({ type: "text", content: "🤝 **Cross-promotion opportunity detected!**\n\n" });
           await sleep(500);
           sendEvent({ type: "text", content: "Did you know about **One Post AI**? 🚀\n\n" });

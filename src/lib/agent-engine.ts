@@ -75,7 +75,7 @@ export async function performWebSearch(query: string): Promise<{
 export async function generateWebpage(
   title: string,
   content: string,
-  theme: "modern" | "minimal" | "luxury" = "modern"
+  theme: "modern" | "minimal" | "luxury" | "shopify" | "product" = "modern"
 ): Promise<{ path: string; url: string }> {
   const fs = await import("fs/promises");
   const path = await import("path");
@@ -99,6 +99,54 @@ export async function generateWebpage(
       h1 { color: #c9a96e; font-size: 3rem; font-weight: 400; } h2 { color: #d4af37; }
       .card { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 2rem; margin: 1.5rem 0; border: 1px solid rgba(201,169,110,0.2); }
       .highlight { color: #d4af37; }`,
+    shopify: `* { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 1200px; margin: 0 auto; padding: 0; background: #ffffff; color: #1a1a2e; }
+      .product-page { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 3rem; }
+      .product-gallery { width: 100%; }
+      .product-gallery img { width: 100%; border-radius: 8px; background: #f5f5f5; }
+      .product-thumbs { display: flex; gap: 0.5rem; margin-top: 1rem; }
+      .product-thumbs img { width: 80px; height: 80px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; object-fit: cover; background: #f5f5f5; }
+      .product-thumbs img:hover { border-color: #8b5cf6; }
+      .product-info { padding-top: 1rem; }
+      .product-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: #111; }
+      .product-price { font-size: 2rem; font-weight: 800; color: #8b5cf6; margin-bottom: 0.25rem; }
+      .product-compare { font-size: 1rem; color: #999; text-decoration: line-through; }
+      .product-badge { display: inline-block; background: #f0fdf4; color: #16a34a; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 999px; font-weight: 600; margin-bottom: 1rem; }
+      .product-description { color: #4a4a6a; line-height: 1.7; margin: 1.5rem 0; font-size: 1rem; }
+      .product-specs { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+      .product-specs td { padding: 0.75rem 1rem; border-bottom: 1px solid #e5e7eb; font-size: 0.9rem; }
+      .product-specs td:first-child { font-weight: 600; color: #374151; width: 40%; }
+      .product-specs td:last-child { color: #6b7280; }
+      .add-to-cart { display: inline-block; background: #8b5cf6; color: white; padding: 1rem 3rem; border-radius: 8px; font-size: 1.1rem; font-weight: 700; border: none; cursor: pointer; width: 100%; text-align: center; text-decoration: none; transition: background 0.2s; }
+      .add-to-cart:hover { background: #7c3aed; }
+      .quantity-selector { display: flex; align-items: center; gap: 0.5rem; margin: 1.5rem 0; }
+      .quantity-selector button { width: 40px; height: 40px; border: 1px solid #d1d5db; background: white; border-radius: 6px; font-size: 1.2rem; cursor: pointer; }
+      .quantity-selector input { width: 60px; text-align: center; border: 1px solid #d1d5db; border-radius: 6px; padding: 0.5rem; font-size: 1rem; }
+      @media (max-width: 768px) { .product-page { grid-template-columns: 1fr; padding: 1.5rem; } }`,
+    product: `* { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: system-ui, -apple-system, sans-serif; background: #0a0a1a; color: #e5e5e5; line-height: 1.6; }
+      .hero { background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 100%); padding: 4rem 2rem; text-align: center; border-bottom: 1px solid rgba(139,92,246,0.2); }
+      .hero h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #8b5cf6, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+      .hero .subtitle { font-size: 1.2rem; color: #9ca3af; margin-bottom: 2rem; }
+      .hero .price { font-size: 3.5rem; font-weight: 900; color: white; margin-bottom: 0.5rem; }
+      .hero .price span { font-size: 1.5rem; color: #6b7280; text-decoration: line-through; margin-left: 0.5rem; }
+      .hero .badge { display: inline-block; background: rgba(239,68,68,0.2); color: #ef4444; padding: 0.25rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(239,68,68,0.3); margin-bottom: 1.5rem; }
+      .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+      .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 3rem 0; }
+      .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.5rem; }
+      .feature-card h3 { color: #8b5cf6; margin-bottom: 0.5rem; font-size: 1.1rem; }
+      .feature-card p { color: #9ca3af; font-size: 0.9rem; }
+      .testimonials { margin: 3rem 0; }
+      .testimonial { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 2rem; margin-bottom: 1rem; }
+      .testimonial p { font-style: italic; color: #d1d5db; margin-bottom: 0.5rem; }
+      .testimonial .author { color: #6b7280; font-size: 0.85rem; }
+      .urgency { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(139,92,246,0.1)); border: 1px solid rgba(239,68,68,0.2); border-radius: 12px; padding: 2rem; text-align: center; margin: 3rem 0; }
+      .urgency p { font-size: 1.1rem; color: #fca5a5; font-weight: 600; }
+      .cta { display: inline-block; background: linear-gradient(135deg, #8b5cf6, #14b8a6); color: white; padding: 1.2rem 3rem; border-radius: 12px; font-size: 1.2rem; font-weight: 800; border: none; cursor: pointer; text-decoration: none; text-align: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(139,92,246,0.3); }
+      .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.4); }
+      .cta-wrapper { text-align: center; margin: 2rem 0; }
+      .guarantee { text-align: center; color: #6b7280; font-size: 0.85rem; margin-top: 1rem; }
+      @media (max-width: 768px) { .hero h1 { font-size: 2rem; } .hero .price { font-size: 2.5rem; } }`,
   };
 
   const html = `<!DOCTYPE html>
@@ -110,7 +158,6 @@ export async function generateWebpage(
   <style>${themes[theme] || themes.modern}</style>
 </head>
 <body>
-  <h1>${title}</h1>
   ${content}
   <hr style="margin-top: 3rem; border-color: rgba(255,255,255,0.1);">
   <p style="text-align: center; color: #666; font-size: 0.8rem;">Generated by AutoExec AI · ${new Date().toLocaleDateString()}</p>
@@ -127,17 +174,97 @@ export async function generateWebpage(
 }
 
 /**
+ * Product data for generating product pages
+ */
+export interface ProductData {
+  name: string;
+  price: number;
+  comparePrice?: number;
+  description: string;
+  features: string[];
+  specs?: Array<{ label: string; value: string }>;
+  imageUrl?: string;
+  badge?: string;
+  testimonial?: { quote: string; author: string };
+  urgency?: string;
+}
+
+/**
+ * Generate a product-specific page (shopify or product theme)
+ */
+export async function generateProductPage(
+  product: ProductData,
+  theme: "shopify" | "product" = "shopify"
+): Promise<{ path: string; url: string }> {
+  const count = Math.min(product.features.length, 6);
+  const displayFeatures = product.features.slice(0, count);
+  
+  let content = "";
+
+  if (theme === "shopify") {
+    content = `<div class="product-page">
+      <div class="product-gallery">
+        <img src="${product.imageUrl || 'https://placehold.co/600x600/e2e8f0/94a3b8?text=Product+Image'}" alt="${product.name}" />
+        <div class="product-thumbs">
+          <img src="${product.imageUrl || 'https://placehold.co/80x80/e2e8f0/94a3b8?text=1'}" alt="View 1" />
+          <img src="https://placehold.co/80x80/e2e8f0/94a3b8?text=2" alt="View 2" />
+          <img src="https://placehold.co/80x80/e2e8f0/94a3b8?text=3" alt="View 3" />
+          <img src="https://placehold.co/80x80/e2e8f0/94a3b8?text=4" alt="View 4" />
+        </div>
+      </div>
+      <div class="product-info">
+        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+        <h1 class="product-title">${product.name}</h1>
+        <div class="product-price">${product.price.toFixed(2)}</div>
+        ${product.comparePrice ? `<div class="product-compare">${product.comparePrice.toFixed(2)}</div>` : ''}
+        <div class="product-description">${product.description}</div>
+        ${product.specs ? `<table class="product-specs">${product.specs.map(s => `<tr><td>${s.label}</td><td>${s.value}</td></tr>`).join('')}</table>` : ''}
+        <div class="quantity-selector">
+          <button onclick="this.nextElementSibling.stepDown()">−</button>
+          <input type="number" value="1" min="1" max="99" />
+          <button onclick="this.previousElementSibling.stepUp()">+</button>
+        </div>
+        <a href="#" class="add-to-cart">Add to Cart — ${product.price.toFixed(2)}</a>
+      </div>
+    </div>`;
+  } else {
+    // Product theme (sales-focused)
+    content = `<div class="hero">
+      ${product.badge ? `<div class="badge">${product.badge}</div>` : ''}
+      <h1>${product.name}</h1>
+      <p class="subtitle">${product.description.substring(0, 120)}${product.description.length > 120 ? '...' : ''}</p>
+      <div class="price">${product.price.toFixed(2)}${product.comparePrice ? `<span>${product.comparePrice.toFixed(2)}</span>` : ''}</div>
+    </div>
+    <div class="container">
+      <div class="features">
+        ${displayFeatures.map(f => `<div class="feature-card"><h3>✦ ${f}</h3><p>Premium quality designed for results.</p></div>`).join('')}
+      </div>
+      ${product.specs ? `<table class="product-specs" style="width:100%;border-collapse:collapse;margin:2rem 0;">
+        <tr style="background:rgba(255,255,255,0.03);"><th style="text-align:left;padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);color:#8b5cf6;">Specification</th><th style="text-align:left;padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.1);color:#8b5cf6;">Value</th></tr>
+        ${product.specs.map(s => `<tr><td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05);font-weight:600;">${s.label}</td><td style="padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.05);color:#9ca3af;">${s.value}</td></tr>`).join('')}
+      </table>` : ''}
+      ${product.testimonial ? `<div class="testimonials"><div class="testimonial"><p>"${product.testimonial.quote}"</p><div class="author">— ${product.testimonial.author}</div></div></div>` : ''}
+      ${product.urgency ? `<div class="urgency"><p>⚡ ${product.urgency}</p></div>` : ''}
+      <div class="cta-wrapper"><a href="#" class="cta">Buy Now — ${product.price.toFixed(2)}</a></div>
+      <p class="guarantee">🛡️ 30-day money-back guarantee · Free shipping · Secure checkout</p>
+    </div>`;
+  }
+
+  return generateWebpage(product.name, content, theme);
+}
+
+/**
  * Classify a task with expanded support for new capabilities
  */
 export function classifyTask(description: string): {
-  type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "image_gen" | "cross_promotion" | "general";
+  type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "general";
   targets: string[];
   location?: string;
   industry?: string;
 } {
   const lower = description.toLowerCase();
 
-  let type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "image_gen" | "cross_promotion" | "general" = "general";
+  let type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "general" = "general";
   
   if (lower.includes("find") || lower.includes("search") || lower.includes("research") || lower.includes("scrape") || lower.includes("locate")) {
     type = "research";
@@ -154,8 +281,13 @@ export function classifyTask(description: string): {
   if (lower.includes("marketing") || lower.includes("advertise") || lower.includes("ad ") || lower.includes("traffic") || lower.includes("promote") || lower.includes("marketing channel")) {
     type = "marketing";
   }
+  // Product page detection (check before general webpage)
+  if (lower.includes("product page") || lower.includes("shopify") || lower.includes("listing") || lower.includes("product description") || lower.includes("ad for") || (lower.includes("product") && (lower.includes("page") || lower.includes("listing") || lower.includes("description")))) {
+    type = "product_page";
+  }
   if (lower.includes("webpage") || lower.includes("landing page") || lower.includes("build") && !lower.includes("list") && !lower.includes("find") || lower.includes("create page") || lower.includes("html page")) {
-    type = "webpage";
+    // Only set to webpage if not already set to product_page
+    if (type !== "product_page") type = "webpage";
   }
   if (lower.includes("image") || lower.includes("ad creative") || lower.includes("banner") || lower.includes("graphic") || lower.includes("visual")) {
     type = "image_gen";

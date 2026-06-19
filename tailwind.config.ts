@@ -9,39 +9,54 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Override slate with warm charcoals - all existing "slate-xxx" classes will use these
+        slate: {
+          50: '#f8f6f3',
+          100: '#e8e3da',
+          200: '#d4cdc0',
+          300: '#b8ad9a',
+          400: '#a09080',
+          500: '#8a7a68',
+          600: '#6e6052',
+          700: '#544840',
+          800: '#3a322e',
+          900: '#26211e',
+          950: '#181512',
+        },
         brand: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6', // primary violet
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50: '#faf8f5',
+          100: '#f2ece3',
+          200: '#e6d9c5',
+          300: '#d4be9a',
+          400: '#c9a96e',
+          500: '#bf9b5a', // warm gold - luxurious but not girly
+          600: '#a68445',
+          700: '#8a6b36',
+          800: '#6e552b',
+          900: '#584422',
+          950: '#3d2e17',
         },
         accent: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6', // teal accent
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+          50: '#f5f4f8',
+          100: '#e6e3ed',
+          200: '#d0c9dd',
+          300: '#b4a9c7',
+          400: '#9a8cb2',
+          500: '#80729a', // muted warm grey-lavender - balanced
+          600: '#685c7e',
+          700: '#544a64',
+          800: '#453d52',
+          900: '#3a3344',
+          950: '#26212e',
         },
-        slate: {
-          950: '#030712',
-        }
+      },
+      fontFamily: {
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
