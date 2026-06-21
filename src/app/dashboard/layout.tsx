@@ -5,17 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
   Bot, 
-  LayoutDashboard, 
-  History, 
-  CreditCard, 
-  LogOut, 
-  Zap, 
-  User, 
-  Menu, 
+  LayoutDashboard,
+  History,
+  CreditCard,
+  LogOut,
+  Zap,
+  User,
+  Menu,
   X,
-  RefreshCw
-} from "lucide-react";
+  RefreshCw,
+  Shield,
+  FolderKanban, Bell
+  } from "lucide-react";
+import { NotificationPopover } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
+
 
 export default function DashboardLayout({
   children,
@@ -42,15 +46,50 @@ export default function DashboardLayout({
     }
   };
 
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const fetchNotifications = async () => {
+    try {
+      const res = await fetch("/api/notifications");
+      const data = await res.json();
+      if (data.success) {
+        setNotifications(data.notifications);
+        setUnreadCount(data.notifications.filter((n: any) => !n.is_read).length);
+      }
+    } catch (err) {
+      console.error("Failed to fetch notifications:", err);
+    }
+  };
+
   useEffect(() => {
     fetchSession();
-  }, [pathname]); // Refresh on navigation to capture billing upgrades
+    fetchNotifications();
+    
+    // Refresh notifications every minute
+    const interval = setInterval(fetchNotifications, 60000);
+    return () => clearInterval(interval);
+  }, [pathname]);
+
+  const markAsRead = async (id: string) => {
+    try {
+      await fetch("/api/notifications", {
+        method: "POST",
+        body: JSON.stringify({ action: "mark_read", id })
+      });
+      fetchNotifications();
+    } catch (err) {}
+  };
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Organizer", href: "/dashboard/organizer", icon: FolderKanban },
+    { name: "Marketing", href: "/dashboard/marketing", icon: Zap },
     { name: "Tasks Board", href: "/dashboard/tasks", icon: History },
     { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
   ];
+
+  const isAdmin = user?.is_admin === 1 || user?.is_admin === "1";
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row">
@@ -105,6 +144,21 @@ export default function DashboardLayout({
                 </Link>
               );
             })}
+          {/* Admin Link - only visible to owner */}
+          {isAdmin && (
+            <Link
+              href="/dashboard/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                pathname === "/dashboard/admin"
+                  ? "bg-yellow-500/10 text-yellow-400 border-l-2 border-yellow-500"
+                  : "text-slate-400 hover:text-yellow-400 hover:bg-yellow-500/5"
+              }`}
+            >
+              <Shield className={`h-5 w-5 ${pathname === "/dashboard/admin" ? "text-yellow-400" : "text-slate-400"}`} />
+              <span>Owner Dashboard</span>
+            </Link>
+          )}
           </nav>
         </div>
 
@@ -136,8 +190,20 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content frame */}
-      <main className="flex-1 flex flex-col min-w-0 p-6 md:p-10 max-w-6xl mx-auto w-full">
-        {children}
+      <main className="flex-1 flex flex-col min-w-0">
+        {/* Header with Notifications */}
+        <header className="h-16 border-b border-slate-900/60 flex items-center justify-end px-6 md:px-10 shrink-0">
+          <NotificationPopover 
+            unreadCount={unreadCount} 
+            notifications={notifications} 
+            markAsRead={markAsRead} 
+            markAllRead={() => fetch("/api/notifications", { method: "POST", body: JSON.stringify({ action: "mark_all_read" }) }).then(fetchNotifications)}
+          />
+        </header>
+
+        <div className="flex-1 p-6 md:p-10 max-w-6xl mx-auto w-full">
+          {children}
+        </div>
       </main>
     </div>
   );

@@ -72,6 +72,88 @@ export function getDb(): Database.Database {
         // Seed default active subscription for demo user
         const insertSub = db.prepare('INSERT OR IGNORE INTO subscriptions (id, user_id, tier, status) VALUES (?, ?, ?, ?)');
         insertSub.run('sub_demo_id', 'user_demo_id', 'pro', 'active');
+
+        // Initialize Organizer Tables (migration for existing DBs)
+        try {
+          db.exec(`
+            CREATE TABLE IF NOT EXISTS folders (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              name TEXT NOT NULL,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+            CREATE TABLE IF NOT EXISTS jobs (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              folder_id TEXT,
+              title TEXT NOT NULL,
+              description TEXT,
+              status TEXT DEFAULT 'active',
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+              FOREIGN KEY (folder_id) REFERENCES folders(id) ON DELETE SET NULL
+            );
+            CREATE TABLE IF NOT EXISTS invoices (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              job_id TEXT,
+              client_name TEXT NOT NULL,
+              client_email TEXT,
+              amount REAL NOT NULL,
+              currency TEXT DEFAULT 'USD',
+              status TEXT DEFAULT 'draft',
+              due_date TEXT,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+              FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE SET NULL
+            );
+            CREATE TABLE IF NOT EXISTS transactions (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              invoice_id TEXT,
+              type TEXT NOT NULL,
+              amount REAL NOT NULL,
+              category TEXT,
+              description TEXT,
+              date TEXT DEFAULT CURRENT_TIMESTAMP,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+              FOREIGN KEY (invoice_id) REFERENCES invoices(id) ON DELETE SET NULL
+            );
+            CREATE TABLE IF NOT EXISTS deliverables (
+              id TEXT PRIMARY KEY,
+              job_id TEXT NOT NULL,
+              title TEXT NOT NULL,
+              status TEXT DEFAULT 'pending',
+              due_date TEXT,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
+            );
+            CREATE TABLE IF NOT EXISTS notifications (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              title TEXT NOT NULL,
+              message TEXT NOT NULL,
+              type TEXT DEFAULT 'info',
+              link TEXT,
+              is_read INTEGER DEFAULT 0,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+            
+            -- Seed mock notifications
+            INSERT OR IGNORE INTO notifications (id, user_id, title, message, type, link)
+            VALUES ('notif_1', 'user_demo_id', 'Welcome to AutoExec!', 'Your autonomous AI assistant is ready to work.', 'success', '/dashboard');
+            INSERT OR IGNORE INTO notifications (id, user_id, title, message, type, link)
+            VALUES ('notif_2', 'user_demo_id', 'Task Completed', 'Found 50 SaaS companies in San Francisco.', 'info', '/dashboard/tasks');
+          `);
+        } catch (e: any) {
+          console.log('Organizer tables setup error:', e.message);
+        }
         
         // Seed some mock tasks for demo user to show in dashboard history
         const insertTask = db.prepare('INSERT OR IGNORE INTO app_tasks (id, user_id, description, status, result, created_at) VALUES (?, ?, ?, ?, ?, ?)');

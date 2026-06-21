@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { NotificationProvider } from "@/components/ui/notifications";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +29,11 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="AutoExec" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <NotificationProvider>
+          {children}
+        </NotificationProvider>
+      </body>
     </html>
   );
 }

@@ -38,6 +38,7 @@ export async function POST(request: Request) {
         id: user.id,
         email: user.email,
         name: user.name,
+        is_admin: (user as any).is_admin || 0,
       }
     });
   } catch (error: any) {
@@ -65,6 +66,7 @@ export async function GET() {
         id: user.id,
         email: user.email,
         name: user.name,
+        is_admin: (user as any).is_admin || 0,
         subscription: sub ? {
           tier: sub.tier,
           status: sub.status,

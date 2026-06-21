@@ -4,17 +4,7 @@ export interface ChatMessage {
   content: string;
   timestamp: Date;
   status?: "sending" | "streaming" | "done" | "error";
-  metadata?: {
-    taskId?: string;
-    itemsCount?: number;
-    executionTime?: string;
-    resultsPreview?: Array<{
-      name: string;
-      domain?: string;
-      email?: string;
-      [key: string]: any;
-    }>;
-  };
+  metadata?: Record<string, any>;
 }
 
 export interface ChatStreamChunk {
