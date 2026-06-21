@@ -15,6 +15,7 @@ import {
   X,
   RefreshCw,
   Shield,
+  ShoppingBag,
   FolderKanban, Bell
   } from "lucide-react";
 import { NotificationPopover } from "@/components/ui/popover";
@@ -85,6 +86,7 @@ export default function DashboardLayout({
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Organizer", href: "/dashboard/organizer", icon: FolderKanban },
     { name: "Marketing", href: "/dashboard/marketing", icon: Zap },
+    { name: "Storefront", href: "/dashboard/storefront", icon: ShoppingBag },
     { name: "Tasks Board", href: "/dashboard/tasks", icon: History },
     { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
   ];

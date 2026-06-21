@@ -145,6 +145,20 @@ export function getDb(): Database.Database {
               FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
             );
             
+            CREATE TABLE IF NOT EXISTS storefront_products (
+              id TEXT PRIMARY KEY,
+              user_id TEXT NOT NULL,
+              name TEXT NOT NULL,
+              price REAL NOT NULL,
+              category TEXT NOT NULL,
+              description TEXT,
+              image_url TEXT,
+              variant TEXT DEFAULT 'standard',
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+              FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+            
             -- Seed mock notifications
             INSERT OR IGNORE INTO notifications (id, user_id, title, message, type, link)
             VALUES ('notif_1', 'user_demo_id', 'Welcome to AutoExec!', 'Your autonomous AI assistant is ready to work.', 'success', '/dashboard');

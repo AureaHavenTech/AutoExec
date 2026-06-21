@@ -129,3 +129,18 @@ CREATE TABLE IF NOT EXISTS deliverables (
   updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
 );
+
+-- Storefront Table
+CREATE TABLE IF NOT EXISTS storefront_products (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  price REAL NOT NULL,
+  category TEXT NOT NULL,
+  description TEXT,
+  image_url TEXT,
+  variant TEXT DEFAULT 'standard',
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
