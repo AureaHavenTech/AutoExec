@@ -254,6 +254,30 @@ export async function generateProductPage(
 }
 
 /**
+ * Visit any URL and return the page content
+ * Uses curl with a real browser User-Agent to fetch content
+ */
+export async function visitUrl(url: string): Promise<{ success: boolean; content?: string; error?: string }> {
+  try {
+    const { execSync } = require("child_process");
+    // Try with agent-browser first for JS-rendered pages
+    const result = execSync(
+      `agent-browser goto "${url}" --wait 4 --extract-text 2>&1 || curl -s -L "${url}" -H "User-Agent: Mozilla/5.0" 2>&1`,
+      { timeout: 15000, encoding: "utf-8" }
+    );
+    if (result && result.length > 100) {
+      return { success: true, content: result.substring(0, 5000) };
+    }
+    // Fallback to simple curl
+    const { execSync: exec } = require("child_process");
+    const fallback = exec(`curl -s -L "${url}" 2>&1`, { timeout: 10000, encoding: "utf-8" });
+    return { success: true, content: fallback.substring(0, 5000) };
+  } catch (err: any) {
+    return { success: false, error: err.message || "Failed to fetch URL" };
+  }
+}
+
+/**
  * Generate a marketing strategy based on research
  */
 export async function generateMarketingStrategy(

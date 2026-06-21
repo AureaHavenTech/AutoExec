@@ -2,12 +2,19 @@ import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
     const db = getDb();
     const userId = 'user_demo_id'; // Default to demo user
 
-    const products = db.prepare('SELECT * FROM storefront_products WHERE user_id = ? ORDER BY created_at DESC').all(userId);
+    let products;
+    if (id) {
+      products = db.prepare('SELECT * FROM storefront_products WHERE id = ? AND user_id = ?').all(id, userId);
+    } else {
+      products = db.prepare('SELECT * FROM storefront_products WHERE user_id = ? ORDER BY created_at DESC').all(userId);
+    }
 
     return NextResponse.json({
       success: true,

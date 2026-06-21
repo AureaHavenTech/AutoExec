@@ -175,13 +175,22 @@ export async function POST(request: NextRequest) {
             { to: ["hello@startup.io"], subject: "Quick question about your workflow", body: `Hi team,\n\nI noticed you're scaling fast — congrats! I wanted to share how AutoExec handles repetitive tasks autonomously so your team can focus on what matters.\n\nLet me know if you'd like a demo!\n\nCheers,\nAutoExec AI` },
           ];
 
-          await createNotification(
-            user.id, 
-            "Approval Needed", 
-            "Review and approve the draft email sequence before sending.", 
-            "warning", 
-            "/dashboard/tasks"
-          );
+          try {
+            const { getDb } = await import("@/lib/db");
+            const db = getDb();
+            const firstUser = db.prepare("SELECT id FROM users LIMIT 1").get() as any;
+            if (firstUser) {
+              await createNotification(
+                firstUser.id, 
+                "Approval Needed", 
+                "Review and approve the draft email sequence before sending.", 
+                "warning", 
+                "/dashboard/tasks"
+              );
+            }
+          } catch (e) {
+            // Notification setup failed, continue
+          }
 
           sendEvent({ type: "text", content: `⚠️ **Approval Required:** Please review the drafts below and click "Approve All" to start the campaign.\n\n` });
           sendEvent({ type: "result", content: "", metadata: {

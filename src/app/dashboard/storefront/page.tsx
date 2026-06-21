@@ -309,7 +309,7 @@ export default function StorefrontPage() {
         <div className="relative z-10 space-y-4 max-w-xl">
           <Badge className="bg-brand-500/10 text-brand-400 border-brand-500/20 mb-2">Exclusive Owner Feature</Badge>
           <h2 className="text-2xl font-black text-white leading-tight">
-            Generate "Aura Haven" Luxury Landing Pages in Seconds
+            Generate &ldquo;Aura Haven&rdquo; Luxury Landing Pages in Seconds
           </h2>
           <p className="text-slate-400 text-sm leading-relaxed">
             AutoExec uses a proprietary CSS framework (Dark Gray + Cream + Gold) to build high-converting storefronts. 

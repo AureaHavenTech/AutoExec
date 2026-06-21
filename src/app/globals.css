@@ -5,30 +5,30 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 4%;
-  --foreground: 40 8% 85%;
-  --card: 0 0% 6%;
-  --card-foreground: 40 8% 85%;
-  --popover: 0 0% 6%;
-  --popover-foreground: 40 8% 85%;
+  --background: 240 15% 10%;
+  --foreground: 40 10% 88%;
+  --card: 240 13% 12%;
+  --card-foreground: 40 10% 88%;
+  --popover: 240 13% 12%;
+  --popover-foreground: 40 10% 88%;
   --primary: 38 42% 55%;
   --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 12%;
-  --secondary-foreground: 40 8% 85%;
-  --muted: 0 0% 12%;
+  --secondary: 240 10% 16%;
+  --secondary-foreground: 40 10% 88%;
+  --muted: 240 10% 16%;
   --muted-foreground: 40 5% 60%;
-  --accent: 270 20% 55%;
+  --accent: 38 30% 45%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62% 30%;
-  --destructive-foreground: 40 8% 85%;
-  --border: 0 0% 15%;
-  --input: 0 0% 15%;
+  --destructive-foreground: 40 10% 88%;
+  --border: 240 8% 20%;
+  --input: 240 8% 20%;
   --ring: 38 42% 55%;
 }
 
 body {
   color: #e8e0d4;
-  background-color: #0a0a0a;
+  background-color: #12121a;
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
@@ -73,9 +73,9 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(201, 169, 110, 0.2);
 }
 
-/* Luxury gradient */
+/* Luxury gradient - warm gold to dark */
 .luxury-gradient {
-  background: linear-gradient(135deg, rgba(201, 169, 110, 0.1) 0%, rgba(140, 106, 168, 0.05) 50%, transparent 100%);
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.12) 0%, rgba(201, 169, 110, 0.03) 50%, transparent 100%);
 }
 
 /* Warm glow effect */

@@ -37,17 +37,17 @@ const config: Config = {
           950: '#3d2e17',
         },
         accent: {
-          50: '#f5f4f8',
-          100: '#e6e3ed',
-          200: '#d0c9dd',
-          300: '#b4a9c7',
-          400: '#9a8cb2',
-          500: '#80729a', // muted warm grey-lavender - balanced
-          600: '#685c7e',
-          700: '#544a64',
-          800: '#453d52',
-          900: '#3a3344',
-          950: '#26212e',
+          50: '#faf8f5',
+          100: '#f2ece3',
+          200: '#e6d9c5',
+          300: '#d4be9a',
+          400: '#c9a96e',
+          500: '#b89352', // warm muted gold - sophisticated accent
+          600: '#a07842',
+          700: '#846234',
+          800: '#694d29',
+          900: '#543d21',
+          950: '#3a2a16',
         },
       },
       fontFamily: {

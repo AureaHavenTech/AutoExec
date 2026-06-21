@@ -1,47 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" width="100%" height="100%">
   <defs>
-    <!-- Premium Metallic Violet Gradient -->
-    <linearGradient id="violetGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#7c3aed" />
-      <stop offset="30%" stop-color="#8b5cf6" />
-      <stop offset="70%" stop-color="#a78bfa" />
-      <stop offset="100%" stop-color="#c084fc" />
+    <!-- Premium Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a8883a" />
+      <stop offset="35%" stop-color="#c9a84c" />
+      <stop offset="70%" stop-color="#d4b96a" />
+      <stop offset="100%" stop-color="#e8d4a0" />
     </linearGradient>
-    <!-- Subtle drop shadow for the icon -->
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#7c3aed" flood-opacity="0.25" />
+    <!-- Warm Gold Glow -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1" stdDeviation="3" flood-color="#c9a84c" flood-opacity="0.2" />
     </filter>
+    <!-- Subtle shimmer for icon -->
+    <radialGradient id="iconBgGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0" />
+    </radialGradient>
   </defs>
 
-  <!-- Group for Icon Mark -->
-  <g filter="url(#shadow)">
-    <!-- Stylized 'A' Arch -->
-    <path d="M 23,58 L 40,21 L 57,58" 
-          stroke="url(#violetGrad)" 
-          stroke-width="7" 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-          fill="none" />
+  <!-- Icon Mark: Elegant "A" Monogram -->
+  <g filter="url(#goldGlow)">
+    <!-- Subtle background glow circle -->
+    <ellipse cx="40" cy="40" rx="32" ry="32" fill="url(#iconBgGlow)" />
     
-    <!-- Smooth Infinity Loop forming the 'A' crossbar -->
-    <path d="M 40,50 C 30,37 16,37 16,50 C 16,63 30,63 40,50 C 50,37 64,37 64,50 C 64,63 50,63 40,50 Z" 
-          stroke="url(#violetGrad)" 
-          stroke-width="7" 
-          stroke-linecap="round" 
+    <!-- Left stroke of A -->
+    <path d="M 24,60 L 40,18 L 56,60"
+          stroke="url(#goldGrad)"
+          stroke-width="6"
+          stroke-linecap="round"
           stroke-linejoin="round"
           fill="none" />
-          
-    <!-- Decorative Glowing Center Core -->
-    <circle cx="40" cy="50" r="1.5" fill="#ffffff" />
+    
+    <!-- Gold crossbar / diamond element -->
+    <path d="M 40,44 L 46,38 C 48,36 52,36 54,38 L 58,42 C 60,44 60,48 57,50 L 46,56 C 44,57 41,57 40,56 Z"
+          fill="url(#goldGrad)"
+          opacity="0.9" />
+    
+    <!-- Left half of the crossbar -->
+    <path d="M 40,44 L 34,38 C 32,36 28,36 26,38 L 22,42 C 20,44 20,48 23,50 L 34,56 C 36,57 39,57 40,56 Z"
+          fill="url(#goldGrad)"
+          opacity="0.9" />
+    
+    <!-- Central diamond accent -->
+    <path d="M 40,38 L 44,44 L 40,50 L 36,44 Z"
+          fill="#e8d4a0"
+          opacity="0.95" />
+    
+    <!-- Refined single crossbar line -->
+    <line x1="28" y1="46" x2="52" y2="46"
+          stroke="#e8d4a0"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          opacity="0.6" />
   </g>
 
-  <!-- Typography: AutoExec -->
-  <text x="85" y="52" 
-        fill="#ffffff" 
-        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" 
-        font-size="32" 
-        font-weight="800" 
-        letter-spacing="-0.03em">
-    Auto<tspan fill="#a78bfa">Exec</tspan>
+  <!-- Wordmark: AutoExec -->
+  <text x="80" y="48"
+        fill="#f5f0eb"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="30"
+        font-weight="700"
+        letter-spacing="-0.02em"
+        style="font-feature-settings: 'ss01' on, 'cv05' on, 'zero' on;">
+    Auto<tspan fill="url(#goldGrad)" font-weight="600">Exec</tspan>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="80" y="64"
+        fill="#8a7e72"
+        font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        font-size="9"
+        font-weight="400"
+        letter-spacing="0.25em"
+        text-transform="uppercase">
+    LUXURIOUS TECHNOLOGY
   </text>
 </svg>

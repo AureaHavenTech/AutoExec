@@ -197,7 +197,7 @@ export default function MarketingPage() {
                             <ChevronRight className="h-4 w-4 text-brand-500" />
                             {channel.name}
                           </h4>
-                          <Badge variant="outline" className="text-[10px] opacity-50">Priority</Badge>
+                          <Badge variant="secondary" className="text-[10px] opacity-50">Priority</Badge>
                         </div>
                         <p className="text-xs text-slate-400 mt-2 font-medium">{channel.why}</p>
                         <div className="mt-3 pt-3 border-t border-slate-800/50">
