@@ -218,7 +218,7 @@ export default function MarketingPage() {
                       <Card key={i} className="p-4 bg-slate-900/20 border-slate-800 border-l-4 border-l-brand-500">
                         <div className="flex justify-between items-center mb-3">
                           <Badge className="bg-slate-800 text-slate-300 border-slate-700">{ad.platform}</Badge>
-                          <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-500 hover:text-white">
+                          <Button variant="ghost" size="sm" className="h-6 w-6 text-slate-500 hover:text-white">
                             <Copy className="h-3 w-3" />
                           </Button>
                         </div>

@@ -144,7 +144,7 @@ export function ChatMessageBubble({ message, onViewResults }: ChatMessageProps) 
                     <div className="h-1.5 w-1.5 rounded-full bg-brand-500" />
                     {channel.name}
                   </h4>
-                  <Badge variant="outline" className="text-[9px] opacity-60 px-1.5 py-0">Channel {i+1}</Badge>
+                  <Badge variant="secondary" className="text-[9px] opacity-60 px-1.5 py-0">Channel {i+1}</Badge>
                 </div>
                 <p className="text-[11px] text-slate-400 leading-relaxed">{channel.why}</p>
                 <div className="mt-2.5 pt-2.5 border-t border-slate-800/50 flex items-start gap-2">

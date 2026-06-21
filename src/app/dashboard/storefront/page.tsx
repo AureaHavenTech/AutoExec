@@ -270,7 +270,7 @@ export default function StorefrontPage() {
                   <Button size="icon" variant="secondary" className="rounded-full h-9 w-9 bg-white text-black">
                     <Edit className="h-4 w-4" />
                   </Button>
-                  <Button size="icon" variant="destructive" className="rounded-full h-9 w-9" onClick={() => handleDeleteProduct(product.id)}>
+                  <Button size="icon" variant="danger" className="rounded-full h-9 w-9" onClick={() => handleDeleteProduct(product.id)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>

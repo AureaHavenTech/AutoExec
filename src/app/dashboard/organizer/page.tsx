@@ -95,7 +95,7 @@ export default function OrganizerPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button onClick={fetchData} variant="outline" size="sm">
+          <Button onClick={fetchData} variant="secondary" size="sm">
             <Clock className="h-4 w-4 mr-2" /> Refresh
           </Button>
           <Button onClick={() => {}} className="bg-brand-600 hover:bg-brand-700">
@@ -194,7 +194,7 @@ export default function OrganizerPage() {
                     placeholder="Search jobs..."
                   />
                 </div>
-                <Button variant="outline" size="sm" onClick={() => {
+                <Button variant="secondary" size="sm" onClick={() => {
                   const title = prompt("Job Title:");
                   if (title) handleAction('create_job', { title });
                 }}>
@@ -220,7 +220,7 @@ export default function OrganizerPage() {
                             <h4 className="text-base font-bold text-white group-hover:text-brand-400 transition-colors">{job.title}</h4>
                             <p className="text-sm text-slate-500 mt-0.5 line-clamp-1">{job.description || "No description provided"}</p>
                             <div className="flex items-center gap-3 mt-3">
-                              <Badge variant="outline" className="bg-slate-800/50 border-slate-700 text-[10px] text-slate-400 capitalize">
+                              <Badge variant="secondary" className="bg-slate-800/50 border-slate-700 text-[10px] text-slate-400 capitalize">
                                 {job.status}
                               </Badge>
                               <span className="text-[10px] text-slate-600 flex items-center gap-1">
@@ -293,7 +293,7 @@ export default function OrganizerPage() {
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-2">
                             {inv.status !== 'paid' && (
-                              <Button variant="outline" size="sm" className="h-8 text-[10px] border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10" onClick={() => handleAction('mark_invoice_paid', { id: inv.id })}>
+                              <Button variant="secondary" size="sm" className="h-8 text-[10px] border-emerald-500/50 text-emerald-400 hover:bg-emerald-500/10" onClick={() => handleAction('mark_invoice_paid', { id: inv.id })}>
                                 Mark Paid
                               </Button>
                             )}
@@ -316,7 +316,7 @@ export default function OrganizerPage() {
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-white">General Ledger</h3>
               <div className="flex gap-2">
-                <Button variant="outline" className="border-slate-800 text-slate-400 hover:text-white" onClick={() => {
+                <Button variant="secondary" className="border-slate-800 text-slate-400 hover:text-white" onClick={() => {
                   const desc = prompt("Expense Description:");
                   const amount = prompt("Amount:");
                   if (desc && amount) handleAction('create_transaction', { type: 'expense', amount: parseFloat(amount), description: desc });
@@ -345,7 +345,7 @@ export default function OrganizerPage() {
                     <span className="text-xs text-slate-400">Expense</span>
                   </div>
                 </div>
-                <Badge variant="outline" className="border-slate-800 text-slate-500">All Time</Badge>
+                <Badge variant="secondary" className="border-slate-800 text-slate-500">All Time</Badge>
               </div>
               <div className="divide-y divide-slate-800/50">
                 {data.transactions.length === 0 ? (
