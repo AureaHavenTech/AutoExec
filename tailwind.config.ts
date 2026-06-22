@@ -25,12 +25,12 @@ const config: Config = {
         },
         brand: {
           50: '#faf8f5',
-          100: '#f2ece3',
-          200: '#e6d9c5',
-          300: '#d4be9a',
-          400: '#c9a96e',
-          500: '#bf9b5a', // warm gold - luxurious but not girly
-          600: '#a68445',
+          100: '#f5efe6',
+          200: '#ebe0cc',
+          300: '#dcc8a8',
+          400: '#d4b87a',
+          500: '#c4a055', // warm champagne gold - not yellow/brown
+          600: '#a88640',
           700: '#8a6b36',
           800: '#6e552b',
           900: '#584422',
@@ -38,16 +38,16 @@ const config: Config = {
         },
         accent: {
           50: '#faf8f5',
-          100: '#f2ece3',
-          200: '#e6d9c5',
-          300: '#d4be9a',
-          400: '#c9a96e',
-          500: '#b89352', // warm muted gold - sophisticated accent
-          600: '#a07842',
-          700: '#846234',
-          800: '#694d29',
-          900: '#543d21',
-          950: '#3a2a16',
+          100: '#f5efe6',
+          200: '#ebe0cc',
+          300: '#dcc8a8',
+          400: '#d4b87a',
+          500: '#c4a055', // warm champagne accent
+          600: '#a88640',
+          700: '#8a6b36',
+          800: '#6e552b',
+          900: '#584422',
+          950: '#3d2e17',
         },
       },
       fontFamily: {
