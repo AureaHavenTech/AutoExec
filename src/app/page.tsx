@@ -168,9 +168,9 @@ export default function LandingPage() {
         </div>
 
         <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button variant="primary" size="lg" className="w-full sm:w-auto text-base px-8 py-4">
-              Start Free Trial <ArrowRight className="ml-2 h-5 w-5" />
+              Start Now <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
           <a href="#pricing">
@@ -424,9 +424,9 @@ export default function LandingPage() {
               for you, we&apos;ll refund every penny. That&apos;s how sure we are that you&apos;ll love it.
             </p>
             <div className="mt-8">
-              <Link href="/dashboard">
+              <Link href="/login">
                 <Button variant="primary" size="lg" className="text-base px-8 py-4">
-                  Start Your Free Trial <ArrowRight className="ml-2 h-5 w-5" />
+                  Start Now <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
             </div>

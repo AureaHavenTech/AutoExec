@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "Is there a free trial?",
-    a: "Yes! You can start with a free trial and explore the dashboard. You'll be able to submit tasks and see how Axel AI works before committing to a paid plan."
+    a: "Yes! You can start with a 30-day free trial and explore the dashboard. You'll be able to submit tasks and see how Axel AI works before committing to a paid plan."
   },
   {
     q: "How do I get started?",
