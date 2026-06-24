@@ -134,20 +134,20 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-bold text-white mb-2">Follow the Founder</h2>
                 <p className="text-slate-400 text-sm mb-6">Stay connected with Lindsey and the journey</p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <a href="https://instagram.com/dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                  <a href="https://instagram.com/funkycoldmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
                     <span>📸</span> Instagram
                   </a>
-                  <a href="https://tiktok.com/@dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                  <a href="https://tiktok.com/@funkycoldmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
                     <span>🎵</span> TikTok
                   </a>
-                  <a href="https://twitter.com/dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                  <a href="https://twitter.com/funkycoldmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
                     <span>🐦</span> Twitter/X
                   </a>
-                  <a href="https://youtube.com/@dmmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
+                  <a href="https://youtube.com/@funkycoldmedemaa" target="_blank" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200 text-sm font-medium">
                     <span>▶️</span> YouTube
                   </a>
                 </div>
-                <p className="text-xs text-slate-600 mt-4">@dmmedemaa — everywhere</p>
+                <p className="text-xs text-slate-600 mt-4">@funkycoldmedemaa — everywhere</p>
               </div>
             </section>
 

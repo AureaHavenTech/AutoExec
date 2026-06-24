@@ -116,12 +116,12 @@ export default function LandingPage() {
           <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
         </nav>
         <div className="flex items-center space-x-4">
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button variant="outline" size="sm">
               Sign In
             </Button>
           </Link>
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button variant="primary" size="sm">
               Launch App <ArrowRight className="ml-1.5 h-4 w-4" />
             </Button>

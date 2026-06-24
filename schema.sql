@@ -1,4 +1,4 @@
--- SQLite schema for AutoExec application
+-- SQLite schema for Axel AI application
 
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Tasks Table (App Users' tasks submitted to AutoExec)
+-- Tasks Table (App Users' tasks submitted to Axel AI)
 CREATE TABLE IF NOT EXISTS app_tasks (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
