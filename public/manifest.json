@@ -1,6 +1,6 @@
 {
-  "name": "AutoExec",
-  "short_name": "AutoExec",
+  "name": "Axel AI",
+  "short_name": "Axel AI",
   "description": "Tell it what to do. It does the rest.",
   "start_url": "/",
   "display": "standalone",

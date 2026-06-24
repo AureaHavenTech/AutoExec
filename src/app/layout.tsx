@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Axel AI — Your AI Executive Assistant",
-  description: "Tell it what to do. It does the rest. Axel AI researches, builds, emails, and analyzes — 24/7.",
+  title: "Axel AI — The Axle That Drives Your Business",
+  description: "Just like an axle keeps your car moving, Axel AI keeps your business running. Describe any task in plain language — it researches, writes, builds, emails, and analyzes for you 24/7.",
   manifest: "/manifest.json",
   icons: {
     icon: "/icon-512.png",
