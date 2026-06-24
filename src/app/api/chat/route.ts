@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
           const pageTitle = message
             .replace(/build|create|make|generate|webpage|landing page|page/gi, "")
             .trim()
-            .substring(0, 60) || "My AutoExec Page";
+            .substring(0, 60) || "My Axel AI Page";
 
           await streamNatural(controller, encoder, `I'll build a webpage for **${pageTitle}** right now.\n\n`);
           
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
           const contentLines = [
             `<p style="font-size: 1.2rem; color: #a0a0a0;">Built for ${pageTitle}</p>`,
-            `<div class="card"><h2>About This Page</h2><p>AutoExec AI generated this page based on: "${message.substring(0, 100)}"</p></div>`,
+            `<div class="card"><h2>About This Page</h2><p>Axel AI AI generated this page based on: "${message.substring(0, 100)}"</p></div>`,
             `<div class="card"><h2>Key Features</h2><ul><li>AI-generated content</li><li>Responsive design</li><li>${theme} aesthetic</li></ul></div>`,
             `<div class="card" style="text-align: center;"><a href="#" style="display: inline-block; padding: 12px 32px; background: #8b5cf6; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">Get Started</a></div>`,
           ];
@@ -125,10 +125,10 @@ export async function POST(request: NextRequest) {
             "- Smart scheduling at peak times\n" +
             "- Analytics dashboard\n" +
             "- Cross-platform management\n\n" +
-            "🎉 **As an AutoExec user, you get 20% off!** Use code **AUTOEXEC20**.\n\n" +
-            "👉 [Claim Your Discount →](https://onepost.ai/autoexec)\n"
+            "🎉 **As an Axel AI user, you get 20% off!** Use code **AXEL20**.\n\n" +
+            "👉 [Claim Your Discount →](https://onepost.ai/axel)\n"
           );
-          sendEvent({ type: "result", content: "", metadata: { promotion: "One Post AI", discount: "20%", code: "AUTOEXEC20", url: "https://onepost.ai/autoexec", taskType: "cross_promotion", taskId } });
+          sendEvent({ type: "result", content: "", metadata: { promotion: "One Post AI", discount: "20%", code: "AXEL20", url: "https://onepost.ai/axel", taskType: "cross_promotion", taskId } });
 
         } else if (type === "marketing" || type === "image_gen") {
           const target = targets.length > 0 ? targets.join(", ") : "your product";
@@ -171,8 +171,8 @@ export async function POST(request: NextRequest) {
           
           // Generate sample emails
           const sampleEmails = [
-            { to: ["founder@company1.com"], subject: "Exciting opportunity to streamline your workflow", body: `Hi there,\n\nI came across your company and was impressed by what you're building. I think AutoExec could help you save hours every week by automating web research, list building, and email outreach.\n\nWould you be open to a quick 10-min call next week?\n\nBest,\nAutoExec AI` },
-            { to: ["hello@startup.io"], subject: "Quick question about your workflow", body: `Hi team,\n\nI noticed you're scaling fast — congrats! I wanted to share how AutoExec handles repetitive tasks autonomously so your team can focus on what matters.\n\nLet me know if you'd like a demo!\n\nCheers,\nAutoExec AI` },
+            { to: ["founder@company1.com"], subject: "Exciting opportunity to streamline your workflow", body: `Hi there,\n\nI came across your company and was impressed by what you're building. I think Axel AI could help you save hours every week by automating web research, list building, and email outreach.\n\nWould you be open to a quick 10-min call next week?\n\nBest,\nAxel AI AI` },
+            { to: ["hello@startup.io"], subject: "Quick question about your workflow", body: `Hi team,\n\nI noticed you're scaling fast — congrats! I wanted to share how Axel AI handles repetitive tasks autonomously so your team can focus on what matters.\n\nLet me know if you'd like a demo!\n\nCheers,\nAxel AI AI` },
           ];
 
           try {

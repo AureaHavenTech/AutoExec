@@ -14,7 +14,7 @@ export default function AffiliatesPage() {
           <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
             <Zap className="h-5 w-5 text-white fill-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">AutoExec</span>
+          <span className="text-xl font-bold tracking-tight text-white">Axel AI</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -35,7 +35,7 @@ export default function AffiliatesPage() {
             Earn <span className="text-brand-400">10% Commission</span> <br />on Every Referral
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
-            Join the AutoExec affiliate program and earn recurring 10% commissions on every subscription 
+            Join the Axel AI affiliate program and earn recurring 10% commissions on every subscription 
             you refer. Zero-cost marketing for content creators, UGC creators, and entrepreneurs.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -58,7 +58,7 @@ export default function AffiliatesPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { step: "01", icon: Share2, title: "Share Your Link", desc: "Get your unique affiliate link and share it with your audience — social media, YouTube, blog, or email list." },
-              { step: "02", icon: Users, title: "They Sign Up", desc: "When someone clicks your link and subscribes to AutoExec, they're tagged as your referral automatically." },
+              { step: "02", icon: Users, title: "They Sign Up", desc: "When someone clicks your link and subscribes to Axel AI, they're tagged as your referral automatically." },
               { step: "03", icon: DollarSign, title: "You Earn 10%", desc: "You earn 10% recurring commission on every payment they make. No cap on earnings." },
             ].map((item, i) => {
               const Icon = item.icon;
@@ -107,7 +107,7 @@ export default function AffiliatesPage() {
             {[
               { icon: DollarSign, title: "Recurring Income", desc: "Earn 10% on every payment, every month — not just one-time." },
               { icon: Gift, title: "No Minimum Payout", desc: "Get paid whatever you earn, whenever you want via PayPal or bank transfer." },
-              { icon: TrendingUp, title: "High Conversion", desc: "AutoExec solves a real pain point — busy people need AI assistants. High conversion rates." },
+              { icon: TrendingUp, title: "High Conversion", desc: "Axel AI solves a real pain point — busy people need AI assistants. High conversion rates." },
               { icon: Share2, title: "Creative Freedom", desc: "Make tutorials, reviews, comparison videos, or just share your link. No restrictive scripts." },
             ].map((item, i) => {
               const Icon = item.icon;
@@ -128,7 +128,7 @@ export default function AffiliatesPage() {
         <div className="max-w-2xl mx-auto text-center bg-gradient-to-r from-brand-500/10 to-accent-500/10 border border-brand-500/20 rounded-2xl p-12">
           <h2 className="text-3xl font-extrabold mb-4">Ready to Start Earning?</h2>
           <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-            Join hundreds of creators already earning 10% recurring commissions with AutoExec.
+            Join hundreds of creators already earning 10% recurring commissions with Axel AI.
           </p>
           <Link href="/contact">
             <Button variant="primary" size="lg" className="text-base px-8 py-4">
@@ -142,7 +142,7 @@ export default function AffiliatesPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">AutoExec</span>
+            <span className="font-bold text-white">Axel AI</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -156,7 +156,7 @@ export default function AffiliatesPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
-            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc.</div>
+            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
           </div>
         </div>
       </footer>

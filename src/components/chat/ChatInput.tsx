@@ -87,7 +87,7 @@ export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={placeholder || "Tell AutoExec what to do... (e.g., \"Find me 50 SaaS companies hiring in SF and draft an intro email\")"}
+            placeholder={placeholder || "Tell Axel AI what to do... (e.g., \"Find me 50 SaaS companies hiring in SF and draft an intro email\")"}
             rows={1}
             disabled={disabled}
             className="flex-1 bg-transparent text-sm text-slate-200 placeholder-slate-500 resize-none outline-none px-3 py-2 max-h-[200px] leading-relaxed min-h-[44px]"
@@ -105,7 +105,7 @@ export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
           </button>
         </div>
         <p className="text-[10px] text-slate-600 mt-1.5 px-1">
-          {disabled ? "AutoExec is processing your request..." : "Press Enter to send · Shift+Enter for new line"}
+          {disabled ? "Axel AI is processing your request..." : "Press Enter to send · Shift+Enter for new line"}
         </p>
       </form>
     </div>

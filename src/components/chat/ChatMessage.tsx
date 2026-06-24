@@ -307,7 +307,7 @@ export function ChatMessageBubble({ message, onViewResults }: ChatMessageProps) 
       <div className={`max-w-[85%] md:max-w-[75%] space-y-2 ${isUser ? "items-end" : "items-start"}`}>
         {/* Sender label */}
         <div className={`text-[11px] font-semibold tracking-wider uppercase ${isUser ? "text-right text-slate-500" : "text-brand-400"}`}>
-          {isUser ? "You" : "AutoExec"}
+          {isUser ? "You" : "Axel AI"}
         </div>
 
         {/* Bubble */}

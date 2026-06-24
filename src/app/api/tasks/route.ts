@@ -69,7 +69,7 @@ export async function POST(request: Request) {
                 "Searching directory sources for query targets...",
                 "Found 15 matching leads with validated contacts.",
                 "Generated personalized email template pitches.",
-                "AutoExec agent execution finished."
+                "Axel AI agent execution finished."
               ],
               results_preview: [
                 { name: "Segment", domain: "segment.com", status: "Validated", email: "founders@segment.com" },
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Task successfully queued for AutoExec execution',
+      message: 'Task successfully queued for Axel AI execution',
       taskId,
     });
   } catch (error: any) {

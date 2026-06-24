@@ -25,7 +25,7 @@ export default function ContactPage() {
           <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
             <Zap className="h-5 w-5 text-white fill-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">AutoExec</span>
+          <span className="text-xl font-bold tracking-tight text-white">Axel AI</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -80,13 +80,13 @@ export default function ContactPage() {
             <div className="bg-slate-900/30 border border-slate-900 rounded-xl p-6">
               <MessageSquare className="h-6 w-6 text-brand-400 mb-3" />
               <h3 className="font-bold mb-1">Chat Support</h3>
-              <p className="text-sm text-slate-400">Use the in-app chat to get instant answers from AutoExec&apos;s AI support assistant.</p>
+              <p className="text-sm text-slate-400">Use the in-app chat to get instant answers from Axel AI&apos;s AI support assistant.</p>
               <Link href="/dashboard"><Button variant="outline" size="sm" className="mt-3">Open Chat</Button></Link>
             </div>
             <div className="bg-slate-900/30 border border-slate-900 rounded-xl p-6">
               <Mail className="h-6 w-6 text-brand-400 mb-3" />
               <h3 className="font-bold mb-1">Email</h3>
-              <p className="text-sm text-slate-400">support@autoexec.ai</p>
+              <p className="text-sm text-slate-400">support@axelai.app</p>
               <p className="text-xs text-slate-500 mt-1">We respond within 24 hours</p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">AutoExec</span>
+            <span className="font-bold text-white">Axel AI</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -111,7 +111,7 @@ export default function ContactPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
-            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc.</div>
+            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
           </div>
         </div>
       </footer>

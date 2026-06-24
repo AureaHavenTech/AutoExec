@@ -18,7 +18,7 @@ export function ChatInterface() {
     {
       id: "welcome",
       role: "assistant",
-      content: "👋 Hi! I'm AutoExec, your autonomous AI executive assistant.\n\nTell me what you need done, and I'll take care of it. I can:\n\n• **Research the web** for companies, people, or data\n• **Build lists** of prospects with verified contacts\n• **Draft emails** and outreach campaigns\n• **Gather intel** on competitors or markets\n• **Scrape websites** for structured data\n\nWhat would you like me to work on?",
+      content: "👋 Hi! I'm Axel AI, your autonomous AI executive assistant.\n\nTell me what you need done, and I'll take care of it. I can:\n\n• **Research the web** for companies, people, or data\n• **Build lists** of prospects with verified contacts\n• **Draft emails** and outreach campaigns\n• **Gather intel** on competitors or markets\n• **Scrape websites** for structured data\n\nWhat would you like me to work on?",
       timestamp: new Date(),
       status: "done",
     },
@@ -171,7 +171,7 @@ export function ChatInterface() {
       {
         id: "welcome",
         role: "assistant",
-        content: "👋 Hi! I'm AutoExec, your autonomous AI executive assistant.\n\nStart a new conversation by telling me what you need done!",
+        content: "👋 Hi! I'm Axel AI, your autonomous AI executive assistant.\n\nStart a new conversation by telling me what you need done!",
         timestamp: new Date(),
         status: "done",
       },
@@ -187,7 +187,7 @@ export function ChatInterface() {
             <MessageSquare className="h-5 w-5 text-brand-400" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-white">AutoExec Chat</h2>
+            <h2 className="text-sm font-bold text-white">Axel AI Chat</h2>
             <p className="text-[11px] text-slate-500">
               {isProcessing ? "Agent is working..." : "Ready to execute tasks"}
             </p>

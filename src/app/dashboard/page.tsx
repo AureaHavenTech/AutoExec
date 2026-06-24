@@ -85,11 +85,11 @@ export default function DashboardPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-            <span>AutoExec Workspace</span>
+            <span>Axel AI Workspace</span>
             <Sparkles className="h-6 w-6 text-brand-400 animate-pulse" />
           </h1>
           <p className="text-slate-400 text-sm mt-1">
-            Describe any task in plain language. AutoExec handles the rest.
+            Describe any task in plain language. Axel AI handles the rest.
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={fetchSession} className="h-9">
@@ -134,7 +134,7 @@ export default function DashboardPage() {
         <Card className="p-4 bg-slate-900/30 border-slate-900 flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Inbox</p>
-            <h3 className="text-2xl font-bold text-white mt-1">demo@autoexec.ai</h3>
+            <h3 className="text-2xl font-bold text-white mt-1">hello@axelai.app</h3>
             <p className="text-[11px] text-slate-500 mt-1">Connected for outreach</p>
           </div>
           <div className="h-10 w-10 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400">

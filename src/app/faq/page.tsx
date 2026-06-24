@@ -7,32 +7,32 @@ import { Zap, ChevronDown, ChevronRight, Search, ShieldCheck } from "lucide-reac
 
 const faqs = [
   {
-    q: "What is AutoExec?",
-    a: "AutoExec is an autonomous AI executive assistant. You describe any digital task in plain language — research, list-building, email outreach, data gathering, building webpages — and AutoExec completes it end-to-end without you needing to lift a finger."
+    q: "What is Axel AI?",
+    a: "Axel AI is an autonomous AI executive assistant. You describe any digital task in plain language — research, list-building, email outreach, data gathering, building webpages — and Axel AI completes it end-to-end without you needing to lift a finger."
   },
   {
-    q: "How is AutoExec different from ChatGPT or other AI tools?",
-    a: "AutoExec doesn't just chat — it executes. While ChatGPT gives you text answers, AutoExec actually performs tasks: it searches the web, scrapes data, compiles spreadsheets, drafts and sends emails, builds webpages, and more. It's like having a full-time employee who can do anything you describe."
+    q: "How is Axel AI different from ChatGPT or other AI tools?",
+    a: "Axel AI doesn't just chat — it executes. While ChatGPT gives you text answers, Axel AI actually performs tasks: it searches the web, scrapes data, compiles spreadsheets, drafts and sends emails, builds webpages, and more. It's like having a full-time employee who can do anything you describe."
   },
   {
-    q: "What kind of tasks can AutoExec do?",
-    a: "AutoExec can: research companies and people on the web, build prospect lists with verified contacts, draft and send personalized email campaigns, gather competitive intelligence, scrape websites for structured data, build and host simple webpages, analyze market trends, and more. If it can be done digitally, AutoExec can do it."
+    q: "What kind of tasks can Axel AI do?",
+    a: "Axel AI can: research companies and people on the web, build prospect lists with verified contacts, draft and send personalized email campaigns, gather competitive intelligence, scrape websites for structured data, build and host simple webpages, analyze market trends, and more. If it can be done digitally, Axel AI can do it."
   },
   {
-    q: "How much does AutoExec cost?",
+    q: "How much does Axel AI cost?",
     a: "We have three plans: Starter ($39/mo for 50 tasks), Pro ($99/mo for 200 tasks), and Unlimited ($249/mo with no task cap). All plans include core features. Annual billing saves ~20%."
   },
   {
     q: "Is there a free trial?",
-    a: "Yes! You can start with a free trial and explore the dashboard. You'll be able to submit tasks and see how AutoExec works before committing to a paid plan."
+    a: "Yes! You can start with a free trial and explore the dashboard. You'll be able to submit tasks and see how Axel AI works before committing to a paid plan."
   },
   {
     q: "How do I get started?",
-    a: "Just click 'Launch App' on the homepage, create an account (or sign in), and start typing what you need done in the chat interface. AutoExec will analyze your request and execute it. It's that simple."
+    a: "Just click 'Launch App' on the homepage, create an account (or sign in), and start typing what you need done in the chat interface. Axel AI will analyze your request and execute it. It's that simple."
   },
   {
-    q: "Can AutoExec send emails on my behalf?",
-    a: "Yes! AutoExec can draft hyper-personalized email templates based on recipient research and send them through connected email accounts. You can review and approve before sending."
+    q: "Can Axel AI send emails on my behalf?",
+    a: "Yes! Axel AI can draft hyper-personalized email templates based on recipient research and send them through connected email accounts. You can review and approve before sending."
   },
   {
     q: "Is my data secure?",
@@ -47,12 +47,12 @@ const faqs = [
     a: "You'll receive a notification when you're approaching your limit. You can upgrade to a higher tier at any time from the Billing page. No overage fees — tasks simply pause until the next billing cycle or you upgrade."
   },
   {
-    q: "Does AutoExec integrate with other tools?",
-    a: "AutoExec works alongside your existing workflow. It can export data to CSV/JSON, generate webpages, and send emails. More integrations are coming soon."
+    q: "Does Axel AI integrate with other tools?",
+    a: "Axel AI works alongside your existing workflow. It can export data to CSV/JSON, generate webpages, and send emails. More integrations are coming soon."
   },
   {
-    q: "How is One Post AI related to AutoExec?",
-    a: "One Post AI is our sister product focused on social media content generation and scheduling. AutoExec and One Post AI are designed to work together — AutoExec handles research and outreach, while One Post AI manages your social media presence. Cross-promotion discounts are available."
+    q: "How is One Post AI related to Axel AI?",
+    a: "One Post AI is our sister product focused on social media content generation and scheduling. Axel AI and One Post AI are designed to work together — Axel AI handles research and outreach, while One Post AI manages your social media presence. Cross-promotion discounts are available."
   }
 ];
 
@@ -72,7 +72,7 @@ export default function FAQPage() {
           <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
             <Zap className="h-5 w-5 text-white fill-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">AutoExec</span>
+          <span className="text-xl font-bold tracking-tight text-white">Axel AI</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -86,7 +86,7 @@ export default function FAQPage() {
       <main className="pt-32 pb-24 px-6 max-w-3xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-extrabold tracking-tight mb-4">Frequently Asked Questions</h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">Everything you need to know about AutoExec.</p>
+          <p className="text-xl text-slate-400 max-w-2xl mx-auto">Everything you need to know about Axel AI.</p>
         </div>
 
         {/* Search */}
@@ -141,7 +141,7 @@ export default function FAQPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">AutoExec</span>
+            <span className="font-bold text-white">Axel AI</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -155,7 +155,7 @@ export default function FAQPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
-            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc.</div>
+            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
           </div>
         </div>
       </footer>

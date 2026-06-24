@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AutoExec — Your AI Executive Assistant",
-  description: "Tell it what to do. It does the rest. AutoExec researches, builds, emails, and analyzes — 24/7.",
+  title: "Axel AI — Your AI Executive Assistant",
+  description: "Tell it what to do. It does the rest. Axel AI researches, builds, emails, and analyzes — 24/7.",
   manifest: "/manifest.json",
   icons: {
     icon: "/icon-512.png",
@@ -27,7 +27,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#12121a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="AutoExec" />
+        <meta name="apple-mobile-web-app-title" content="Axel AI" />
       </head>
       <body className={inter.className}>
         <NotificationProvider>

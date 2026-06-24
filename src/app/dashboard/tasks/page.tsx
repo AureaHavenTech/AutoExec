@@ -192,7 +192,7 @@ export default function TasksHistoryPage() {
                             </Button>
                             <a 
                               href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(task.result, null, 2))}`}
-                              download={`autoexec_${task.id}.json`}
+                              download={`axel_${task.id}.json`}
                             >
                               <Button size="sm" variant="accent" className="h-8 text-xs">
                                 <Download className="h-3.5 w-3.5 mr-1.5" /> Download Lead File
@@ -279,7 +279,7 @@ export default function TasksHistoryPage() {
                         <Loader2 className="h-8 w-8 text-brand-400 animate-spin" />
                         <p className="text-sm font-semibold text-white">Browser Daemon actively processing</p>
                         <p className="text-xs text-brand-400/80 max-w-md font-mono">
-                          AutoExec is scrolling pages, bypassing antibots, and scraping parameters. Please wait...
+                          Axel AI is scrolling pages, bypassing antibots, and scraping parameters. Please wait...
                         </p>
                       </div>
                     )}

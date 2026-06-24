@@ -312,7 +312,7 @@ export default function StorefrontPage() {
             Generate &ldquo;Aura Haven&rdquo; Luxury Landing Pages in Seconds
           </h2>
           <p className="text-slate-400 text-sm leading-relaxed">
-            AutoExec uses a proprietary CSS framework (Dark Gray + Cream + Gold) to build high-converting storefronts. 
+            Axel AI uses a proprietary CSS framework (Dark Gray + Cream + Gold) to build high-converting storefronts. 
             No more paywalls or platform locks. You own the code, the traffic, and the customer data.
           </p>
           <div className="flex gap-4 pt-2">

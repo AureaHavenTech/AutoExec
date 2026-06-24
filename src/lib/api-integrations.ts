@@ -1,8 +1,8 @@
 /**
- * AutoExec API Integration System
+ * Axel AI API Integration System
  * 
  * One-time authorization → autonomous account management
- * Users authorize once (OAuth or API key), AutoExec handles the rest.
+ * Users authorize once (OAuth or API key), Axel AI handles the rest.
  */
 
 interface Integration {
@@ -106,7 +106,7 @@ async function getUserIntegrations(userId: string): Promise<any[]> {
 /** Deploy code to Vercel using stored Vercel token */
 export async function deployToVercel(
   userId: string,
-  repo: "AutoExec" | "OnePostAi"
+  repo: "Axel AI" | "OnePostAi"
 ): Promise<{ success: boolean; url?: string; error?: string }> {
   const integrations = await getUserIntegrations(userId);
   const vercel = integrations.find((i: any) => i.service === "vercel");

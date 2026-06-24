@@ -113,7 +113,7 @@ export default function MarketingPage() {
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-1 focus:ring-brand-500"
-                placeholder="e.g. AutoExec AI"
+                placeholder="e.g. Axel AI AI"
               />
             </div>
             <div className="space-y-2">
@@ -143,7 +143,7 @@ export default function MarketingPage() {
               <Search className="h-4 w-4" /> How it works
             </h4>
             <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              AutoExec analyzes your product description, researches current market trends, and identifies where your target audience hangs out. It then crafts tailored ad copy and channel-specific strategies.
+              Axel AI analyzes your product description, researches current market trends, and identifies where your target audience hangs out. It then crafts tailored ad copy and channel-specific strategies.
             </p>
           </Card>
         </div>
@@ -237,7 +237,7 @@ export default function MarketingPage() {
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-white">Ready to execute?</h4>
-                    <p className="text-sm text-slate-400">AutoExec can help you build the landing pages and draft the emails for this strategy.</p>
+                    <p className="text-sm text-slate-400">Axel AI can help you build the landing pages and draft the emails for this strategy.</p>
                   </div>
                 </div>
                 <Button className="bg-white text-black hover:bg-slate-200">

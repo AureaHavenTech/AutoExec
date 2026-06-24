@@ -4,7 +4,7 @@ import fs from 'fs';
 
 // Define the database file path
 // We put it in the root of the project for simplicity and persistent storage.
-const DB_PATH = path.resolve(process.cwd(), 'autoexec.db');
+const DB_PATH = path.resolve(process.cwd(), 'axel.db');
 
 let dbInstance: Database.Database | null = null;
 
@@ -67,7 +67,7 @@ export function getDb(): Database.Database {
         
         // Seed a default mock user for testing if needed
         const insertUser = db.prepare('INSERT OR IGNORE INTO users (id, email, name) VALUES (?, ?, ?)');
-        insertUser.run('user_demo_id', 'demo@autoexec.ai', 'Demo Founder');
+        insertUser.run('user_demo_id', 'hello@axelai.app', 'Demo Founder');
         
         // Seed default active subscription for demo user
         const insertSub = db.prepare('INSERT OR IGNORE INTO subscriptions (id, user_id, tier, status) VALUES (?, ?, ?, ?)');
@@ -161,7 +161,7 @@ export function getDb(): Database.Database {
             
             -- Seed mock notifications
             INSERT OR IGNORE INTO notifications (id, user_id, title, message, type, link)
-            VALUES ('notif_1', 'user_demo_id', 'Welcome to AutoExec!', 'Your autonomous AI assistant is ready to work.', 'success', '/dashboard');
+            VALUES ('notif_1', 'user_demo_id', 'Welcome to Axel AI!', 'Your autonomous AI assistant is ready to work.', 'success', '/dashboard');
             INSERT OR IGNORE INTO notifications (id, user_id, title, message, type, link)
             VALUES ('notif_2', 'user_demo_id', 'Task Completed', 'Found 50 SaaS companies in San Francisco.', 'info', '/dashboard/tasks');
           `);

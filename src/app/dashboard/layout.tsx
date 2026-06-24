@@ -98,7 +98,7 @@ export default function DashboardLayout({
       {/* Mobile Header */}
       <header className="md:hidden flex items-center justify-between p-4 border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="AutoExec Logo" className="h-7 w-auto" />
+          <img src="/logo.svg" alt="Axel AI Logo" className="h-7 w-auto" />
         </Link>
         <button 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -118,7 +118,7 @@ export default function DashboardLayout({
           {/* Logo */}
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <img src="/logo.svg" alt="AutoExec Logo" className="h-9 w-auto" />
+              <img src="/logo.svg" alt="Axel AI Logo" className="h-9 w-auto" />
             </Link>
             <button className="md:hidden text-slate-400 hover:text-white" onClick={() => setMobileMenuOpen(false)}>
               <X className="h-5 w-5" />

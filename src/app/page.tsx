@@ -28,7 +28,7 @@ export default function LandingPage() {
     {
       icon: Search,
       title: "Deep Web Research",
-      description: "AutoExec autonomously navigates directories, search engines, and social platforms to find verified prospects.",
+      description: "Axel AI autonomously navigates directories, search engines, and social platforms to find verified prospects.",
     },
     {
       icon: Mail,
@@ -108,7 +108,7 @@ export default function LandingPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-900 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="AutoExec Logo" className="h-9 w-auto" />
+          <img src="/logo.svg" alt="Axel AI Logo" className="h-9 w-auto" />
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
@@ -147,7 +147,7 @@ export default function LandingPage() {
         </h1>
 
         <p className="mt-8 text-lg md:text-xl text-slate-400 max-w-3xl leading-relaxed">
-          AutoExec is your autonomous AI executive assistant. Describe any task in plain language — 
+          Axel AI is your autonomous AI executive assistant. Describe any task in plain language — 
           research, list-building, email outreach, building webpages — and it handles everything 
           end-to-end. Like a full-time employee who works 24/7, never sleeps, and does anything you can describe.
         </p>
@@ -210,7 +210,7 @@ export default function LandingPage() {
               An Executive Assistant built entirely on AI
             </h2>
             <p className="mt-4 text-slate-400 text-lg">
-              No complex setup, APIs, or integration connectors needed. AutoExec acts like a real person 
+              No complex setup, APIs, or integration connectors needed. Axel AI acts like a real person 
               — because it was built by one who needed exactly that.
             </p>
           </div>
@@ -241,7 +241,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
-              Watch AutoExec run autonomously
+              Watch Axel AI run autonomously
             </h2>
             <p className="mt-4 text-slate-400 text-lg">
               Three simple steps to save hours of grinding. Let the agent handle it — 
@@ -285,19 +285,19 @@ export default function LandingPage() {
       <section className="py-24 border-t border-slate-900 bg-slate-900/5 relative">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <Badge variant="info" className="mb-6 px-4 py-1 text-xs tracking-wider uppercase font-semibold">
-            <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400" /> The Story Behind AutoExec
+            <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400" /> The Story Behind Axel AI
           </Badge>
           <blockquote className="text-2xl md:text-3xl font-semibold text-white leading-relaxed max-w-3xl mx-auto">
             &ldquo;I was juggling multiple businesses from my phone. No laptop. No budget for employees. 
             I needed an assistant that worked 24/7 without a salary. So I built one.&rdquo;
           </blockquote>
           <p className="mt-6 text-slate-400 text-lg max-w-2xl mx-auto">
-            AutoExec was born from real life, real overwhelm, and the need for something that just works. 
+            Axel AI was born from real life, real overwhelm, and the need for something that just works. 
             It&apos;s for everyone else who has more to do than hours in the day.
           </p>
           <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-500">
             <span className="h-px w-8 bg-slate-800" />
-            <span>— Founder, AutoExec</span>
+            <span>— Founder, Axel AI</span>
             <span className="h-px w-8 bg-slate-800" />
           </div>
         </div>
@@ -416,11 +416,11 @@ export default function LandingPage() {
               30-Day Money-Back Guarantee
             </h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-2">
-              Try AutoExec risk-free. If you&apos;re not satisfied within 30 days, 
+              Try Axel AI risk-free. If you&apos;re not satisfied within 30 days, 
               get a full refund. No questions asked.
             </p>
             <p className="text-sm text-slate-500 max-w-xl mx-auto">
-              We&apos;re confident AutoExec will save you hours every day. But if it doesn&apos;t work 
+              We&apos;re confident Axel AI will save you hours every day. But if it doesn&apos;t work 
               for you, we&apos;ll refund every penny. That&apos;s how sure we are that you&apos;ll love it.
             </p>
             <div className="mt-8">
@@ -439,7 +439,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white tracking-tight">AutoExec</span>
+            <span className="font-bold text-white tracking-tight">Axel AI</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
@@ -455,7 +455,7 @@ export default function LandingPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
-            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc. All rights reserved.</div>
+            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc. All rights reserved.</div>
           </div>
         </div>
       </footer>

@@ -15,7 +15,7 @@ export default function AboutPage() {
           <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
             <Zap className="h-5 w-5 text-white fill-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">AutoExec</span>
+          <span className="text-xl font-bold tracking-tight text-white">Axel AI</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <Link href="/about" className="text-white">About</Link>
@@ -41,7 +41,7 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            AutoExec isn&apos;t another Silicon Valley startup. It was born from real life, 
+            Axel AI isn&apos;t another Silicon Valley startup. It was born from real life, 
             real overwhelm, and the need for something that just works.
           </p>
         </div>
@@ -154,13 +154,13 @@ export default function AboutPage() {
             {/* Why It Matters */}
         <section className="mb-24">
           <div className="bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 rounded-2xl p-10 md:p-14">
-            <h2 className="text-3xl font-bold mb-8 text-center">Why AutoExec Exists</h2>
+            <h2 className="text-3xl font-bold mb-8 text-center">Why Axel AI Exists</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {[
                 {
                   icon: Zap,
                   title: "Time is everything",
-                  desc: "When you're running multiple businesses from your phone, every minute counts. AutoExec does in seconds what takes hours manually."
+                  desc: "When you're running multiple businesses from your phone, every minute counts. Axel AI does in seconds what takes hours manually."
                 },
                 {
                   icon: Users,
@@ -208,11 +208,11 @@ export default function AboutPage() {
           <Sparkles className="h-10 w-10 text-brand-400 mx-auto mb-4" />
           <h2 className="text-3xl font-bold mb-4">Ready to get your time back?</h2>
           <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-            Join thousands of busy founders and entrepreneurs who use AutoExec to handle the grunt work.
+            Join thousands of busy founders and entrepreneurs who use Axel AI to handle the grunt work.
           </p>
           <Link href="/dashboard">
             <Button variant="primary" size="lg" className="text-base px-8 py-4">
-              Try AutoExec Free <ArrowRight className="ml-2 h-5 w-5" />
+              Try Axel AI Free <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
           <p className="text-xs text-slate-500 mt-4">30-day money-back guarantee. No risk.</p>
@@ -224,7 +224,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">AutoExec</span>
+            <span className="font-bold text-white">Axel AI</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
@@ -238,7 +238,7 @@ export default function AboutPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
-            <div>&copy; {new Date().getFullYear()} AutoExec AI Inc.</div>
+            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
           </div>
         </div>
       </footer>
