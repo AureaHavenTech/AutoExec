@@ -6,48 +6,38 @@
       <stop offset="50%" stop-color="#d4af37" />
       <stop offset="100%" stop-color="#f5e6a3" />
     </linearGradient>
-    <!-- Dark gradient for the wheel icon -->
+    <!-- Dark gradient -->
     <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#2a2a3a" />
       <stop offset="100%" stop-color="#1a1a2a" />
     </linearGradient>
-    <!-- Subtle glow for the gear -->
+    <!-- Subtle glow -->
     <filter id="glow">
-      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
-
-  <!-- Background circle - dark gray -->
-  <circle cx="36" cy="40" r="32" fill="url(#darkGrad)" stroke="url(#goldGrad)" stroke-width="1.5" />
-
-  <!-- Steering wheel / axle icon - outer ring -->
-  <circle cx="36" cy="40" r="16" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" />
   
-  <!-- Steering wheel / axle icon - inner hub -->
-  <circle cx="36" cy="40" r="5" fill="url(#goldGrad)" opacity="0.9" />
+  <!-- Steering wheel icon - small, elegant accent like Chanel's interlocking Cs -->
+  <g transform="translate(8, 24) scale(0.55)">
+    <circle cx="24" cy="24" r="22" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" />
+    <circle cx="24" cy="24" r="6" fill="url(#goldGrad)" opacity="0.9" />
+    <line x1="24" y1="2" x2="24" y2="12" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+    <line x1="44" y1="18" x2="36" y2="22" stroke="url(#goldGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <line x1="44" y1="30" x2="36" y2="26" stroke="url(#goldGrad)" stroke-width="2.8" stroke-linecap="round" />
+    <line x1="24" y1="46" x2="24" y2="36" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+    <polygon points="24,17 27,22 24,27 21,22" fill="url(#goldGrad)" opacity="0.5" />
+  </g>
   
-  <!-- Steering wheel spokes -->
-  <line x1="36" y1="26" x2="36" y2="32" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round" />
-  <line x1="36" y1="48" x2="36" y2="54" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round" />
-  <line x1="22" y1="40" x2="28" y2="40" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round" />
-  <line x1="44" y1="40" x2="50" y2="40" stroke="url(#goldGrad)" stroke-width="2" stroke-linecap="round" />
+  <!-- Bold, premium wordmark - AXEL in Playfair Display like a luxury brand -->
+  <text x="52" y="42" font-family="'Playfair Display', Georgia, serif" font-size="42" font-weight="700" fill="#e8e0d4" letter-spacing="6">AXEL</text>
   
-  <!-- Diagonal spokes -->
-  <line x1="26.1" y1="30.1" x2="30.2" y2="34.2" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" />
-  <line x1="45.9" y1="49.9" x2="41.8" y2="45.8" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" />
-  <line x1="45.9" y1="30.1" x2="41.8" y2="34.2" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" />
-  <line x1="26.1" y1="49.9" x2="30.2" y2="45.8" stroke="url(#goldGrad)" stroke-width="1.5" stroke-linecap="round" />
-
-  <!-- Brand name - Axel -->
-  <text x="82" y="36" font-family="'Playfair Display', Georgia, serif" font-size="28" font-weight="700" fill="#e8e0d4" letter-spacing="3">AXEL</text>
+  <!-- AI in gold - smaller, sophisticated -->
+  <text x="52" y="62" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="300" fill="url(#goldGrad)" letter-spacing="10">AI</text>
   
-  <!-- Tagline - AI -->
-  <text x="82" y="60" font-family="'Inter', system-ui, sans-serif" font-size="16" font-weight="300" fill="url(#goldGrad)" letter-spacing="8">AI</text>
-
-  <!-- Small decorative gold dot -->
-  <circle cx="192" cy="36" r="2" fill="url(#goldGrad)" opacity="0.5" />
+  <!-- Gold line accent - like a designer brand detail -->
+  <line x1="52" y1="48" x2="185" y2="48" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.4" />
 </svg>
