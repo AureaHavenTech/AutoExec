@@ -602,7 +602,7 @@ export function isSupportQuestion(message: string): { isSupport: boolean; answer
     return {
       isSupport: true,
       answer:
-        "I'm Axel AI, your AI executive assistant! 🤖\n\n" +
+        "I'm Axel, your AI executive assistant! 🤖\n\n" +
         "I can help you with:\n" +
         "• **Research** — finding companies, people, and data on the web\n" +
         "• **List building** — compiling prospect lists with contacts\n" +

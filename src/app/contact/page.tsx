@@ -12,8 +12,20 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate sending
-    await new Promise(r => setTimeout(r, 1500));
+    const formData = new FormData(e.target as HTMLFormElement);
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message'),
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to send message', err);
+    }
     setLoading(false);
     setSubmitted(true);
   };
@@ -58,15 +70,15 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-1.5">Name</label>
-                  <input required className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="Your name" />
+                  <input required name="name" className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="Your name" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-1.5">Email</label>
-                  <input required type="email" className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="you@example.com" />
+                  <input required name="email" type="email" className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="you@example.com" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-300 mb-1.5">Message</label>
-                  <textarea required rows={5} className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none" placeholder="How can we help?" />
+                  <textarea required name="message" rows={5} className="w-full bg-slate-900/60 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none" placeholder="How can we help?" />
                 </div>
                 <Button type="submit" variant="primary" className="w-full" disabled={loading}>
                   {loading ? <><Loader2 className="animate-spin mr-2 h-4 w-4" /> Sending...</> : <><Send className="mr-2 h-4 w-4" /> Send Message</>}
@@ -86,7 +98,7 @@ export default function ContactPage() {
             <div className="bg-slate-900/30 border border-slate-900 rounded-xl p-6">
               <Mail className="h-6 w-6 text-brand-400 mb-3" />
               <h3 className="font-bold mb-1">Email</h3>
-              <p className="text-sm text-slate-400">support@axelai.app</p>
+              <p className="text-sm text-slate-400">aurahaven@gmail.com</p>
               <p className="text-xs text-slate-500 mt-1">We respond within 24 hours</p>
             </div>
           </div>
