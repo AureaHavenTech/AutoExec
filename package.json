@@ -13,6 +13,7 @@
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.18.0",
     "next": "14.2.3",
+    "openai": "^6.45.0",
     "react": "^18",
     "react-dom": "^18",
     "uuid": "^14.0.0"
