@@ -151,6 +151,32 @@ export default function AboutPage() {
               </div>
             </section>
 
+            {/* Sister Companies */}
+            <section className="mb-24 text-center">
+              <div className="bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 rounded-2xl p-10 md:p-14">
+                <h2 className="text-2xl font-bold text-white mb-3">The Sister Companies</h2>
+                <p className="text-slate-400 text-sm mb-6 max-w-lg mx-auto">
+                  All built by the same founder to help you create, grow, and thrive.
+                </p>
+                <div className="flex flex-wrap justify-center gap-6">
+                  <a href="https://onepostai.app" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200">
+                    <span className="w-7 h-7 rounded-md bg-gradient-to-br from-[#c9a96e] to-[#b8944a] flex items-center justify-center text-white font-bold text-xs">1P</span>
+                    <span className="text-left">
+                      <div className="text-sm font-semibold text-white">One Post AI</div>
+                      <div className="text-xs text-slate-500">Content that moves</div>
+                    </span>
+                  </a>
+                  <a href="https://aurahaven.shop" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200">
+                    <span className="w-7 h-7 rounded-md bg-gradient-to-br from-[#c9a96e] to-[#e8e0d4] flex items-center justify-center text-white font-bold text-xs">AH</span>
+                    <span className="text-left">
+                      <div className="text-sm font-semibold text-white">Aura Haven</div>
+                      <div className="text-xs text-slate-500">Premium tech for modern living</div>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </section>
+
             {/* Why It Matters */}
         <section className="mb-24">
           <div className="bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 rounded-2xl p-10 md:p-14">
@@ -232,6 +258,8 @@ export default function AboutPage() {
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
             <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+            <a href="https://onepostai.app" target="_blank" className="hover:text-white transition-colors">One Post AI</a>
+            <a href="https://aurahaven.shop" target="_blank" className="hover:text-white transition-colors">Aura Haven</a>
           </div>
           <div className="text-center md:text-right">
             <div className="flex items-center justify-center md:justify-end gap-2 text-emerald-400 text-xs mb-1">

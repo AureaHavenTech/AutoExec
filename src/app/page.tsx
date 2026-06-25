@@ -455,6 +455,11 @@ export default function LandingPage() {
               <ShieldCheck className="h-3.5 w-3.5" />
               <span>30-day money-back guarantee</span>
             </div>
+            <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-xs text-slate-500 mb-1">
+              <span>Works alongside <a href="https://onepostai.app" target="_blank" className="text-brand-400 hover:text-brand-300">One Post AI</a></span>
+              <span>·</span>
+              <a href="https://aurahaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300">Shop Aura Haven</a>
+            </div>
             <div>&copy; {new Date().getFullYear()} Axel AI AI Inc. All rights reserved.</div>
           </div>
         </div>

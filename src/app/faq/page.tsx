@@ -149,6 +149,8 @@ export default function FAQPage() {
             <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
             <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
             <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+            <a href="https://onepostai.app" target="_blank" className="hover:text-white transition-colors">One Post AI</a>
+            <a href="https://aurahaven.shop" target="_blank" className="hover:text-white transition-colors">Aura Haven</a>
           </div>
           <div className="text-center md:text-right">
             <div className="flex items-center justify-center md:justify-end gap-2 text-emerald-400 text-xs mb-1">
