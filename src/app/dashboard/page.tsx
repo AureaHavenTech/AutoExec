@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -141,6 +142,36 @@ export default function DashboardPage() {
             <Mail className="h-5 w-5" />
           </div>
         </Card>
+      </div>
+
+      {/* Marketing Tools */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Link href="/dashboard/marketing">
+          <Card className="p-4 bg-slate-900/30 border-slate-900 hover:border-brand-500/50 transition-all cursor-pointer group">
+             <div className="flex items-center gap-4">
+               <div className="h-12 w-12 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-slate-950 transition-all">
+                 <Zap className="h-6 w-6" />
+               </div>
+               <div>
+                 <h3 className="text-lg font-bold text-white">Marketing Engine</h3>
+                 <p className="text-xs text-slate-500">Research channels & strategy</p>
+               </div>
+             </div>
+          </Card>
+        </Link>
+        <Link href="/dashboard/tools/ad-generator">
+          <Card className="p-4 bg-slate-900/30 border-slate-900 hover:border-brand-500/50 transition-all cursor-pointer group">
+             <div className="flex items-center gap-4">
+               <div className="h-12 w-12 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-400 group-hover:bg-brand-500 group-hover:text-slate-950 transition-all">
+                 <ImageIcon className="h-6 w-6" />
+               </div>
+               <div>
+                 <h3 className="text-lg font-bold text-white">Ad Generator</h3>
+                 <p className="text-xs text-slate-500">Create visuals & copy</p>
+               </div>
+             </div>
+          </Card>
+        </Link>
       </div>
 
       {/* Photo Upload */}

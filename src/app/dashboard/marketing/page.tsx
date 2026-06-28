@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { 
   Zap, 
   Search, 
@@ -14,7 +15,8 @@ import {
   Sparkles,
   Loader2,
   Copy,
-  ChevronRight
+  ChevronRight,
+  ImageIcon
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -230,20 +232,29 @@ export default function MarketingPage() {
                 </div>
               </div>
 
-              <Card className="p-6 bg-brand-600/10 border-brand-500/20 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-xl bg-brand-600 flex items-center justify-center text-white">
-                    <CheckCircle2 className="h-6 w-6" />
-                  </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card className="p-6 bg-brand-600/10 border-brand-500/20 flex flex-col justify-between">
                   <div>
-                    <h4 className="text-lg font-bold text-white">Ready to execute?</h4>
-                    <p className="text-sm text-slate-400">Axel AI can help you build the landing pages and draft the emails for this strategy.</p>
+                    <h4 className="text-lg font-bold text-white">Need Visuals?</h4>
+                    <p className="text-sm text-slate-400 mt-2">Generate high-converting ad images and copy for these channels in seconds.</p>
                   </div>
-                </div>
-                <Button className="bg-white text-black hover:bg-slate-200">
-                  Execute Plan <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Card>
+                  <Link href="/dashboard/tools/ad-generator" className="mt-4">
+                    <Button className="w-full bg-brand-600 hover:bg-brand-700 text-white">
+                      Try Ad Generator <ImageIcon className="h-4 w-4 ml-2" />
+                    </Button>
+                  </Link>
+                </Card>
+
+                <Card className="p-6 bg-slate-900/40 border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <h4 className="text-lg font-bold text-white">Execute Plan</h4>
+                    <p className="text-sm text-slate-400 mt-2">Axel AI can help you build the landing pages and draft the emails for this strategy.</p>
+                  </div>
+                  <Button variant="outline" className="mt-4 border-slate-700 hover:bg-slate-800">
+                    Get Started <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </Card>
+              </div>
             </div>
           )}
         </div>
