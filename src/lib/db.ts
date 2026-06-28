@@ -40,10 +40,6 @@ export function getDb() {
   init();
   return {
     prepare(sql: string) {
-      const isSelect = sql.trim().startsWith('SELECT');
-      const isInsert = sql.trim().startsWith('INSERT');
-      const isUpdate = sql.trim().startsWith('UPDATE');
-
       return {
         get: (...params: any[]) => {
           if (sql.includes('admin_codes')) {
@@ -54,6 +50,12 @@ export function getDb() {
           if (sql.includes('users WHERE is_admin')) return store.users.find(u => u.is_admin === 1) || null;
           if (sql.includes('subscriptions WHERE user_id')) return store.subscriptions.find(s => s.user_id === params[0]) || null;
           return null;
+        },
+        all: (...params: any[]) => {
+          if (sql.includes('admin_codes')) return store.adminCodes;
+          if (sql.includes('users')) return store.users;
+          if (sql.includes('subscriptions')) return store.subscriptions;
+          return [];
         },
         run: (...params: any[]) => {
           if (sql.includes('INSERT INTO users') && sql.includes('password_hash')) {

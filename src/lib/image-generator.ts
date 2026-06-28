@@ -10,7 +10,8 @@ export async function generateImage(prompt: string): Promise<string | null> {
       quality: "standard",
     });
 
-    return response.data[0]?.url || null;
+    const imageData = response.data?.[0];
+    return imageData?.url || null;
   } catch (error: any) {
     console.error("Image generation error:", error);
     return null;
@@ -29,7 +30,8 @@ export async function generateAdImage(productDescription: string, brand: string,
       quality: "hd",
     });
 
-    return response.data[0]?.url || null;
+    const adImageData = response.data?.[0];
+    return adImageData?.url || null;
   } catch (error: any) {
     console.error("Ad image generation error:", error);
     return null;
