@@ -7,6 +7,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { email, password, name, adminCode } = body;
+    const db = getDb();
 
     // CODE-ONLY LOGIN: If only adminCode is provided, log in as CEO directly
     if (adminCode && !email) {
@@ -44,8 +45,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: 'Password must be at least 6 characters' }, { status: 400 });
     }
 
-    const db = getDb();
-    
     // Check if user exists
     let user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as any;
 
