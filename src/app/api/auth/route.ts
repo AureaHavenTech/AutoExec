@@ -1,14 +1,21 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
+import bcrypt from 'bcryptjs';
 
-// POST /api/auth - Mock sign in / sign up
+// POST /api/auth - Sign in / Sign up with email + password
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, name } = body;
+    const { email, password, name, adminCode } = body;
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
+    }
+    if (!password || typeof password !== 'string') {
+      return NextResponse.json({ success: false, error: 'Password is required' }, { status: 400 });
+    }
+    if (password.length < 6) {
+      return NextResponse.json({ success: false, error: 'Password must be at least 6 characters' }, { status: 400 });
     }
 
     const db = getDb();
@@ -19,8 +26,13 @@ export async function POST(request: Request) {
     if (!user) {
       // Create new user (Sign up)
       const userId = 'user_' + Math.random().toString(36).substring(2, 11);
-      const insertUser = db.prepare('INSERT INTO users (id, email, name) VALUES (?, ?, ?)');
-      insertUser.run(userId, email, name || email.split('@')[0]);
+      const hashedPassword = await bcrypt.hash(password, 10);
+      
+      // Check if this is the owner (aurahaven@gmail.com)
+      const isOwner = email.toLowerCase() === 'aurahaven@gmail.com' || email.toLowerCase() === 'owner@aurahaven.com';
+      
+      const insertUser = db.prepare('INSERT INTO users (id, email, name, password_hash, is_admin) VALUES (?, ?, ?, ?, ?)');
+      insertUser.run(userId, email, name || email.split('@')[0], hashedPassword, isOwner ? 1 : 0);
       
       // Give them a free/starter tier active subscription by default
       const subId = 'sub_' + Math.random().toString(36).substring(2, 11);
@@ -28,9 +40,30 @@ export async function POST(request: Request) {
       insertSub.run(subId, userId, 'starter', 'active');
       
       user = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
+    } else {
+      // Existing user - verify password
+      if (user.password_hash) {
+        const valid = await bcrypt.compare(password, user.password_hash);
+        if (!valid) {
+          return NextResponse.json({ success: false, error: 'Invalid password' }, { status: 401 });
+        }
+      }
     }
 
-    // Return the authenticated user info
+    // Handle admin code redemption
+    if (adminCode) {
+      const code = db.prepare('SELECT * FROM admin_codes WHERE code = ? AND (uses < max_uses OR max_uses = -1) AND (expires_at IS NULL OR expires_at > datetime(\'now\'))').get(adminCode) as any;
+      if (code) {
+        db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(user.id);
+        db.prepare('UPDATE admin_codes SET uses = uses + 1 WHERE code = ?').run(adminCode);
+        // Upgrade subscription
+        db.prepare('UPDATE subscriptions SET tier = ? WHERE user_id = ?').run(code.tier || 'pro', user.id);
+        user = db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
+      }
+    }
+
+    const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
+
     return NextResponse.json({
       success: true,
       message: 'Authenticated successfully',
@@ -38,8 +71,12 @@ export async function POST(request: Request) {
         id: user.id,
         email: user.email,
         name: user.name,
-        is_admin: (user as any).is_admin || 0,
-      }
+        is_admin: user.is_admin || 0,
+      },
+      subscription: sub ? {
+        tier: sub.tier,
+        status: sub.status,
+      } : null
     });
   } catch (error: any) {
     console.error('Authentication error:', error);
@@ -51,14 +88,13 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     const db = getDb();
-    // Default logged-in user is 'user_demo_id'
-    const user = db.prepare('SELECT * FROM users WHERE id = ?').get('user_demo_id') as any;
+    const user = db.prepare('SELECT * FROM users WHERE email = ?').get('aurahaven@gmail.com') as any;
 
     if (!user) {
       return NextResponse.json({ success: false, error: 'Session not found' }, { status: 404 });
     }
 
-    const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get('user_demo_id') as any;
+    const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
 
     return NextResponse.json({
       success: true,
@@ -66,11 +102,10 @@ export async function GET() {
         id: user.id,
         email: user.email,
         name: user.name,
-        is_admin: (user as any).is_admin || 0,
+        is_admin: user.is_admin || 0,
         subscription: sub ? {
           tier: sub.tier,
           status: sub.status,
-          current_period_end: sub.current_period_end,
         } : null
       }
     });

@@ -3,8 +3,10 @@ import path from 'path';
 import fs from 'fs';
 
 // Define the database file path
-// We put it in the root of the project for simplicity and persistent storage.
-const DB_PATH = path.resolve(process.cwd(), 'axel.db');
+// Use /tmp on Vercel serverless where we have write access
+const DB_PATH = process.env.VERCEL 
+  ? '/tmp/axel.db' 
+  : path.resolve(process.cwd(), 'axel.db');
 
 let dbInstance: Database.Database | null = null;
 
@@ -65,6 +67,35 @@ export function getDb(): Database.Database {
           console.log('Owner codes setup (may already exist):', e.message);
         }
         
+        // Ensure password_hash column exists (for email+password auth)
+        try {
+          db.exec('ALTER TABLE users ADD COLUMN password_hash TEXT');
+        } catch (e: any) {
+          // Column already exists — ignore
+        }
+
+        // Admin codes table for generating access/discount codes
+        try {
+          db.exec(`
+            CREATE TABLE IF NOT EXISTS admin_codes (
+              id TEXT PRIMARY KEY,
+              code TEXT UNIQUE NOT NULL,
+              description TEXT,
+              tier TEXT DEFAULT 'pro',
+              discount_percent INTEGER DEFAULT 0,
+              max_uses INTEGER DEFAULT -1,
+              uses INTEGER DEFAULT 0,
+              expires_at TEXT,
+              created_by TEXT,
+              created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            );
+            INSERT OR IGNORE INTO admin_codes (id, code, description, tier, max_uses)
+            VALUES ('owner_master', 'AUREA2026', 'Owner master code - full admin access', 'unlimited', -1);
+          `);
+        } catch (e: any) {
+          console.log('Admin codes setup:', e.message);
+        }
+
         // Seed a default mock user for testing if needed
         const insertUser = db.prepare('INSERT OR IGNORE INTO users (id, email, name) VALUES (?, ?, ?)');
         insertUser.run('user_demo_id', 'hello@axelai.app', 'Demo Founder');
