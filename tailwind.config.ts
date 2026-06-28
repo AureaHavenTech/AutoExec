@@ -20,8 +20,8 @@ const config: Config = {
           600: '#6e6052',
           700: '#544840',
           800: '#3a322e',
-          900: '#26211e',
-          950: '#181512',
+          900: '#12121a', // Exact match for brand dark gray
+          950: '#0a0a0f', // Slightly darker
         },
         brand: {
           50: '#faf8f5',
@@ -29,7 +29,7 @@ const config: Config = {
           200: '#ebe0cc',
           300: '#dcc8a8',
           400: '#d4b87a',
-          500: '#c4a055', // warm champagne gold - not yellow/brown
+          500: '#c9a96e', // Exact match for brand champagne gold
           600: '#a88640',
           700: '#8a6b36',
           800: '#6e552b',
@@ -42,7 +42,7 @@ const config: Config = {
           200: '#ebe0cc',
           300: '#dcc8a8',
           400: '#d4b87a',
-          500: '#c4a055', // warm champagne accent
+          500: '#c9a96e', // match champagne gold
           600: '#a88640',
           700: '#8a6b36',
           800: '#6e552b',
