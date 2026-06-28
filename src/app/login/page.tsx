@@ -15,8 +15,9 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loginMode, setLoginMode] = useState<"code" | "email">("code");
-  const [adminCode, setAdminCode] = useState("");
+  const [showCodeField, setShowCodeField] = useState(false);
+  const [accessCode, setAccessCode] = useState("");
+  const [isCodeLogin, setIsCodeLogin] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,14 +27,14 @@ export default function LoginPage() {
     try {
       let body: any = {};
 
-      if (loginMode === "code") {
-        // Code-only login
-        if (!adminCode) {
+      // If "Access Code" tab is selected, do code-only login
+      if (isCodeLogin) {
+        if (!accessCode) {
           setError("Enter your access code");
           setLoading(false);
           return;
         }
-        body = { adminCode };
+        body = { adminCode: accessCode };
       } else {
         // Email + password login
         if (!email || !password) {
@@ -41,7 +42,12 @@ export default function LoginPage() {
           setLoading(false);
           return;
         }
-        body = { email, password, name, adminCode: adminCode || undefined };
+        body = { email, password, name };
+
+        // If they also entered a code, send it along
+        if (accessCode) {
+          body.adminCode = accessCode;
+        }
       }
 
       const res = await fetch("/api/auth", {
@@ -81,55 +87,36 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Mode Toggle */}
-          <div className="flex gap-2 mb-6 bg-slate-800/30 rounded-xl p-1">
-            <button
-              type="button"
-              onClick={() => setLoginMode("code")}
-              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                loginMode === "code" 
-                  ? "bg-brand-500 text-slate-950 shadow-lg" 
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              <Crown className="h-4 w-4 inline mr-1.5" />
-              Access Code
-            </button>
-            <button
-              type="button"
-              onClick={() => setLoginMode("email")}
-              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                loginMode === "email" 
-                  ? "bg-brand-500 text-slate-950 shadow-lg" 
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              <Mail className="h-4 w-4 inline mr-1.5" />
-              Email & Password
-            </button>
-          </div>
-
           <form onSubmit={handleLogin} className="space-y-4">
-            {loginMode === "code" ? (
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-yellow-500/80 flex items-center gap-1.5 ml-1">
-                  <Crown className="h-4 w-4" /> Access Code
-                </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-5 w-5 text-yellow-500/40" />
-                  <input
-                    type="text"
-                    placeholder="Enter your access code"
-                    value={adminCode}
-                    onChange={(e) => setAdminCode(e.target.value)}
-                    className="w-full bg-yellow-500/5 border border-yellow-500/20 rounded-xl py-2.5 pl-11 pr-4 text-white placeholder:text-yellow-900/40 focus:outline-none focus:ring-2 focus:ring-yellow-500/30 focus:border-yellow-500/30 transition-all"
-                    autoFocus
-                  />
+            {isCodeLogin ? (
+              <>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-yellow-500/80 flex items-center gap-1.5 ml-1">
+                    <Crown className="h-4 w-4" /> Access Code
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-5 w-5 text-yellow-500/40" />
+                    <input
+                      type="text"
+                      placeholder="Enter your access code"
+                      value={accessCode}
+                      onChange={(e) => setAccessCode(e.target.value)}
+                      className="w-full bg-yellow-500/5 border border-yellow-500/20 rounded-xl py-2.5 pl-11 pr-4 text-white placeholder:text-yellow-900/40 focus:outline-none focus:ring-2 focus:ring-yellow-500/30 focus:border-yellow-500/30 transition-all"
+                      autoFocus
+                    />
+                  </div>
+                  <p className="text-[10px] text-yellow-500/30 ml-1">Owner? Use AUREA2026 for CEO access</p>
                 </div>
-                <p className="text-xs text-yellow-500/40 ml-1">Enter AUREA2026 for CEO access</p>
-              </div>
+                <button
+                  type="button"
+                  onClick={() => setIsCodeLogin(false)}
+                  className="text-xs text-slate-500 hover:text-brand-400 transition-colors"
+                >
+                  ← Sign in with email instead
+                </button>
+              </>
             ) : (
-              <div className="space-y-4">
+              <>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-300 ml-1">Email Address</label>
                   <div className="relative">
@@ -169,18 +156,49 @@ export default function LoginPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-300 ml-1">Full Name (Optional)</label>
-                  <div className="relative">
+                  <label className="text-sm font-medium text-slate-300 ml-1">Full Name <span className="text-slate-500">(optional)</span></label>
+                  <input
+                    type="text"
+                    placeholder="Jane Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2.5 px-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all"
+                  />
+                </div>
+
+                {/* Code field (hidden until clicked) */}
+                {showCodeField && (
+                  <div className="space-y-2 pt-1 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <label className="text-xs font-medium text-yellow-500/60 flex items-center gap-1.5 ml-1">
+                      <Crown className="h-3 w-3" /> Access / Promo / Discount Code
+                    </label>
                     <input
                       type="text"
-                      placeholder="Jane Doe"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2.5 px-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all"
+                      placeholder="Enter code"
+                      value={accessCode}
+                      onChange={(e) => setAccessCode(e.target.value)}
+                      className="w-full bg-yellow-500/5 border border-yellow-500/20 rounded-xl py-2 px-4 text-sm text-white placeholder:text-yellow-900/40 focus:outline-none focus:ring-2 focus:ring-yellow-500/30 focus:border-yellow-500/30 transition-all"
                     />
                   </div>
+                )}
+
+                <div className="flex items-center justify-between pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowCodeField(!showCodeField)}
+                    className="text-xs text-slate-500 hover:text-brand-400 transition-colors"
+                  >
+                    {showCodeField ? "− Hide code field" : "+ Have an access / promo / discount code?"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsCodeLogin(true)}
+                    className="text-xs text-yellow-500/50 hover:text-yellow-400 transition-colors"
+                  >
+                    CEO? Sign in with code
+                  </button>
                 </div>
-              </div>
+              </>
             )}
 
             {error && (
