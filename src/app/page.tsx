@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Footer } from "@/components/ui/footer";
 import { 
   Bot, 
   Check, 
@@ -44,6 +45,11 @@ export default function LandingPage() {
       icon: Sparkles,
       title: "Context-Aware Leads",
       description: "Filter leads dynamically by specific triggers, e.g., 'SaaS companies in SF hiring full-stack devs'.",
+    },
+    {
+      icon: Zap,
+      title: "OnePost AI Integration",
+      description: "Automatically send research data to OnePost AI to generate viral content and schedule posts across all socials.",
     }
   ];
 
@@ -435,35 +441,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 py-12 px-6 bg-slate-950 text-slate-500 text-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white tracking-tight">Axel AI</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
-            <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
-          </div>
-          <div className="text-center md:text-right">
-            <div className="flex items-center gap-2 text-emerald-400 text-xs mb-1">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>30-day money-back guarantee</span>
-            </div>
-            <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-xs text-slate-500 mb-1">
-              <span>Works alongside <a href="https://onepostai.app" target="_blank" className="text-brand-400 hover:text-brand-300">One Post AI</a></span>
-              <span>·</span>
-              <a href="https://aurahaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300">Shop Aura Haven</a>
-            </div>
-            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc. All rights reserved.</div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
