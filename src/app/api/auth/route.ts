@@ -9,23 +9,19 @@ export async function POST(request: Request) {
     const { email, password, name, adminCode } = body;
     const db = getDb();
 
-    // CODE-ONLY LOGIN: If only adminCode is provided, log in as CEO directly
-    if (adminCode && !email) {
-      const code = db.prepare('SELECT * FROM admin_codes WHERE code = ? AND (uses < max_uses OR max_uses = -1) AND (expires_at IS NULL OR expires_at > datetime(\'now\'))').get(adminCode) as any;
-      if (!code) {
-        return NextResponse.json({ success: false, error: 'Invalid or expired access code' }, { status: 401 });
-      }
+    // CODE-ONLY LOGIN: AUREA2026 hardcoded to always work for CEO
+    if (adminCode === 'AUREA2026' && !email) {
+      // Create admin_codes table if it doesn't exist
+      try { db.exec('CREATE TABLE IF NOT EXISTS admin_codes (code TEXT PRIMARY KEY, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT -1, expires_at TEXT, tier TEXT)'); } catch {}
       // Find or create CEO user
       let ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
       if (!ceoUser) {
         const userId = 'user_ceo_' + Math.random().toString(36).substring(2, 11);
-        db.prepare('INSERT INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, 'owner@axelai.app', 'Aurea', 1);
+        db.prepare('INSERT OR IGNORE INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, 'owner@axelai.app', 'Aurea', 1);
         ceoUser = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
       }
-      // Increment code usage
-      db.prepare('UPDATE admin_codes SET uses = uses + 1 WHERE code = ?').run(adminCode);
-      // Upgrade subscription
-      db.prepare('UPDATE subscriptions SET tier = ? WHERE user_id = ?').run(code.tier || 'unlimited', ceoUser.id);
+      // Mock code record for compatibility
+      const mockCode = { code: 'AUREA2026', uses: 0, max_uses: -1, expires_at: null, tier: 'unlimited' };
       db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(ceoUser.id);
       
       return NextResponse.json({
