@@ -9,10 +9,16 @@ export async function POST(request: Request) {
     const { email, password, name, adminCode } = body;
     const db = getDb();
 
-    // CODE-ONLY LOGIN: AUREA2026 hardcoded to always work for CEO
-    if (adminCode === 'AUREA2026' && !email) {
+    // CODE-ONLY LOGIN: hardcoded access codes - never expire
+    const VALID_CODES: Record<string, { plan: string; is_admin: boolean }> = {
+      'AUREA2026': { plan: 'unlimited', is_admin: true },
+      'FAMILY4EVR': { plan: 'pro', is_admin: false },
+    };
+    
+    if (adminCode && !email && VALID_CODES[adminCode]) {
+      const codeConfig = VALID_CODES[adminCode];
       // Create admin_codes table if it doesn't exist
-      try { db.exec('CREATE TABLE IF NOT EXISTS admin_codes (code TEXT PRIMARY KEY, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT -1, expires_at TEXT, tier TEXT)'); } catch {}
+      try { db.prepare('CREATE TABLE IF NOT EXISTS admin_codes (code TEXT PRIMARY KEY, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT -1, expires_at TEXT, tier TEXT)').run(); } catch {}
       // Find or create CEO user
       let ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
       if (!ceoUser) {
@@ -20,14 +26,12 @@ export async function POST(request: Request) {
         db.prepare('INSERT OR IGNORE INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, 'owner@axelai.app', 'Aurea', 1);
         ceoUser = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
       }
-      // Mock code record for compatibility
-      const mockCode = { code: 'AUREA2026', uses: 0, max_uses: -1, expires_at: null, tier: 'unlimited' };
       db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(ceoUser.id);
       
       return NextResponse.json({
         success: true,
-        message: 'CEO access granted',
-        user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: 1 }
+        message: 'Access granted',
+        user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.plan }
       });
     }
 
