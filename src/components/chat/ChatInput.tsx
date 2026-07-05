@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Loader2, Sparkles, Zap } from "lucide-react";
+import { Send, Loader2, Sparkles, Zap, Mic, MicOff } from "lucide-react";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -18,7 +18,9 @@ const EXAMPLE_PROMPTS = [
 export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
   const [input, setInput] = useState("");
   const [showExamples, setShowExamples] = useState(true);
+  const [isListening, setIsListening] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<any>(null);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -28,6 +30,63 @@ export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
       textarea.style.height = Math.min(textarea.scrollHeight, 200) + "px";
     }
   }, [input]);
+
+  // Cleanup speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.abort();
+      }
+    };
+  }, []);
+
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+      return;
+    }
+
+    // Check if browser supports SpeechRecognition
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      setInput("⚠️ Speech recognition is not supported in this browser. Try Chrome or Edge.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = (event: any) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      setInput((prev) => prev + transcript);
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      recognitionRef.current.abort();
+      recognitionRef.current = null;
+    }
+    setIsListening(false);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,6 +151,20 @@ export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
             disabled={disabled}
             className="flex-1 bg-transparent text-sm text-slate-200 placeholder-slate-500 resize-none outline-none px-3 py-2 max-h-[200px] leading-relaxed min-h-[44px]"
           />
+          {/* Microphone button */}
+          <button
+            type="button"
+            onClick={toggleListening}
+            disabled={disabled}
+            className={`h-10 w-10 flex items-center justify-center rounded-xl transition-all duration-200 shrink-0 ${
+              isListening
+                ? "bg-rose-500 text-white shadow-lg shadow-rose-500/30 animate-pulse"
+                : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white border border-slate-700"
+            }`}
+            title={isListening ? "Stop listening" : "Voice input"}
+          >
+            {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+          </button>
           <button
             type="submit"
             disabled={disabled || !input.trim()}
@@ -105,7 +178,7 @@ export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {
           </button>
         </div>
         <p className="text-[10px] text-slate-600 mt-1.5 px-1">
-          {disabled ? "Axel AI is processing your request..." : "Press Enter to send · Shift+Enter for new line"}
+          {disabled ? "Axel AI is processing your request..." : "Press Enter to send · Shift+Enter for new line · Click 🎤 for voice input"}
         </p>
       </form>
     </div>
