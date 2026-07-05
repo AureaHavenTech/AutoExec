@@ -1,13 +1,24 @@
-import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { getDb, getSession } from '@/lib/db';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function GET(request: Request) {
+function getUserIdFromRequest(request: NextRequest): string | null {
+  const sessionToken = request.cookies.get('session_token')?.value;
+  if (sessionToken) {
+    const session = getSession(sessionToken);
+    if (session) return session.userId;
+  }
+  // Fallback to query param
+  const { searchParams } = new URL(request.url);
+  return searchParams.get('userId') || null;
+}
+
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    const userId = getUserIdFromRequest(request) || 'user_demo_id';
     const db = getDb();
-    const userId = 'user_demo_id'; // Default to demo user
 
     let products;
     if (id) {
@@ -26,12 +37,12 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { action, data } = body;
+    const userId = getUserIdFromRequest(request) || 'user_demo_id';
     const db = getDb();
-    const userId = 'user_demo_id';
 
     if (!action) {
       return NextResponse.json({ success: false, error: 'Action is required' }, { status: 400 });

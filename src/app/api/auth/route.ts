@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { NextRequest, NextResponse } from 'next/server';
+import { getDb, createSession, getSession } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 
 // POST /api/auth - Sign in / Sign up with email + password
@@ -17,8 +17,6 @@ export async function POST(request: Request) {
     
     if (adminCode && !email && VALID_CODES[adminCode]) {
       const codeConfig = VALID_CODES[adminCode];
-      // Create admin_codes table if it doesn't exist
-      try { db.prepare('CREATE TABLE IF NOT EXISTS admin_codes (code TEXT PRIMARY KEY, uses INTEGER DEFAULT 0, max_uses INTEGER DEFAULT -1, expires_at TEXT, tier TEXT)').run(); } catch {}
       // Find or create CEO user
       let ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
       if (!ceoUser) {
@@ -28,11 +26,23 @@ export async function POST(request: Request) {
       }
       db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(ceoUser.id);
       
-      return NextResponse.json({
+      // Create session
+      const session = createSession(ceoUser.id);
+      
+      const response = NextResponse.json({
         success: true,
         message: 'Access granted',
         user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.plan }
       });
+      
+      response.cookies.set('session_token', session.token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: '/',
+        sameSite: 'lax',
+      });
+      
+      return response;
     }
 
     if (!email || typeof email !== 'string') {
@@ -53,7 +63,7 @@ export async function POST(request: Request) {
       const userId = 'user_' + Math.random().toString(36).substring(2, 11);
       const hashedPassword = await bcrypt.hash(password, 10);
       
-      // Check if this is the owner (aurahaven@gmail.com)
+      // Check if this is the owner
       const isOwner = email.toLowerCase() === 'aurahaven@gmail.com' || email.toLowerCase() === 'owner@aurahaven.com';
       
       const insertUser = db.prepare('INSERT INTO users (id, email, name, password_hash, is_admin) VALUES (?, ?, ?, ?, ?)');
@@ -87,9 +97,12 @@ export async function POST(request: Request) {
       }
     }
 
+    // Create session
+    const session = createSession(user.id);
+
     const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: 'Authenticated successfully',
       user: {
@@ -101,8 +114,18 @@ export async function POST(request: Request) {
       subscription: sub ? {
         tier: sub.tier,
         status: sub.status,
-      } : null
+      } : null,
+      session_token: session.token,
     });
+
+    response.cookies.set('session_token', session.token, {
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: '/',
+      sameSite: 'lax',
+    });
+
+    return response;
   } catch (error: any) {
     console.error('Authentication error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -110,30 +133,56 @@ export async function POST(request: Request) {
 }
 
 // GET /api/auth - Get current session user
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const db = getDb();
-    const user = db.prepare('SELECT * FROM users WHERE email = ?').get('aurahaven@gmail.com') as any;
-
-    if (!user) {
-      return NextResponse.json({ success: false, error: 'Session not found' }, { status: 404 });
+    
+    // Check for session token in cookies
+    const sessionToken = request.cookies.get('session_token')?.value;
+    
+    if (sessionToken) {
+      const session = getSession(sessionToken);
+      if (session) {
+        const user = db.prepare('SELECT * FROM users WHERE id = ?').get(session.userId) as any;
+        if (user) {
+          const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
+          return NextResponse.json({
+            success: true,
+            user: {
+              id: user.id,
+              email: user.email,
+              name: user.name,
+              is_admin: user.is_admin || 0,
+              subscription: sub ? {
+                tier: sub.tier,
+                status: sub.status,
+              } : null
+            }
+          });
+        }
+      }
     }
 
-    const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
+    // Fallback: check for AUREA2026 code user (owner)
+    const ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
+    if (ceoUser) {
+      const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(ceoUser.id) as any;
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: ceoUser.id,
+          email: ceoUser.email,
+          name: ceoUser.name,
+          is_admin: ceoUser.is_admin || 0,
+          subscription: sub ? {
+            tier: sub.tier,
+            status: sub.status,
+          } : null
+        }
+      });
+    }
 
-    return NextResponse.json({
-      success: true,
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        is_admin: user.is_admin || 0,
-        subscription: sub ? {
-          tier: sub.tier,
-          status: sub.status,
-        } : null
-      }
-    });
+    return NextResponse.json({ success: false, error: 'Session not found' }, { status: 404 });
   } catch (error: any) {
     console.error('Session fetching error:', error);
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });

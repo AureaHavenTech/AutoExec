@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Footer } from "@/components/ui/footer";
 import { Zap, ShieldCheck, Users, Quote, Sparkles, Heart, ArrowRight, Camera } from "lucide-react";
 
 export default function AboutPage() {
@@ -154,24 +155,25 @@ export default function AboutPage() {
             {/* Sister Companies */}
             <section className="mb-24 text-center">
               <div className="bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 rounded-2xl p-10 md:p-14">
-                <h2 className="text-2xl font-bold text-white mb-3">The Sister Companies</h2>
-                <p className="text-slate-400 text-sm mb-6 max-w-lg mx-auto">
-                  All built by the same founder to help you create, grow, and thrive.
+                <Badge variant="info" className="mb-4">The Aura Haven Tech Family</Badge>
+                <h2 className="text-3xl font-bold text-white mb-3">Our Sister Companies</h2>
+                <p className="text-slate-400 text-sm mb-8 max-w-lg mx-auto">
+                  Tools built to help you create, grow, and thrive across every part of your business.
                 </p>
-                <div className="flex flex-wrap justify-center gap-6">
-                  <a href="https://onepostai.app" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200">
-                    <span className="w-7 h-7 rounded-md bg-gradient-to-br from-[#c9a96e] to-[#b8944a] flex items-center justify-center text-white font-bold text-xs">1P</span>
-                    <span className="text-left">
-                      <div className="text-sm font-semibold text-white">One Post AI</div>
-                      <div className="text-xs text-slate-500">Content that moves</div>
-                    </span>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <a href="https://onepostai.ctonew.app" target="_blank" className="flex items-center gap-4 p-6 rounded-2xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-brand-500/30 transition-all duration-300 group">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a96e] to-[#b8944a] flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">1P</div>
+                    <div className="text-left">
+                      <div className="text-lg font-bold text-white">One Post AI</div>
+                      <div className="text-sm text-slate-500">Content that moves. One app for all your social media.</div>
+                    </div>
                   </a>
-                  <a href="https://aurahaven.shop" target="_blank" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-brand-500/30 text-slate-300 hover:text-white transition-all duration-200">
-                    <span className="w-7 h-7 rounded-md bg-gradient-to-br from-[#c9a96e] to-[#e8e0d4] flex items-center justify-center text-white font-bold text-xs">AH</span>
-                    <span className="text-left">
-                      <div className="text-sm font-semibold text-white">Aura Haven</div>
-                      <div className="text-xs text-slate-500">Premium tech for modern living</div>
-                    </span>
+                  <a href="https://aurahaven.shop" target="_blank" className="flex items-center gap-4 p-6 rounded-2xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-brand-500/30 transition-all duration-300 group">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#c9a96e] to-[#e8e0d4] flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">AH</div>
+                    <div className="text-left">
+                      <div className="text-lg font-bold text-white">Aura Haven</div>
+                      <div className="text-sm text-slate-500">Premium tech for modern living. Luxury quality gadgets.</div>
+                    </div>
                   </a>
                 </div>
               </div>
@@ -245,31 +247,7 @@ export default function AboutPage() {
         </div>
       </main>
 
-      {/* Footer - consistent with landing page */}
-      <footer className="border-t border-slate-900 py-12 px-6 text-slate-500 text-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">Axel AI</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
-            <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
-            <a href="https://onepostai.app" target="_blank" className="hover:text-white transition-colors">One Post AI</a>
-            <a href="https://aurahaven.shop" target="_blank" className="hover:text-white transition-colors">Aura Haven</a>
-          </div>
-          <div className="text-center md:text-right">
-            <div className="flex items-center justify-center md:justify-end gap-2 text-emerald-400 text-xs mb-1">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>30-day money-back guarantee</span>
-            </div>
-            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

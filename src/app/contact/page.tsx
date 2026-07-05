@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Footer } from "@/components/ui/footer";
 import { Zap, Mail, Send, Loader2, CheckCircle2, MessageSquare, ShieldCheck } from "lucide-react";
 
 export default function ContactPage() {
@@ -105,30 +106,7 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <footer className="border-t border-slate-900 py-12 px-6 text-slate-500 text-sm">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white">Axel AI</span>
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-slate-400 mb-4 md:mb-0">
-            <Link href="/about" className="hover:text-white transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-            <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
-            <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
-            <a href="https://onepostai.app" target="_blank" className="hover:text-white transition-colors">One Post AI</a>
-            <a href="https://aurahaven.shop" target="_blank" className="hover:text-white transition-colors">Aura Haven</a>
-          </div>
-          <div className="text-center md:text-right">
-            <div className="flex items-center justify-center md:justify-end gap-2 text-emerald-400 text-xs mb-1">
-              <ShieldCheck className="h-3.5 w-3.5" />
-              <span>30-day money-back guarantee</span>
-            </div>
-            <div>&copy; {new Date().getFullYear()} Axel AI AI Inc.</div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

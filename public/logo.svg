@@ -1,43 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80" width="100%" height="100%">
   <defs>
-    <!-- Premium Gold Gradient -->
-    <linearGradient id="goldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#a8883a" />
-      <stop offset="50%" stop-color="#d4af37" />
-      <stop offset="100%" stop-color="#f5e6a3" />
+    <!-- Bold Gold Gradient for premium look -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37" />
+      <stop offset="50%" stop-color="#c9a96e" />
+      <stop offset="100%" stop-color="#b8962e" />
     </linearGradient>
-    <!-- Dark gradient -->
+    <!-- Dark gradient for contrast -->
     <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2a2a3a" />
-      <stop offset="100%" stop-color="#1a1a2a" />
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e8e0d4" />
     </linearGradient>
-    <!-- Subtle glow -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-      <feMerge>
-        <feMergeNode in="coloredBlur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
-  
-  <!-- Steering wheel icon - small, elegant accent like Chanel's interlocking Cs -->
+  <!-- Steering wheel icon - bolder, more solid like Chanel's interlocking Cs -->
   <g transform="translate(8, 24) scale(0.55)">
-    <circle cx="24" cy="24" r="22" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" />
-    <circle cx="24" cy="24" r="6" fill="url(#goldGrad)" opacity="0.9" />
-    <line x1="24" y1="2" x2="24" y2="12" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
-    <line x1="44" y1="18" x2="36" y2="22" stroke="url(#goldGrad)" stroke-width="2.8" stroke-linecap="round" />
-    <line x1="44" y1="30" x2="36" y2="26" stroke="url(#goldGrad)" stroke-width="2.8" stroke-linecap="round" />
-    <line x1="24" y1="46" x2="24" y2="36" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
-    <polygon points="24,17 27,22 24,27 21,22" fill="url(#goldGrad)" opacity="0.5" />
+    <circle cx="24" cy="24" r="22" fill="none" stroke="url(#goldGrad)" stroke-width="5" />
+    <circle cx="24" cy="24" r="8" fill="url(#goldGrad)" />
+    <line x1="24" y1="2" x2="24" y2="12" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" />
+    <line x1="44" y1="18" x2="36" y2="22" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+    <line x1="44" y1="30" x2="36" y2="26" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+    <line x1="24" y1="46" x2="24" y2="36" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round" />
   </g>
-  
-  <!-- Bold, premium wordmark - AXEL in Playfair Display like a luxury brand -->
-  <text x="52" y="42" font-family="'Playfair Display', Georgia, serif" font-size="42" font-weight="700" fill="#e8e0d4" letter-spacing="6">AXEL</text>
-  
-  <!-- AI in gold - smaller, sophisticated -->
-  <text x="52" y="62" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="300" fill="url(#goldGrad)" letter-spacing="10">AI</text>
-  
-  <!-- Gold line accent - like a designer brand detail -->
-  <line x1="52" y1="48" x2="185" y2="48" stroke="url(#goldGrad)" stroke-width="0.5" opacity="0.4" />
+  <!-- Bold, premium wordmark - AXEL in bold gold like Chanel lettering -->
+  <text x="52" y="42" font-family="'Playfair Display', Georgia, serif" font-size="42" font-weight="900" fill="url(#goldGrad)" letter-spacing="6">AXEL</text>
+  <!-- AI in smaller, still bold gold -->
+  <text x="52" y="62" font-family="'Inter', system-ui, sans-serif" font-size="14" font-weight="700" fill="url(#goldGrad)" letter-spacing="10">AI</text>
+  <!-- Gold line accent -->
+  <line x1="52" y1="48" x2="185" y2="48" stroke="url(#goldGrad)" stroke-width="1" opacity="0.6" />
 </svg>
