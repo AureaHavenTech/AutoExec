@@ -12,13 +12,71 @@ function generateId(): string {
   return "msg_" + Math.random().toString(36).substring(2, 11);
 }
 
+/**
+ * Detect if a user message is an actionable command vs a general chat question.
+ * Actionable commands get routed to the execution engine. Questions go to chat AI.
+ */
+function detectActionableCommand(message: string): boolean {
+  const lower = message.toLowerCase().trim();
+
+  // Short/greeting messages are not actionable
+  if (lower.length < 8) return false;
+  if (/^(hi|hello|hey|thanks|ok|okay|good|great|yes|no|sure)$/i.test(lower)) return false;
+
+  // Pure question patterns (not actionable)
+  const questionPatterns = [
+    /^(what|how|why|when|where|who|which|can|could|would|will|do|does|did|is|are|was|were)\s/i,
+    /^(i have|i need|i want|i am|i was|i would like to know)\s/i,
+    /tell me about/i,
+    /explain/i,
+    /what is/i,
+    /how (do|does|can|to)/i,
+    /(help|support|question|faq)/i,
+  ];
+
+  // Task/action patterns
+  const taskPatterns = [
+    /find (\d+|me|us)/i,
+    /search (for|the)/i,
+    /scrape/i,
+    /build (me|a|an)/i,
+    /create (a|an|me)/i,
+    /generate/i,
+    /draft/i,
+    /send (an|a|email)/i,
+    /research (\d+|the|these)/i,
+    /compile/i,
+    /extract/i,
+    /list (\d+|the|of)/i,
+    /locate/i,
+    /gather/i,
+    /analyze/i,
+    /collect/i,
+    /visit/i,
+    /go to/i,
+    /market/i,
+    /shopify/i,
+    /product page/i,
+    /landing page/i,
+    /email outreach/i,
+    /ad (copy|creative|campaign)/i,
+    /cross.?promot/i,
+  ];
+
+  const isQuestion = questionPatterns.some(p => p.test(lower));
+  const isTask = taskPatterns.some(p => p.test(lower));
+
+  // If it looks like a task or doesn't look like a pure question, route to execution
+  return isTask || !isQuestion;
+}
+
 export function ChatInterface() {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
       role: "assistant",
-      content: "👋 Hi! I'm Axel, your autonomous AI executive assistant.\n\nTell me what you need done, and I'll take care of it. I can:\n\n• **Research the web** for companies, people, or data\n• **Build lists** of prospects with verified contacts\n• **Draft emails** and outreach campaigns\n• **Gather intel** on competitors or markets\n• **Scrape websites** for structured data\n\nWhat would you like me to work on?",
+      content: "👋 Hi! I'm **Axel**, your autonomous AI executive assistant.\n\nI can **execute real tasks** for you:\n\n🔍 **Research** — Find companies, products, or market data\n📋 **Build Lists** — Compile prospect lists with contacts\n✉️ **Email Outreach** — Draft and prepare email campaigns\n📊 **Market Intel** — Analyze competitors and trends\n🌐 **Build Pages** — Generate landing and product pages\n📦 **Shopify** — Create product listings with SEO\n\n**Try it:** Just tell me what you need done!",
       timestamp: new Date(),
       status: "done",
     },
@@ -60,82 +118,99 @@ export function ChatInterface() {
     setMessages((prev) => [...prev, userMsg, assistantMsg]);
     setIsProcessing(true);
 
-    try {
-      // Call the real streaming API
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: content,
-          conversationId,
-          history: messages.map((m) => ({
-            role: m.role,
-            content: m.content,
-          })),
-        }),
-      });
+    // Decide: route to action execution engine or chat AI
+    const isActionable = detectActionableCommand(content);
 
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
+    if (isActionable) {
+      // === ROUTE TO EXECUTION ENGINE ===
+      try {
+        // Show initial "starting" message
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsg.id
+              ? { ...m, content: "⏳ **Analyzing your request and preparing execution...**" }
+              : m
+          )
+        );
 
-      // Handle SSE streaming
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("No response body");
+        const response = await fetch("/api/actions/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "text/event-stream" },
+          body: JSON.stringify({ command: content }),
+        });
 
-      const decoder = new TextDecoder();
-      let buffer = "";
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error || `API error: ${response.status}`);
+        }
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error("No response body");
 
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() || "";
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let resultData: any = null;
+        let completedSteps: string[] = [];
 
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6);
-            if (data === "[DONE]") {
-              // Mark as done
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMsg.id
-                    ? { ...m, status: "done" }
-                    : m
-                )
-              );
-            } else {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("event: step")) {
+              // Next line should be the data
+              continue;
+            }
+            if (line.startsWith("event: complete") || line.startsWith("event: error")) {
+              continue;
+            }
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6);
               try {
-                const chunk: ChatStreamChunk = JSON.parse(data);
+                const parsed = JSON.parse(data);
 
-                if (chunk.type === "text") {
-                  // Append text content
+                if (parsed.error) {
                   setMessages((prev) =>
                     prev.map((m) =>
                       m.id === assistantMsg.id
-                        ? { ...m, content: m.content + chunk.content }
+                        ? { ...m, content: `❌ **Error:** ${parsed.error}`, status: "error" }
                         : m
                     )
                   );
-                } else if (chunk.type === "result") {
-                  // Set metadata (results preview, stats)
+                  continue;
+                }
+
+                // Step update event
+                if (parsed.id && parsed.label && parsed.status) {
+                  const icon = parsed.status === "done" ? "✅" : parsed.status === "error" ? "❌" : "⏳";
+                  const stepText = `${icon} ${parsed.label}`;
+
+                  if (parsed.status === "done" && !completedSteps.includes(parsed.id)) {
+                    completedSteps.push(parsed.id);
+                  }
+
+                  const progress = completedSteps.length;
+                  const progressBar = "▓".repeat(progress) + "░".repeat(Math.max(0, 5 - progress));
+
                   setMessages((prev) =>
                     prev.map((m) =>
                       m.id === assistantMsg.id
-                        ? { ...m, metadata: { ...m.metadata, ...chunk.metadata } }
+                        ? {
+                            ...m,
+                            content: `⏳ **Executing your request...**\n\n\`${progressBar}\` ${Math.round((progress / 5) * 100)}%\n\n_${parsed.label}_\n\n${completedSteps.length > 0 ? `**Completed:**\n${completedSteps.map((s) => `✅ Step ${s.replace("step_", "")}`).join("\n")}` : ""}`,
+                          }
                         : m
                     )
                   );
-                } else if (chunk.type === "error") {
-                  setMessages((prev) =>
-                    prev.map((m) =>
-                      m.id === assistantMsg.id
-                        ? { ...m, content: chunk.content, status: "error" }
-                        : m
-                    )
-                  );
+                }
+
+                // Complete result
+                if (parsed.steps || parsed.summary) {
+                  resultData = parsed;
                 }
               } catch {
                 // Skip invalid JSON
@@ -143,22 +218,181 @@ export function ChatInterface() {
             }
           }
         }
+
+        // Format final result
+        if (resultData) {
+          const stepSummary = resultData.steps
+            ?.map((s: any) =>
+              s.status === "done" ? `✅ **${s.label}**` :
+              s.status === "error" ? `❌ **${s.label}** — ${s.error || ""}` :
+              `⏳ **${s.label}**`
+            )
+            .join("\n") || "";
+
+          let messageContent = `## ✅ Task Complete!\n\n${resultData.summary || "Your task has been executed successfully."}\n\n`;
+
+          if (stepSummary) {
+            messageContent += `### 📋 Execution Steps\n${stepSummary}\n\n`;
+          }
+
+          // Research results
+          if (resultData.data?.results?.length > 0) {
+            messageContent += `### 🔍 Search Results\n${resultData.data.results.slice(0, 5).map((r: any, i: number) =>
+              `${i + 1}. [${r.title}](${r.url || "#"}) — ${(r.snippet || "").substring(0, 100)}`
+            ).join("\n")}\n`;
+          }
+
+          // Email drafts
+          if (resultData.data?.drafts?.length > 0) {
+            messageContent += `### ✉️ Email Drafts\n${resultData.data.drafts.map((d: any) =>
+              `**To:** ${d.to}\n**Subject:** ${d.subject}\n`
+            ).join("\n")}\n_Requires your approval before sending._\n`;
+          }
+
+          // Marketing channels
+          if (resultData.data?.channels?.length > 0) {
+            messageContent += `### 📊 Marketing Channels\n${resultData.data.channels.map((c: any) =>
+              `**${c.name}** — ${c.why.substring(0, 100)}...`
+            ).join("\n")}\n`;
+          }
+
+          // Webpage URL
+          if (resultData.data?.url) {
+            messageContent += `\n🔗 **Preview:** [View Page](${resultData.data.url})\n`;
+          }
+
+          // List/data items
+          if (resultData.data?.items?.length > 0) {
+            messageContent += `\n### 📋 Sample Data\n${resultData.data.items.slice(0, 3).map((i: any) =>
+              `- ${i.name} ${i.contact ? `(${i.contact})` : ""}`
+            ).join("\n")}\n_${resultData.data.totalCount || resultData.data.items.length} total entries_\n`;
+          }
+
+          // Product data
+          if (resultData.data?.product) {
+            messageContent += `\n### 📦 Product\n**${resultData.data.product.name}** — $${resultData.data.product.price}\n_${resultData.data.product.description?.substring(0, 100)}..._\n`;
+          }
+
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === assistantMsg.id
+                ? { ...m, content: messageContent, status: "done", metadata: resultData }
+                : m
+            )
+          );
+        } else {
+          setMessages((prev) =>
+            prev.map((m) =>
+              m.id === assistantMsg.id
+                ? { ...m, content: "✅ Task completed. Results are ready.", status: "done" }
+                : m
+            )
+          );
+        }
+      } catch (error: any) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsg.id
+              ? { ...m, content: `❌ **Execution failed:** ${error.message}`, status: "error" }
+              : m
+          )
+        );
+      } finally {
+        setIsProcessing(false);
       }
-    } catch (error: any) {
-      // Set error state
-      setMessages((prev) =>
-        prev.map((m) =>
-          m.id === assistantMsg.id
-            ? {
-                ...m,
-                content: error.message || "Failed to process task. Please try again.",
-                status: "error",
+    } else {
+      // === ROUTE TO CHAT AI (conversational) ===
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: content,
+            conversationId,
+            history: messages.map((m) => ({
+              role: m.role,
+              content: m.content,
+            })),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+
+        const reader = response.body?.getReader();
+        if (!reader) throw new Error("No response body");
+
+        const decoder = new TextDecoder();
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const data = line.slice(6);
+              if (data === "[DONE]") {
+                setMessages((prev) =>
+                  prev.map((m) =>
+                    m.id === assistantMsg.id ? { ...m, status: "done" } : m
+                  )
+                );
+              } else {
+                try {
+                  const chunk: ChatStreamChunk = JSON.parse(data);
+                  if (chunk.type === "text") {
+                    setMessages((prev) =>
+                      prev.map((m) =>
+                        m.id === assistantMsg.id
+                          ? { ...m, content: m.content + chunk.content }
+                          : m
+                      )
+                    );
+                  } else if (chunk.type === "result") {
+                    setMessages((prev) =>
+                      prev.map((m) =>
+                        m.id === assistantMsg.id
+                          ? { ...m, metadata: { ...m.metadata, ...chunk.metadata } }
+                          : m
+                      )
+                    );
+                  } else if (chunk.type === "error") {
+                    setMessages((prev) =>
+                      prev.map((m) =>
+                        m.id === assistantMsg.id
+                          ? { ...m, content: chunk.content, status: "error" }
+                          : m
+                      )
+                    );
+                  }
+                } catch {
+                  // Skip invalid JSON
+                }
               }
-            : m
-        )
-      );
-    } finally {
-      setIsProcessing(false);
+            }
+          }
+        }
+      } catch (error: any) {
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantMsg.id
+              ? {
+                  ...m,
+                  content: error.message || "Failed to process. Please try again.",
+                  status: "error",
+                }
+              : m
+          )
+        );
+      } finally {
+        setIsProcessing(false);
+      }
     }
   };
 
@@ -171,7 +405,7 @@ export function ChatInterface() {
       {
         id: "welcome",
         role: "assistant",
-        content: "👋 Hi! I'm Axel, your autonomous AI executive assistant.\n\nStart a new conversation by telling me what you need done!",
+        content: "👋 Hi! I'm **Axel**, your autonomous AI executive assistant.\n\nStart a new conversation by telling me what you need done!",
         timestamp: new Date(),
         status: "done",
       },
