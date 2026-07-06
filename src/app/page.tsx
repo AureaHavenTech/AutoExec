@@ -141,6 +141,15 @@ export default function LandingPage() {
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-40 left-1/3 w-[300px] h-[300px] bg-accent-500/10 rounded-full blur-[100px] pointer-events-none" />
 
+        {/* Large Hero Logo */}
+        <div className="mb-10 flex justify-center">
+          <img 
+            src="/logo.svg" 
+            alt="Axel AI" 
+            className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl"
+          />
+        </div>
+
         <Badge variant="info" className="mb-6 px-4 py-1 text-xs tracking-wider uppercase font-semibold">
           <Sparkles className="h-3.5 w-3.5 mr-1.5 text-brand-400 animate-pulse" /> Built for people who have more to do than hours in the day
         </Badge>

@@ -7,6 +7,17 @@
   "background_color": "#12121a",
   "theme_color": "#12121a",
   "orientation": "portrait",
+  "categories": ["business", "productivity", "ai"],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b4",
+  "screenshots": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Axel AI Dashboard"
+    }
+  ],
   "icons": [
     {
       "src": "/icon-192x192.png",

@@ -16,7 +16,8 @@ import {
   RefreshCw,
   Shield,
   ShoppingBag,
-  FolderKanban, Bell
+  FolderKanban, Bell,
+  Settings2
   } from "lucide-react";
 import { NotificationPopover } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
@@ -89,6 +90,7 @@ export default function DashboardLayout({
     { name: "Storefront", href: "/dashboard/storefront", icon: ShoppingBag },
     { name: "Tasks Board", href: "/dashboard/tasks", icon: History },
     { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { name: "Settings", href: "/dashboard/settings", icon: Settings2 },
   ];
 
   const isAdmin = user?.is_admin === 1 || user?.is_admin === "1";

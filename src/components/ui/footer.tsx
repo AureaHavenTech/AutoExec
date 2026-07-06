@@ -38,10 +38,10 @@ export function Footer() {
           <div className="flex flex-wrap justify-center md:justify-end gap-x-4 gap-y-1 text-xs text-slate-400 mb-2">
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse" />
-              Try <a href="https://onepostai.vercel.app" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">OnePost AI</a> - Content That Moves
+              <a href="https://onepostai.vercel.app" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">OnePost AI</a> — Post everywhere from one place. Full video/photo editing, AI content, auto-publishing, cross-platform analytics.
             </span>
             <span>·</span>
-            <a href="https://aurahaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">Shop Aura Haven</a>
+            <a href="https://aurbhaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">Aura Haven</a> — Premium tech for modern living
           </div>
           <div className="opacity-40">&copy; {new Date().getFullYear()} Axel AI. Part of the Aura Haven Tech family.</div>
         </div>

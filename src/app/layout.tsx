@@ -8,7 +8,6 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 export const metadata: Metadata = {
   title: "Axel AI — The Axle That Drives Your Business",
   description: "Just like an axle keeps your car moving, Axel AI keeps your business running. Describe any task in plain language — it researches, writes, builds, emails, and analyzes for you 24/7.",
-  manifest: "/manifest.json",
   icons: {
     icon: "/favicon.svg",
     apple: "/icon-512.png",
@@ -29,11 +28,30 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Axel AI" />
+        <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <NotificationProvider>
           {children}
         </NotificationProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(
+                    function(registration) {
+                      console.log('SW registered:', registration.scope);
+                    },
+                    function(err) {
+                      console.log('SW registration failed:', err);
+                    }
+                  );
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
