@@ -8,7 +8,7 @@ export function Footer() {
         <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
           <div className="flex items-center space-x-2 mb-2">
             <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
-            <span className="font-bold text-white tracking-tight">Axel AI</span>
+            <span className="font-bold text-white tracking-tight">Axel AI™</span>
           </div>
           <div className="flex space-x-4 mt-2">
             <a href="https://instagram.com/funkycoldmedemaa" target="_blank" className="hover:text-brand-400 transition-colors">Instagram</a>
@@ -43,7 +43,7 @@ export function Footer() {
             <span>·</span>
             <a href="https://aurbhaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">Aura Haven</a> — Premium tech for modern living
           </div>
-          <div className="opacity-40">&copy; {new Date().getFullYear()} Axel AI. Part of the Aura Haven Tech family.</div>
+          <div className="opacity-40">&copy; 2026 Aura Haven Tech. All rights reserved.</div>
         </div>
       </div>
     </footer>

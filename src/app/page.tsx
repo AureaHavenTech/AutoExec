@@ -114,7 +114,7 @@ export default function LandingPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-900 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <img src="/logo.svg" alt="Axel AI Logo" className="h-9 w-auto" />
+          <img src="/logo.svg" alt="Axel AI™ Logo" className="h-9 w-auto" />
         </Link>
         <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
           <a href="#features" className="hover:text-white transition-colors">Features</a>
@@ -312,7 +312,7 @@ export default function LandingPage() {
           </p>
           <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-500">
             <span className="h-px w-8 bg-slate-800" />
-            <span>— Founder, Axel AI</span>
+            <span>— Founder, Axel AI™</span>
             <span className="h-px w-8 bg-slate-800" />
           </div>
         </div>

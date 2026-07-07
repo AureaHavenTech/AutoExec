@@ -1,10 +1,9 @@
-"use client";
+'use client';
 
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/ui/footer";
-import { Zap, ShieldCheck } from "lucide-react";
+import { Bot } from "lucide-react";
 
 export default function TermsPage() {
   return (
@@ -12,112 +11,35 @@ export default function TermsPage() {
       <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-900 px-6 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <div className="h-9 w-9 bg-brand-500 rounded-lg flex items-center justify-center shadow-lg shadow-brand-500/20">
-            <Zap className="h-5 w-5 text-white fill-white" />
+            <Bot className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white">Axel AI</span>
+          <span className="text-xl font-bold tracking-tight text-white font-serif">Axel AI™</span>
         </Link>
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-          <Link href="/about" className="hover:text-white transition-colors">About</Link>
-          <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-          <Link href="/faq" className="hover:text-white transition-colors">FAQ</Link>
-          <Link href="/affiliates" className="hover:text-white transition-colors">Affiliates</Link>
-        </nav>
-        <Link href="/dashboard"><Button variant="primary" size="sm">Launch App</Button></Link>
+        <Link href="/dashboard"><Button variant="default" size="sm">Dashboard</Button></Link>
       </header>
-
       <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
-        <div className="mb-12">
-          <h1 className="text-5xl font-extrabold tracking-tight mb-4">Terms of Service</h1>
-          <p className="text-slate-400 text-sm">Last updated: June 25, 2026</p>
-        </div>
-
-        <div className="space-y-8 text-slate-300 leading-relaxed">
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">1. Acceptance of Terms</h2>
-            <p>By accessing or using Axel AI (&ldquo;the Service&rdquo;), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service. These terms apply to all users of the platform.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">2. Description of Service</h2>
-            <p>Axel AI is an autonomous AI executive assistant that performs digital tasks including research, email outreach, data gathering, content creation, and web browsing. The Service uses artificial intelligence to execute tasks described in plain language.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">3. User Accounts</h2>
-            <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You must provide accurate, current, and complete information during the registration process.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">4. Subscription and Payments</h2>
-            <p>We offer tiered subscription plans (Starter, Pro, Unlimited). Payments are processed securely through Stripe. By subscribing, you agree to:</p>
-            <ul className="list-disc pl-6 mt-3 space-y-2">
-              <li>Pay all fees associated with your selected plan</li>
-              <li>Provide valid payment information</li>
-              <li>Authorize recurring charges until cancellation</li>
-              <li>Review and agree to Stripe's terms of service</li>
-            </ul>
-            <p className="mt-3">All plans include a 30-day money-back guarantee. Cancellations take effect at the end of the current billing period.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">5. Acceptable Use</h2>
-            <p>You agree not to use the Service for:</p>
-            <ul className="list-disc pl-6 mt-3 space-y-2">
-              <li>Any illegal purpose or in violation of any laws</li>
-              <li>Sending unsolicited bulk communications (spam)</li>
-              <li>Harassing, abusing, or harming others</li>
-              <li>Impersonating any person or entity</li>
-              <li>Interfering with the proper functioning of the Service</li>
-              <li>Attempting to bypass any limitations or restrictions</li>
-              <li>Generating deceptive, fraudulent, or misleading content</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">6. AI-Generated Content Disclaimer</h2>
-            <p>Content generated by Axel AI is created using artificial intelligence and should be reviewed before use. We make no guarantees about the accuracy, completeness, or appropriateness of AI-generated content. You are solely responsible for any content you publish or distribute using the Service.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">7. Intellectual Property</h2>
-            <p>You retain ownership of any content you create using the Service. The Service itself, including its code, design, and underlying technology, is owned by Axel AI and Aura Haven Tech. You may not copy, modify, distribute, or reverse engineer any part of the Service.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">8. Limitation of Liability</h2>
-            <p>To the maximum extent permitted by law, Axel AI and Aura Haven Tech shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the Service. This includes, but is not limited to, loss of data, loss of business, or service interruption.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">9. Indemnification</h2>
-            <p>You agree to indemnify and hold harmless Axel AI, Aura Haven Tech, and its affiliates from any claims, damages, or expenses arising from your use of the Service or violation of these terms.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">10. Termination</h2>
-            <p>We reserve the right to suspend or terminate your account at any time for violation of these terms. You may cancel your account at any time from your dashboard. Upon termination, your data will be handled according to our Privacy Policy.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">11. Changes to Terms</h2>
-            <p>We may modify these Terms of Service at any time. Continued use of the Service after changes constitute acceptance of the new terms. We will notify users of material changes via email or platform notification.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">12. Governing Law</h2>
-            <p>These terms shall be governed by and construed in accordance with the laws of the United States. Any disputes shall be resolved through binding arbitration.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold text-white mb-4">13. Contact</h2>
-            <p>For questions about these Terms of Service, please contact us at:</p>
-            <p className="mt-3 text-brand-400">support@axelai.app</p>
-            <p className="text-slate-400 text-sm">Aura Haven Tech</p>
-          </section>
+        <div className="mb-12"><h1 className="text-5xl font-extrabold tracking-tight mb-4 font-serif">Terms of Service</h1><p className="text-slate-400 text-sm">Last updated: July 4, 2026</p></div>
+        <div className="space-y-6 text-slate-300 leading-relaxed">
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">1. Acceptance of Terms</h2>
+          <p>By using Axel AI (&quot;the Service&quot;), you agree to these Terms. Axel AI is a product of <strong className="text-white">Aura Haven Tech</strong>. If you do not agree, do not use the Service.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">2. Service Description</h2>
+          <p>Axel AI is an autonomous AI executive assistant that executes business tasks — research, content creation, email outreach, data gathering, storefront building, and analytics. Features include AI chat, task execution, business organizer, marketing engine, and storefront builder. We reserve the right to modify features with reasonable notice.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">3. Account & Subscriptions</h2>
+          <p>You must be 18+ to use the Service. Paid plans ($39/mo Starter, $99/mo Pro, $249/mo Unlimited) are billed monthly. All plans include a 30-day money-back guarantee. See our <Link href="/refund" className="text-brand-400 hover:text-brand-300">Refund Policy</Link>. Payments via Stripe.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. User Responsibilities</h2>
+          <p>You are responsible for: reviewing AI outputs before use, complying with laws, maintaining account security, and not using the Service for illegal activities. You retain rights to content you create.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">5. Intellectual Property & Trademark Protection</h2>
+          <p><strong className="text-white">Axel AI™</strong> and <strong className="text-white">OnePost AI™</strong> are trademarks of <strong className="text-white">Aura Haven Tech</strong>. All software, branding, logos, trade dress, content, and materials provided through the Service are the exclusive intellectual property of Aura Haven Tech and are protected by copyright, trademark, and other applicable intellectual property laws.</p>
+          <p className="mt-3">No license, express or implied, is granted to use any trademark, service mark, trade name, or logo of Aura Haven Tech without prior written consent. You may not copy, modify, reverse engineer, distribute, sell, or create derivative works of the Service or any part thereof. Unauthorized use of any Aura Haven Tech intellectual property may result in legal action, including but not limited to claims for trademark infringement, copyright infringement, and unfair competition.</p>
+          <p className="mt-3">All content generated by the Service is provided for your internal business use. You retain no ownership or license rights to the underlying AI models, algorithms, or technology. &copy; 2026 Aura Haven Tech. All rights reserved.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">6. AI Outputs</h2>
+          <p>AI-generated outputs are provided as assistance tools. Axel AI™ is not responsible for the accuracy or legality of AI outputs. You should review and verify all AI-generated content before use, especially for business-critical decisions.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">7. Limitation of Liability</h2>
+          <p>Service provided &quot;as is.&quot; Aura Haven Tech is not liable for damages arising from use. Our total liability is limited to the amount paid in the preceding 12 months.</p></section>
+          <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">8. Contact</h2>
+          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
