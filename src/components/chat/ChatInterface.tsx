@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { ChatMessageBubble } from "./ChatMessage";
 import { ChatInput } from "./ChatInput";
 import type { ChatMessage, ChatStreamChunk } from "@/lib/chat-types";
-import { Bot, MessageSquare, Trash2, Sparkles } from "lucide-react";
+import { Bot, MessageSquare, Trash2, Sparkles, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { UpgradeModal } from "@/components/UpgradeModal";
+import { canUseFeature, incrementUsage, getTrialStatus } from "@/lib/trial";
 
 function generateId(): string {
   return "msg_" + Math.random().toString(36).substring(2, 11);
@@ -83,6 +85,8 @@ export function ChatInterface() {
   ]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [conversationId] = useState(() => "conv_" + Math.random().toString(36).substring(2, 11));
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [trialReason, setTrialReason] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom
@@ -96,6 +100,14 @@ export function ChatInterface() {
 
   const handleSend = async (content: string) => {
     if (isProcessing) return;
+
+    // === TRIAL CHECK: Block if trial limits reached ===
+    const trialCheck = canUseFeature("conversation");
+    if (!trialCheck.allowed) {
+      setTrialReason(trialCheck.reason || "Trial limit reached");
+      setShowUpgradeModal(true);
+      return;
+    }
 
     // Add user message
     const userMsg: ChatMessage = {
@@ -298,6 +310,7 @@ export function ChatInterface() {
           )
         );
       } finally {
+        incrementUsage("conversation");
         setIsProcessing(false);
       }
     } else {
@@ -391,6 +404,7 @@ export function ChatInterface() {
           )
         );
       } finally {
+        incrementUsage("conversation");
         setIsProcessing(false);
       }
     }
@@ -453,6 +467,13 @@ export function ChatInterface() {
       <div className="pt-4 border-t border-slate-800/60 mt-4">
         <ChatInput onSend={handleSend} disabled={isProcessing} />
       </div>
+
+      {/* Upgrade Modal */}
+      <UpgradeModal
+        open={showUpgradeModal}
+        onClose={() => setShowUpgradeModal(false)}
+        reason={trialReason}
+      />
     </div>
   );
 }

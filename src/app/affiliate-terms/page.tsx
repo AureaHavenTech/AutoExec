@@ -15,7 +15,7 @@ export default function AffiliateTermsPage() {
           </div>
           <span className="text-xl font-bold tracking-tight text-white font-serif">Axel AI</span>
         </Link>
-        <Link href="/dashboard"><Button variant="default" size="sm">Dashboard</Button></Link>
+        <Link href="/dashboard"><Button variant="primary" size="sm">Dashboard</Button></Link>
       </header>
       <main className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
         <div className="mb-12"><h1 className="text-5xl font-extrabold tracking-tight mb-4 font-serif">Affiliate Program Terms</h1><p className="text-slate-400 text-sm">Last updated: July 4, 2026</p></div>
