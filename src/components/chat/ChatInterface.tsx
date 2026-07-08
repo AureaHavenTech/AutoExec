@@ -9,6 +9,7 @@ import { Bot, MessageSquare, Trash2, Sparkles, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UpgradeModal } from "@/components/UpgradeModal";
 import { canUseFeature, incrementUsage, getTrialStatus } from "@/lib/trial";
+import { canAccessFeature, useCredit } from "@/lib/credits";
 
 function generateId(): string {
   return "msg_" + Math.random().toString(36).substring(2, 11);
@@ -101,12 +102,17 @@ export function ChatInterface() {
   const handleSend = async (content: string) => {
     if (isProcessing) return;
 
-    // === TRIAL CHECK: Block if trial limits reached ===
+    // === TRIAL/CREDIT CHECK: Block if both trial + credits exhausted ===
     const trialCheck = canUseFeature("conversation");
-    if (!trialCheck.allowed) {
-      setTrialReason(trialCheck.reason || "Trial limit reached");
+    const accessCheck = canAccessFeature("conversation", trialCheck);
+    if (!accessCheck.allowed) {
+      setTrialReason(accessCheck.reason || "Trial limit reached");
       setShowUpgradeModal(true);
       return;
+    }
+    // If using credits, consume one
+    if (accessCheck.source === "credits") {
+      useCredit("premiumConversations");
     }
 
     // Add user message

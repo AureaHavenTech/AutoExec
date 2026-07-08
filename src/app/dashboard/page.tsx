@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "@/components/chat/ChatInterface";
+import { getCreditSummary, hasAnyCredits, getCreditBalance } from "@/lib/credits";
 import {
   Sparkles,
   RefreshCw,
@@ -18,6 +19,8 @@ import {
   Loader2,
   Image as ImageIcon,
   X,
+  ShoppingCart,
+  Coins,
 } from "lucide-react";
 
 export default function DashboardPage() {
@@ -26,6 +29,8 @@ export default function DashboardPage() {
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [creditSummary, setCreditSummary] = useState(getCreditSummary());
+  const [showCreditPurchase, setShowCreditPurchase] = useState(false);
 
   const fetchSession = async () => {
     try {
@@ -143,6 +148,32 @@ export default function DashboardPage() {
           </div>
         </Card>
       </div>
+
+      {/* Credit Balance Card */}
+      {hasAnyCredits() && (
+        <Card className="p-4 bg-slate-900/30 border-slate-900">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Coins className="h-5 w-5 text-brand-400" />
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Your Credits</p>
+            </div>
+            <Link href="/dashboard/settings" className="text-[10px] text-brand-400 hover:text-brand-300 font-semibold">
+              Manage Credits →
+            </Link>
+          </div>
+          <div className="flex gap-3 flex-wrap">
+            {creditSummary.filter((c) => c.owned > 0).map((c) => (
+              <div key={c.id} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-950/60 border border-slate-800">
+                <span className="text-sm">{c.icon}</span>
+                <div>
+                  <p className="text-sm font-bold text-white">{c.owned}</p>
+                  <p className="text-[9px] text-slate-500">{c.label.split(" ")[0]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
 
       {/* Marketing Tools */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
