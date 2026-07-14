@@ -13,8 +13,15 @@ import {
   AlertCircle,
   Clock,
   ShieldCheck,
-  Check
+  Check,
+  ExternalLink
 } from "lucide-react";
+
+const STRIPE_LINKS: Record<string, string> = {
+  starter: "https://buy.stripe.com/14AfZh5rBaOU0fb4DEcwg0h",
+  pro: "https://buy.stripe.com/3cI4gz5rB3ms1jf2vwcwg0j",
+  unlimited: "https://buy.stripe.com/7sYcN5dY7g9eaTP8TUcwg0i",
+};
 
 export default function BillingPage() {
   const [activePlan, setActivePlan] = useState<any>(null);
@@ -40,28 +47,20 @@ export default function BillingPage() {
     fetchSession();
   }, []);
 
-  const handleUpgrade = async (tier: string) => {
+  const handleUpgrade = (tier: string) => {
+    const url = STRIPE_LINKS[tier];
+    if (url) {
+      window.open(url, '_blank');
+    }
     setUpgradeLoading(tier);
     setSuccessMessage(null);
-    try {
-      const res = await fetch("/api/subscriptions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tier }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setActivePlan(data.subscription);
-        setSuccessMessage(`Successfully upgraded to ${tier.toUpperCase()} tier! We've simulated a secure Stripe Checkout sequence.`);
-        
-        // Clear success message after 5 seconds
-        setTimeout(() => setSuccessMessage(null), 8000);
-      }
-    } catch (err) {
-      console.error("Failed to upgrade subscription:", err);
-    } finally {
+    // Simulate returning from Stripe checkout
+    setTimeout(() => {
+      setActivePlan({ tier, current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() });
+      setSuccessMessage(`Subscription initiated for ${tier.toUpperCase()} tier! Complete checkout in the Stripe window.`);
       setUpgradeLoading(null);
-    }
+      setTimeout(() => setSuccessMessage(null), 8000);
+    }, 2000);
   };
 
   const pricingTiers = [
