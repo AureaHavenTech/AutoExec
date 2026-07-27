@@ -142,12 +142,15 @@ export default function LandingPage() {
         <div className="absolute top-40 left-1/3 w-[300px] h-[300px] bg-accent-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         {/* Large Hero Logo */}
-        <div className="mb-10 flex justify-center">
+        <div className="mb-6 flex flex-col items-center">
           <img 
             src="/logo.svg" 
-            alt="Axel AI" 
+            alt="Axel AI™ Logo" 
             className="w-48 h-48 md:w-64 md:h-64 object-contain drop-shadow-2xl"
           />
+          <p className="mt-6 text-xl md:text-2xl font-serif text-brand-400 italic tracking-wide">
+            The Axle That Drives Your Business
+          </p>
         </div>
 
         <Badge variant="info" className="mb-6 px-4 py-1 text-xs tracking-wider uppercase font-semibold">
