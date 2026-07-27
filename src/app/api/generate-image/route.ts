@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { openai } from "@/lib/openai-client";
+import { getOpenAI } from "@/lib/openai-client";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       ? `Professional product advertisement for ${brand || "Aura Haven"}. Product: ${productDescription}. Style: ${style || "modern luxury, premium"}, clean background, professional lighting, e-commerce ready. No text, no watermarks.`
       : prompt;
 
-    const response = await openai.images.generate({
+    const response = await getOpenAI().images.generate({
       model: "dall-e-3",
       prompt: imagePrompt,
       n: 1,
