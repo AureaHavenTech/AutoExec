@@ -1,8 +1,8 @@
-import { openai } from './openai-client';
+import { getOpenAI } from './openai-client';
 
 export async function generateImage(prompt: string): Promise<string | null> {
   try {
-    const response = await openai.images.generate({
+    const response = await getOpenAI().images.generate({
       model: "dall-e-3",
       prompt: prompt,
       n: 1,
@@ -22,7 +22,7 @@ export async function generateAdImage(productDescription: string, brand: string,
   const prompt = `Professional product advertisement image for ${brand}. Product: ${productDescription}. Style: ${style}, premium, luxury, clean background, professional lighting, e-commerce ready. No text, no watermarks.`;
   
   try {
-    const response = await openai.images.generate({
+    const response = await getOpenAI().images.generate({
       model: "dall-e-3",
       prompt: prompt,
       n: 1,
