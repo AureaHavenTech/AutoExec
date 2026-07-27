@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { openai } from "@/lib/openai-client";
+import { getOpenAI } from "@/lib/openai-client";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
         sendEvent({ type: "text", content: "" });
 
         // Call OpenAI
-        const response = await openai.chat.completions.create({
+        const response = await getOpenAI().chat.completions.create({
           model: "gpt-4o-mini",
           messages: messages,
           max_tokens: 2048,
