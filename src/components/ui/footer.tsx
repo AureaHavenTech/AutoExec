@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { Zap, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 export function Footer() {
   return (
     <footer className="border-t border-slate-900 py-12 px-6 bg-slate-950 text-slate-500 text-sm">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="flex flex-col items-center md:items-start mb-6 md:mb-0">
-          <div className="flex items-center space-x-2 mb-2">
-            <Zap className="h-4 w-4 text-brand-500 fill-brand-500" />
+          <div className="flex items-center space-x-3 mb-2">
+            <img src="/logo.svg" alt="Axel AI™" className="h-6 w-auto" />
             <span className="font-bold text-white tracking-tight">Axel AI™</span>
           </div>
           <div className="flex space-x-4 mt-2">
