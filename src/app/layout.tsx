@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 import { NotificationProvider } from "@/components/ui/notifications";
+import { OfflineBanner } from "@/components/ui/offline-banner";
 import InstallPrompt from "@/components/InstallPrompt";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import EmailCapture from "@/components/EmailCapture";
@@ -59,6 +60,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <AnnouncementBar appName="axel" />
+        <OfflineBanner />
         {/* Skip-to-content for keyboard/accessibility */}
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-lg focus:outline-none">
           Skip to content

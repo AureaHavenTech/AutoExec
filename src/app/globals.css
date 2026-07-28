@@ -84,4 +84,57 @@ h1, h2, h3, h4, h5, h6 {
 .gold-line {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.3), transparent);
-}@keyframes slide-up { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } } .animate-slide-up { animation: slide-up 0.3s ease-out; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up { animation: slide-up 0.3s ease-out; }
+
+/* ─── Micro-animations (150ms, subtle) ─── */
+@layer utilities {
+  .btn-hover {
+    @apply transition-transform duration-150;
+  }
+  .btn-hover:hover {
+    transform: scale(1.02);
+  }
+  .btn-hover:active {
+    transform: scale(0.98);
+  }
+
+  .card-hover {
+    @apply transition-all duration-150;
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.12);
+  }
+
+  .link-hover {
+    @apply relative transition-colors duration-150;
+  }
+  .link-hover::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 150ms ease;
+  }
+  .link-hover:hover::after {
+    width: 100%;
+  }
+}
+
+/* ─── Offline banner animations ─── */
+@keyframes slide-in-from-top {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-in.slide-in-from-top {
+  animation: slide-in-from-top 200ms ease-out;
+}
