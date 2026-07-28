@@ -92,7 +92,7 @@ export const brand = {
     app: "https://axelai-eight.vercel.app",
     /** Cross-promotion to sibling brands */
     onePostAI: "https://onepostai.vercel.app",
-    auraHaven: "https://aurbhaven.shop",
+    auraHaven: "https://aurahaven.shop",
   },
 
   /** Pricing tiers */

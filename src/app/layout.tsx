@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Just like an axle keeps your car moving, Axel AI keeps your business running. Describe any task in plain language — it researches, writes, builds, emails, and analyzes for you 24/7.",
   icons: {
     icon: "/favicon.svg",
-    apple: "/icon-512.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 

@@ -41,7 +41,7 @@ export function Footer() {
               <a href="https://onepostai.vercel.app" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">OnePost AI</a> — Post everywhere from one place. Full video/photo editing, AI content, auto-publishing, cross-platform analytics.
             </span>
             <span>·</span>
-            <a href="https://aurbhaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">Aura Haven</a> — Premium tech for modern living
+            <a href="https://aurahaven.shop" target="_blank" className="text-brand-400 hover:text-brand-300 font-bold">Aura Haven</a> — Premium tech for modern living
           </div>
           <div className="opacity-40">&copy; 2026 Aura Haven Tech. All rights reserved.</div>
         </div>

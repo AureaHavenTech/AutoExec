@@ -11,7 +11,7 @@
   "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b4",
   "screenshots": [
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
