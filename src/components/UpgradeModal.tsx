@@ -71,7 +71,8 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
 
               {/* ===== THREE POST-TRIAL OPTIONS ===== */}
               {/* Option 1: Upgrade Monthly (existing CTA) */}
-              <Button className="w-full py-5 text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 rounded-xl shadow-lg shadow-brand-500/20 transition-all">
+              <Button onClick={() => window.open("https://buy.stripe.com/9B628r3jt1ekge93zAcwg0p", "_blank")}
+                className="w-full py-5 text-sm font-bold bg-brand-500 hover:bg-brand-600 text-slate-950 rounded-xl shadow-lg shadow-brand-500/20 transition-all">
                 <Zap className="h-5 w-5 mr-2" /> Upgrade to Pro — $99/mo
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>

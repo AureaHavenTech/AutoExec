@@ -3,6 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+
+const STRIPE_LINKS: Record<string, string> = {
+  starter: "https://buy.stripe.com/aFa6oH4nx8GM0fb9XYcwg0o",
+  pro: "https://buy.stripe.com/9B628r3jt1ekge93zAcwg0p",
+  unlimited: "https://buy.stripe.com/00wcN5g6f4qwaTP2vwcwg0q",
+};
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Footer } from "@/components/ui/footer";
@@ -409,14 +415,14 @@ export default function LandingPage() {
                   </CardContent>
 
                   <CardFooter className="pt-4">
-                    <Link href={`/dashboard?tier=${tier.id}`} className="w-full">
+                    <a href={STRIPE_LINKS[tier.id]} target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button 
                         variant={tier.popular ? "primary" : "outline"} 
                         className="w-full py-3 font-semibold"
                       >
                         {tier.cta}
                       </Button>
-                    </Link>
+                    </a>
                   </CardFooter>
                 </Card>
               );
