@@ -1,14 +1,15 @@
 import { NextRequest } from "next/server";
 import { executeTask, getTask, listRecentTasks } from "@/lib/execution-engine";
+import { parseIntent, getActionDefinition } from "@/lib/actions";
 
 /**
  * POST /api/actions/execute
- * Execute a task from a user command
- * Body: { command: string, stream?: boolean }
+ * Parses intent from user command, then executes via the execution engine.
+ * Body: { command: string, stream?: boolean, userId?: string }
  */
 export async function POST(request: NextRequest) {
   try {
-    const { command } = await request.json();
+    const { command, userId } = await request.json();
 
     if (!command || typeof command !== "string" || !command.trim()) {
       return new Response(
@@ -17,12 +18,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if client wants SSE streaming
+    // ── Step 1: Parse intent using the action framework ──
+    const intent = parseIntent(command);
+    const actionDef = getActionDefinition(intent.actionId);
+
+    // ── Step 2: Check if client wants SSE streaming ──
     const accept = request.headers.get("accept") || "";
     const wantsStream = accept.includes("text/event-stream");
 
     if (wantsStream) {
-      // SSE streaming response — sends real-time step updates
       const encoder = new TextEncoder();
       const stream = new ReadableStream({
         async start(controller) {
@@ -31,11 +35,28 @@ export async function POST(request: NextRequest) {
           };
 
           try {
+            // Send intent info first
+            sendEvent("intent", {
+              actionId: intent.actionId,
+              actionLabel: actionDef?.label || "Processing",
+              confidence: intent.confidence,
+              params: intent.params,
+            });
+
+            // Execute via existing execution engine
             const result = await executeTask(command, (step) => {
               sendEvent("step", step);
             });
 
-            sendEvent("complete", result);
+            // Augment result with intent metadata
+            sendEvent("complete", {
+              ...result,
+              intent: {
+                actionId: intent.actionId,
+                actionLabel: actionDef?.label,
+                confidence: intent.confidence,
+              },
+            });
           } catch (error: any) {
             sendEvent("error", { error: error.message || "Execution failed" });
           }
@@ -53,12 +74,24 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Regular JSON response
+    // ── Regular JSON response ──
     const result = await executeTask(command);
-    return new Response(JSON.stringify(result), {
-      headers: { "Content-Type": "application/json" },
-    });
 
+    return new Response(
+      JSON.stringify({
+        ...result,
+        intent: {
+          actionId: intent.actionId,
+          actionLabel: actionDef?.label || "Unknown",
+          actionCategory: actionDef?.category || "system",
+          confidence: intent.confidence,
+          params: intent.params,
+          reasoning: intent.reasoning,
+          requiredPermissions: actionDef?.requiredPermissions || [],
+        },
+      }),
+      { headers: { "Content-Type": "application/json" } }
+    );
   } catch (error: any) {
     return new Response(
       JSON.stringify({
@@ -75,7 +108,7 @@ export async function POST(request: NextRequest) {
 
 /**
  * GET /api/actions/execute?task=<taskId>
- * Get status/results of a specific task
+ * Get status/results of a specific task or list recent tasks
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
