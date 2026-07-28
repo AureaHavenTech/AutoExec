@@ -339,14 +339,14 @@ export async function generateMarketingStrategy(
  * Classify a task with expanded support for new capabilities
  */
 export function classifyTask(description: string): {
-  type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "general";
+  type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "calendar" | "general";
   targets: string[];
   location?: string;
   industry?: string;
 } {
   const lower = description.toLowerCase();
 
-  let type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "general" = "general";
+  let type: "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "calendar" | "general" = "general";
   
   if (lower.includes("find") || lower.includes("search") || lower.includes("research") || lower.includes("scrape") || lower.includes("locate")) {
     type = "research";
@@ -376,6 +376,9 @@ export function classifyTask(description: string): {
   }
   if (lower.includes("cross-promote") || lower.includes("one post ai") || lower.includes("cross promote") || lower.includes("other product") || lower.includes("promote my other")) {
     type = "cross_promotion";
+  }
+  if (lower.includes("calendar") || lower.includes("schedule") || lower.includes("event") || lower.includes("meeting") || lower.includes("appointment") || lower.includes("remind me")) {
+    type = "calendar";
   }
 
   // Extract potential targets

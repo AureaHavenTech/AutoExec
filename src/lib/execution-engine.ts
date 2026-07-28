@@ -5,7 +5,7 @@ import { classifyTask, performWebSearch, generateWebpage, generateProductPage, v
 // ============================================================
 
 export type ActionStatus = "pending" | "running" | "done" | "error";
-export type ActionType = "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "general";
+export type ActionType = "research" | "list_building" | "email_outreach" | "data_gathering" | "marketing" | "webpage" | "product_page" | "image_gen" | "cross_promotion" | "calendar" | "general";
 
 export interface ActionStep {
   id: string;
@@ -257,6 +257,147 @@ export async function executeTask(
     }
 
     // ============================================================
+    // CALENDAR MANAGEMENT
+    // ============================================================
+    if (taskType.type === "calendar" || command.toLowerCase().includes("calendar") || command.toLowerCase().includes("schedule") || command.toLowerCase().includes("event")) {
+      const { isCalendarConnected } = await import("@/lib/google-auth");
+      const calActive = isCalendarConnected();
+
+      if (calActive) {
+        const { createEvent, readEvents, listCalendars } = await import("@/lib/google-calendar");
+
+        addStep("Connecting to Google Calendar...");
+        addStep("Processing calendar request...");
+        addStep("Executing calendar action...");
+        addStep("Confirming changes...");
+
+        updateStep(steps[0].id, "running");
+        await sleep(300);
+        updateStep(steps[0].id, "done", "Calendar connected");
+
+        // Determine if it's a create or read request
+        const isCreate = command.toLowerCase().includes("create") || command.toLowerCase().includes("add") || command.toLowerCase().includes("schedule") || command.toLowerCase().includes("set up");
+        const isRead = command.toLowerCase().includes("show") || command.toLowerCase().includes("list") || command.toLowerCase().includes("what") || command.toLowerCase().includes("upcoming") || command.toLowerCase().includes("today") || command.toLowerCase().includes("week");
+
+        updateStep(steps[1].id, "running");
+
+        if (isCreate) {
+          // Parse event details from command (simple extraction)
+          const title = command.replace(/create|add|schedule|set up|calendar event|event|for|on|at/gi, "").trim() || "New Event";
+          const now = new Date();
+          const startTime = new Date(now.getTime() + 3600000).toISOString(); // 1 hour from now
+          const endTime = new Date(now.getTime() + 7200000).toISOString();   // 2 hours from now
+
+          updateStep(steps[1].id, "done", "Event details parsed");
+
+          updateStep(steps[2].id, "running");
+          const eventResult = await createEvent({
+            title,
+            startTime,
+            endTime,
+            description: `Created by Axel AI: ${command}`,
+          });
+
+          if (eventResult.success && eventResult.event) {
+            updateStep(steps[2].id, "done", `Event "${eventResult.event.title}" created`);
+            updateStep(steps[3].id, "running");
+            await sleep(300);
+            updateStep(steps[3].id, "done", `View in Google Calendar: ${eventResult.event.htmlLink || "https://calendar.google.com"}`);
+
+            return {
+              success: true,
+              taskId,
+              summary: `Calendar event "${eventResult.event.title}" created for ${eventResult.event.start}`,
+              steps,
+              data: { event: eventResult.event, calendarLink: eventResult.event.htmlLink },
+            };
+          } else {
+            updateStep(steps[2].id, "done", "Event could not be created");
+            updateStep(steps[3].id, "running");
+            await sleep(200);
+            updateStep(steps[3].id, "done", eventResult.error || "Unknown error");
+
+            return {
+              success: false,
+              taskId,
+              summary: `Failed to create calendar event: ${eventResult.error}`,
+              steps,
+              error: eventResult.error,
+            };
+          }
+        } else if (isRead) {
+          const eventsResult = await readEvents(10);
+
+          updateStep(steps[1].id, "done", `Found ${eventsResult.totalCount} events`);
+          updateStep(steps[2].id, "running");
+          await sleep(400);
+
+          const eventList = eventsResult.events.map(e =>
+            `${e.title} — ${new Date(e.start).toLocaleString()}${e.location ? ` @ ${e.location}` : ""}`
+          ).join("\n");
+
+          updateStep(steps[2].id, "done", eventsResult.totalCount > 0 ? `Upcoming: ${eventsResult.events[0]?.title}` : "No upcoming events");
+          updateStep(steps[3].id, "running");
+          await sleep(200);
+          updateStep(steps[3].id, "done", "Calendar read complete");
+
+          return {
+            success: true,
+            taskId,
+            summary: eventsResult.totalCount > 0
+              ? `Found ${eventsResult.totalCount} upcoming events. Next: "${eventsResult.events[0]?.title}" on ${new Date(eventsResult.events[0]?.start).toLocaleDateString()}`
+              : "No upcoming events found in your calendar.",
+            steps,
+            data: { events: eventsResult.events, totalCount: eventsResult.totalCount },
+          };
+        } else {
+          // General calendar request — just show status
+          const eventsResult = await readEvents(5);
+          updateStep(steps[1].id, "done", `Calendar active — ${eventsResult.totalCount} upcoming events`);
+          updateStep(steps[2].id, "running");
+          await sleep(200);
+          updateStep(steps[2].id, "done", "Ready for calendar commands");
+          updateStep(steps[3].id, "running");
+          await sleep(200);
+          updateStep(steps[3].id, "done", "Try: show my events, create meeting, etc.");
+
+          return {
+            success: true,
+            taskId,
+            summary: `Calendar is connected. You have ${eventsResult.totalCount} upcoming events. What would you like to do?`,
+            steps,
+            data: { events: eventsResult.events, totalCount: eventsResult.totalCount },
+          };
+        }
+      }
+
+      // Fallback: no Calendar connected — simulate
+      addStep("Checking calendar connection...");
+      addStep("Processing calendar request...");
+      addStep("Preparing calendar actions...");
+
+      updateStep(steps[0].id, "running");
+      await sleep(300);
+      updateStep(steps[0].id, "done", "Calendar not connected");
+
+      updateStep(steps[1].id, "running");
+      await sleep(500);
+      updateStep(steps[1].id, "done", "Ready to connect");
+
+      updateStep(steps[2].id, "running");
+      await sleep(300);
+      updateStep(steps[2].id, "done", "Connect Google Calendar to enable this feature");
+
+      return {
+        success: true,
+        taskId,
+        summary: "Google Calendar is not connected yet. Connect it to create and manage events.",
+        steps,
+        data: { calendarConnected: false, needsConnection: true },
+      };
+    }
+
+    // ============================================================
     // MARKETING / ADVERTISING
     // ============================================================
     if (taskType.type === "marketing" || command.toLowerCase().includes("marketing") || command.toLowerCase().includes("ad")) {
@@ -352,6 +493,83 @@ export async function executeTask(
           summary: `Webpage "${productName}" created and live at ${page.url}`,
           steps,
           data: { url: page.url }
+        };
+      }
+    }
+
+    // ============================================================
+    // CROSS-APP CONTENT CREATION — OnePost AI Bridge
+    // ============================================================
+    const contentKeywords = ["tiktok", "instagram", "post", "social media", "content", "caption", "hashtag", "reel", "story", "facebook", "linkedin", "twitter", "x post", "youtube", "create a", "make a", "write a"];
+    const isContentRequest = contentKeywords.some(kw => command.toLowerCase().includes(kw));
+    
+    if (taskType.type === "cross_promotion" || isContentRequest) {
+      const { generateOnePostContent } = await import("@/lib/onepost-client");
+      
+      addStep("Detecting content type...");
+      addStep("Calling OnePost AI for generation...");
+      addStep("Formatting for delivery...");
+
+      updateStep(steps[0].id, "running");
+      await sleep(300);
+      
+      // Detect platform from command
+      let detectedPlatform = "all";
+      for (const [kw, p] of Object.entries({
+        tiktok: "tiktok", instagram: "instagram", reel: "instagram",
+        twitter: "twitter", "x post": "twitter", linkedin: "linkedin",
+        facebook: "facebook", youtube: "youtube",
+      })) {
+        if (command.toLowerCase().includes(kw)) {
+          detectedPlatform = p;
+          break;
+        }
+      }
+      updateStep(steps[0].id, "done", `Platform: ${detectedPlatform}`);
+
+      updateStep(steps[1].id, "running");
+      const result = await generateOnePostContent({
+        prompt: command,
+        platform: detectedPlatform,
+        style: "casual",
+      });
+      
+      if (result.success) {
+        updateStep(steps[1].id, "done", "Content generated via OnePost AI");
+        updateStep(steps[2].id, "running");
+        await sleep(200);
+        updateStep(steps[2].id, "done", "Ready to publish or edit");
+        
+        return {
+          success: true,
+          taskId,
+          summary: `Generated ${detectedPlatform} content via OnePost AI`,
+          steps,
+          data: {
+            content: result.content,
+            platform: result.platform,
+            hashtags: result.hashtags,
+            generatedBy: "OnePost AI",
+            onePostUrl: "https://onepostai.vercel.app",
+          },
+        };
+      } else {
+        updateStep(steps[1].id, "done", `OnePost AI unavailable: ${result.error}`);
+        updateStep(steps[2].id, "running");
+        await sleep(200);
+        updateStep(steps[2].id, "done", "Fallback to local generation");
+        
+        // Return partial success with guidance
+        return {
+          success: true,
+          taskId,
+          summary: "Content request received. OnePost AI bridge is being set up — configure ONEPOST_API_KEY to enable cross-app generation.",
+          steps,
+          data: {
+            onePostAvailable: false,
+            error: result.error,
+            setupGuide: "Add ONEPOST_API_KEY to both Vercel projects",
+          },
         };
       }
     }

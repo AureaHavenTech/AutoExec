@@ -41,6 +41,8 @@ export function getGoogleAuthUrl(): string {
     "https://www.googleapis.com/auth/gmail.readonly",
     "https://www.googleapis.com/auth/gmail.send",
     "https://www.googleapis.com/auth/gmail.compose",
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events",
     "https://www.googleapis.com/auth/userinfo.email",
     "https://www.googleapis.com/auth/userinfo.profile",
   ];
@@ -200,11 +202,29 @@ export function getGmailPermissions(): GmailPermissions {
 }
 
 /**
- * Revoke access (disconnect Gmail).
+ * Check if Calendar is connected (same token as Gmail — checks if token exists and calendar scope was granted).
+ */
+export function isCalendarConnected(): boolean {
+  const tokens = getStoredTokens();
+  if (!tokens) return false;
+  if (Date.now() > tokens.expires_at) return false;
+  const scope = tokens.scope || "";
+  return scope.includes("calendar");
+}
+
+/**
+ * Revoke access (disconnect Gmail & Calendar).
  */
 export function disconnectGmail(): void {
   const userId = "default";
   tokenStore.delete(userId);
+}
+
+/**
+ * Disconnect Calendar specifically (alias for full disconnect since tokens are shared).
+ */
+export function disconnectCalendar(): void {
+  disconnectGmail();
 }
 
 /**
