@@ -31,11 +31,11 @@ export default function PrivacyPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">5. Data Retention</h2>
           <p>We retain your data for as long as your account is active. After deletion, data is retained for 30 days for recovery, then permanently deleted within 90 days. Anonymized analytics may be retained longer.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">6. Your Rights</h2>
-          <p>You have the right to access, correct, delete, or port your data. To exercise these rights, email <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a>. We will respond within 30 days.</p></section>
+          <p>You have the right to access, correct, delete, or port your data. To exercise these rights, email <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a>. We will respond within 30 days.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">7. Cookies</h2>
           <p>We use essential cookies for authentication and security. See our <Link href="/cookies" className="text-brand-400 hover:text-brand-300">Cookie Policy</Link>.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">8. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a><br />Aura Haven Tech</p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a><br />Aura Haven Tech</p></section>
         </div>
       </main>
     </div>

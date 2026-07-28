@@ -64,7 +64,7 @@ export async function POST(request: Request) {
       const hashedPassword = await bcrypt.hash(password, 10);
       
       // Check if this is the owner
-      const isOwner = email.toLowerCase() === 'aurahaven@gmail.com' || email.toLowerCase() === 'owner@aurahaven.com';
+      const isOwner = email.toLowerCase() === 'aurahaventech@gmail.com' || email.toLowerCase() === 'aurahaven@gmail.com' || email.toLowerCase() === 'owner@aurahaven.com';
       
       const insertUser = db.prepare('INSERT INTO users (id, email, name, password_hash, is_admin) VALUES (?, ?, ?, ?, ?)');
       insertUser.run(userId, email, name || email.split('@')[0], hashedPassword, isOwner ? 1 : 0);

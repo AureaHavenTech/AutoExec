@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // For now, log the contact submission
-    // Owner receives messages at aurahaven@gmail.com
+    // Owner receives messages at aurahaventech@gmail.com
     console.log("Contact submission:", { name, email, message, timestamp: new Date().toISOString() });
 
     return new Response(JSON.stringify({ success: true }), {

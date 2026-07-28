@@ -29,7 +29,7 @@ export default function AcceptableUsePage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. Enforcement</h2>
           <p>Violations may result in content removal, account suspension, termination, forfeiture of prepaid fees, and/or reporting to law enforcement.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">5. Reporting</h2>
-          <p>Report violations to <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a>.</p></section>
+          <p>Report violations to <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a>.</p></section>
         </div>
       </main>
     </div>

@@ -27,7 +27,7 @@ export default function CookiesPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">3. Your Choices</h2>
           <p>You can control cookies via browser settings. Blocking essential cookies may affect platform functionality. We respect Do Not Track signals.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a></p></section>
         </div>
       </main>
     </div>

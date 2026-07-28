@@ -31,7 +31,7 @@ export default function DPAPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">5. International Transfers</h2>
           <p>Data may be processed in the US and other countries where sub-processors operate. Standard Contractual Clauses (SCCs) and UK IDTA are in place for adequate safeguards.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">6. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a></p></section>
         </div>
       </main>
     </div>

@@ -29,7 +29,7 @@ export default function AffiliateTermsPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. Disclosure</h2>
           <p>You must clearly disclose affiliate relationships in all promotional content as required by FTC guidelines.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">5. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a></p></section>
         </div>
       </main>
     </div>

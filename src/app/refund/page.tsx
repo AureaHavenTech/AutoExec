@@ -29,11 +29,11 @@ export default function RefundPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">1. Our Guarantee</h2>
           <p>We offer a <strong className="text-white">30-day money-back guarantee</strong> on all Axel AI subscription plans (Starter, Pro, Unlimited). If you&apos;re not satisfied, contact us within 30 days of purchase for a full refund — no questions asked.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">2. How to Request</h2>
-          <p>Email <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a> with &quot;Refund Request&quot; in the subject line. Include your account email. Refunds are processed within 5-10 business days to the original payment method.</p></section>
+          <p>Email <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a> with &quot;Refund Request&quot; in the subject line. Include your account email. Refunds are processed within 5-10 business days to the original payment method.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">3. Cancellation</h2>
           <p>Cancel anytime from account settings. Your subscription remains active until the end of the billing period. Data is retained for 30 days after cancellation.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a></p></section>
         </div>
       </main>
     </div>

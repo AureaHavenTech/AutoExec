@@ -37,7 +37,7 @@ export default function TermsPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">7. Limitation of Liability</h2>
           <p>Service provided &quot;as is.&quot; Aura Haven Tech is not liable for damages arising from use. Our total liability is limited to the amount paid in the preceding 12 months.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">8. Contact</h2>
-          <p>Email: <a href="mailto:aurahaven@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaven@gmail.com</a></p></section>
+          <p>Email: <a href="mailto:aurahaventech@gmail.com" className="text-brand-400 hover:text-brand-300">aurahaventech@gmail.com</a></p></section>
         </div>
       </main>
     </div>
