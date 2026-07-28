@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import CalendarConnect from "@/components/calendar-connect";
 
 export default function IntegrationsPage() {
   const [connecting, setConnecting] = useState<string | null>(null);
@@ -31,6 +32,12 @@ export default function IntegrationsPage() {
         <h1 className="text-3xl font-bold text-white">Integrations</h1>
         <p className="text-slate-400 mt-2">Connect your accounts once. Axel AI handles the rest.</p>
       </div>
+
+      {/* Google Calendar — live connection status */}
+      <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-5">
+        <CalendarConnect />
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2">
         {services.map((service) => (
           <div key={service.id} className="rounded-xl border border-slate-800 bg-slate-900/50 p-5 flex items-center justify-between">
