@@ -3,8 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { X, Sparkles, Zap, CheckCircle2, ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
+import { X, Sparkles, Zap, CheckCircle2, ShoppingCart, ArrowLeft, Loader2, ExternalLink } from "lucide-react";
 import { CREDIT_PACKS, CREDIT_BUNDLES, getCreditBalance, purchaseCreditPack, purchaseBundle, getCreditSummary, CreditType } from "@/lib/credits";
+
+const STRIPE_CREDIT_LINKS: Record<string, string> = {
+  premiumConversations: "https://buy.stripe.com/eVq9AT07hf5a8LH9XYcwg0r",
+  additionalAutomations: "https://buy.stripe.com/14AbJ17zJe16fa57PQcwg0s",
+  advancedActions: "https://buy.stripe.com/9B64gzf2b3msd1X8TUcwg0t",
+};
 
 interface CreditPurchaseProps {
   open: boolean;
@@ -30,7 +36,12 @@ export function CreditPurchase({ open, onClose, onPurchased }: CreditPurchasePro
 
   const handlePurchasePack = async (packId: CreditType) => {
     setPurchasing(packId);
-    // Simulate payment processing delay
+    // Open Stripe checkout in new tab
+    const stripeUrl = STRIPE_CREDIT_LINKS[packId];
+    if (stripeUrl) {
+      window.open(stripeUrl, "_blank");
+    }
+    // Still run local credit logic as fallback
     await new Promise((r) => setTimeout(r, 1200));
     purchaseCreditPack(packId);
     setPurchasing(null);
