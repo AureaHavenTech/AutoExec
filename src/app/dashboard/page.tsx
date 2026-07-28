@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChatInterface } from "@/components/chat/ChatInterface";
 import { getCreditSummary, hasAnyCredits, getCreditBalance } from "@/lib/credits";
+import { GmailConnect } from "@/components/GmailConnect";
 import {
   Sparkles,
   RefreshCw,
@@ -174,6 +175,9 @@ export default function DashboardPage() {
           </div>
         </Card>
       )}
+
+      {/* Gmail Integration */}
+      <GmailConnect />
 
       {/* Marketing Tools */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
