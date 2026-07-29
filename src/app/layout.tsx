@@ -44,6 +44,8 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import EmailCapture from "@/components/EmailCapture";
 import PushOptIn from "@/components/PushOptIn";
 import OnboardingTooltips from "@/components/OnboardingTooltips";
+import ThemeProvider from "@/components/theme-provider";
+import KeyboardShortcuts from "@/components/keyboard-shortcuts";
 
 export default function RootLayout({
   children,
@@ -79,7 +81,9 @@ export default function RootLayout({
         <link rel="apple-touch-startup-image" href="/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
-        <AnnouncementBar appName="axel" />
+        <ThemeProvider>
+          <KeyboardShortcuts />
+          <AnnouncementBar appName="axel" />
         <OfflineBanner />
         {/* Skip-to-content for keyboard/accessibility */}
         <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-lg focus:outline-none">
@@ -94,6 +98,7 @@ export default function RootLayout({
         <PushOptIn />
         <OnboardingTooltips appName="axel" />
         <InstallPrompt />
+        </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `

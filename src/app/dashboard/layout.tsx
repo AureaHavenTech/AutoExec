@@ -27,6 +27,7 @@ import { NotificationPopover } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 import { SmartSearch, type SearchResult } from "@/components/smart-search";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import ThemeToggle from "@/components/theme-toggle";
 
 const SEARCH_RESULTS: SearchResult[] = [
   { label: "Dashboard", href: "/dashboard", category: "Page" },
@@ -227,6 +228,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <span>Sign Out</span>
             </Link>
           )}
+
+          {!collapsed && (
+            <div className="mt-3 pt-3 border-t border-slate-800/80">
+              <button
+                onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "?" }))}
+                className="flex items-center gap-2 px-3 py-2 text-xs text-slate-600 hover:text-slate-400 transition-colors w-full text-left"
+                title="Keyboard shortcuts"
+              >
+                <span className="text-base">⌨</span>
+                <span>Shortcuts</span>
+                <kbd className="ml-auto px-1.5 py-0.5 text-[10px] bg-slate-800 rounded text-slate-500">?</kbd>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Collapse toggle button */}
@@ -249,6 +264,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
           {/* Right side: User Menu + Notifications */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <div className="relative" ref={userMenuRef}>
               <button onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="flex items-center gap-2 p-1.5 pr-3 rounded-lg hover:bg-slate-800/50 transition-colors">
