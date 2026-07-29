@@ -24,7 +24,7 @@ import {
   Coins,
 } from "lucide-react";
 import SsoBridge from "@/components/sso-bridge";
-import { getSisterApps } from "@/lib/sso";
+import { getSisterApps } from "@/lib/sso-config";
 
 export default function DashboardPage() {
   const [usageStats, setUsageStats] = useState({ used: 42, limit: 200, tier: "pro" });
