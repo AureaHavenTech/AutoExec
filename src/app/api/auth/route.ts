@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, createSession, getSession } from '@/lib/db';
+import { generateSSOToken, getSisterApps, type AppKey } from '@/lib/sso';
 import bcrypt from 'bcryptjs';
+
+const CURRENT_APP: AppKey = 'axelai';
 
 // POST /api/auth - Sign in / Sign up with email + password
 export async function POST(request: Request) {
@@ -29,10 +32,24 @@ export async function POST(request: Request) {
       // Create session
       const session = createSession(ceoUser.id);
       
+      // Generate SSO token for cross-app login
+      const sso = generateSSOToken({
+        userId: ceoUser.id,
+        email: ceoUser.email,
+        name: ceoUser.name,
+        app: CURRENT_APP,
+      });
+      const sisters = getSisterApps(CURRENT_APP);
+      
       const response = NextResponse.json({
         success: true,
         message: 'Access granted',
-        user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.plan }
+        user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.plan },
+        sso: {
+          token: sso.token,
+          expiresIn: 60,
+          sisterApps: sisters,
+        },
       });
       
       response.cookies.set('session_token', session.token, {
@@ -102,6 +119,15 @@ export async function POST(request: Request) {
 
     const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(user.id) as any;
 
+    // Generate SSO token for cross-app login
+    const sso = generateSSOToken({
+      userId: user.id,
+      email: user.email,
+      name: user.name,
+      app: CURRENT_APP,
+    });
+    const sisters = getSisterApps(CURRENT_APP);
+
     const response = NextResponse.json({
       success: true,
       message: 'Authenticated successfully',
@@ -116,6 +142,11 @@ export async function POST(request: Request) {
         status: sub.status,
       } : null,
       session_token: session.token,
+      sso: {
+        token: sso.token,
+        expiresIn: 60,
+        sisterApps: sisters,
+      },
     });
 
     response.cookies.set('session_token', session.token, {

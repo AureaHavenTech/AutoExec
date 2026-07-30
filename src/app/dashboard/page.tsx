@@ -23,6 +23,8 @@ import {
   ShoppingCart,
   Coins,
 } from "lucide-react";
+import SsoBridge from "@/components/sso-bridge";
+import { getSisterApps } from "@/lib/sso-config";
 
 export default function DashboardPage() {
   const [usageStats, setUsageStats] = useState({ used: 42, limit: 200, tier: "pro" });
@@ -102,6 +104,14 @@ export default function DashboardPage() {
         <Button variant="outline" size="sm" onClick={fetchSession} className="h-9">
           <RefreshCw className="h-4 w-4 mr-2" /> Refresh
         </Button>
+      </div>
+
+      {/* Cross-App SSO Indicator */}
+      <div className="flex items-center justify-end">
+        <SsoBridge
+          currentApp="axelai"
+          sisterApps={getSisterApps("axelai")}
+        />
       </div>
 
       {/* Usage Stats Cards */}

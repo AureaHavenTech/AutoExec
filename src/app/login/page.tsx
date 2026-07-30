@@ -59,6 +59,10 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (data.success) {
+        // Store SSO token for cross-app login
+        if (data.sso?.token) {
+          sessionStorage.setItem("sso_axelai", JSON.stringify(data.sso));
+        }
         router.push("/dashboard");
       } else {
         setError(data.error || "Login failed");
