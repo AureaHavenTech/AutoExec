@@ -279,7 +279,7 @@ export default function TasksHistoryPage() {
                         <Loader2 className="h-8 w-8 text-brand-400 animate-spin" />
                         <p className="text-sm font-semibold text-white">Browser Daemon actively processing</p>
                         <p className="text-xs text-brand-400/80 max-w-md font-mono">
-                          Axel AI is scrolling pages, bypassing antibots, and scraping parameters. Please wait...
+                          Axel AI is processing your request and organizing results. Please wait...
                         </p>
                       </div>
                     )}

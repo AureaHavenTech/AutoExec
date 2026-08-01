@@ -5,7 +5,7 @@ const execAsync = promisify(exec);
 
 /**
  * Perform a real web search using agent-browser (browser automation) 
- * or fallback to DuckDuckGo Lite scraping
+ * or search for information
  */
 export async function performWebSearch(query: string): Promise<{
   results: Array<{ title: string; snippet: string; url: string }>;
@@ -474,13 +474,13 @@ export const faqKnowledge: Array<{ keywords: string[]; answer: string; category:
     keywords: ["what is axel ai", "what can axel ai do", "features", "capabilities", "can it"],
     category: "features",
     answer:
-      "Axel AI is your autonomous AI executive assistant. I can:\n\n" +
-      "🔍 **Web Research** — Search the web for companies, people, data\n" +
-      "📋 **List Building** — Compile prospect lists with verified contacts\n" +
-      "✉️ **Email Outreach** — Draft personalized email campaigns\n" +
-      "📊 **Market Research** — Analyze channels, competitors, trends\n" +
-      "🌐 **Webpage Building** — Generate and host landing pages\n" +
-      "🎨 **Ad Creative** — Research and recommend ad strategies\n" +
+      "Axel AI is your intelligent business assistant. I can:\n\n" +
+      "🔍 **Research** — Find and organize information on any topic\n" +
+      "📋 **Task Organization** — Organize your workflow and priorities\n" +
+      "✉️ **Content Creation** — Draft documents, emails, and marketing copy\n" +
+      "📊 **Business Planning** — Analyze opportunities and plan strategy\n" +
+      "🛒 **Storefront Builder** — Create and manage product listings\n" +
+      "🎨 **Marketing** — Plan and organize marketing campaigns\n" +
       "🤝 **Cross-Promotion** — Connect with One Post AI\n\n" +
       "Just describe what you need in plain language and I'll handle the rest!"
   },
@@ -605,13 +605,13 @@ export function isSupportQuestion(message: string): { isSupport: boolean; answer
     return {
       isSupport: true,
       answer:
-        "I'm Axel, your AI executive assistant! 🤖\n\n" +
+        "I'm Axel, your AI business assistant! 🤖\n\n" +
         "I can help you with:\n" +
-        "• **Research** — finding companies, people, and data on the web\n" +
-        "• **List building** — compiling prospect lists with contacts\n" +
-        "• **Email outreach** — drafting personalized campaigns\n" +
-        "• **Marketing research** — analyzing channels and strategies\n" +
-        "• **Webpage building** — generating landing pages\n" +
+        "• **Research** — finding and organizing information on any topic\n" +
+        "• **Task management** — organizing your workflow and priorities\n" +
+        "• **Content creation** — drafting documents, emails, and marketing copy\n" +
+        "• **Business planning** — analyzing opportunities and planning strategy\n" +
+        "• **Storefront building** — creating product listings and pages\n" +
         "• **Answering questions** — about Axel AI, pricing, and how-tos\n\n" +
         "What would you like me to do? Just describe your task or ask me anything!"
     };

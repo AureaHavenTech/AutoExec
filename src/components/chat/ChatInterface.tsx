@@ -79,7 +79,7 @@ export function ChatInterface() {
     {
       id: "welcome",
       role: "assistant",
-      content: "👋 Hi! I'm **Axel**, your autonomous AI executive assistant.\n\nI can **execute real tasks** for you:\n\n🔍 **Research** — Find companies, products, or market data\n📋 **Build Lists** — Compile prospect lists with contacts\n✉️ **Email Outreach** — Draft and prepare email campaigns\n📊 **Market Intel** — Analyze competitors and trends\n🌐 **Build Pages** — Generate landing and product pages\n📦 **Shopify** — Create product listings with SEO\n\n**Try it:** Just tell me what you need done!",
+      content: "👋 Hi! I'm **Axel**, your intelligent business assistant.\n\nI can help you with:\n\n🔍 **Research** — Find and organize information on any topic\n📋 **Task Management** — Organize your priorities and workflow\n✉️ **Content Creation** — Draft documents, emails, and marketing copy\n📊 **Business Planning** — Analyze opportunities and plan strategy\n🛒 **Storefront Builder** — Create and manage product listings\n📦 **Shopify** — Build product listings with SEO\n\n**Try it:** Just tell me what you need done!",
       timestamp: new Date(),
       status: "done",
     },

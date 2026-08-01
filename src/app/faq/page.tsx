@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Can Axel AI send emails on my behalf?",
-    a: "Yes! Axel AI can draft hyper-personalized email templates based on recipient research and send them through connected email accounts. You can review and approve before sending."
+    a: "Yes! Axel AI can draft personalized email templates and business correspondence. You can review, edit, and approve everything before sending."
   },
   {
     q: "Is my data secure?",
