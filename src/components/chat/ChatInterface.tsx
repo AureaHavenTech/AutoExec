@@ -425,7 +425,7 @@ export function ChatInterface() {
       {
         id: "welcome",
         role: "assistant",
-        content: "👋 Hi! I'm **Axel**, your autonomous AI executive assistant.\n\nStart a new conversation by telling me what you need done!",
+        content: "👋 Hi! I'm **Axel**, your intelligent business assistant.\n\nStart a new conversation by telling me what you need done!",
         timestamp: new Date(),
         status: "done",
       },

@@ -58,7 +58,7 @@ export function UpgradeModal({ open, onClose, reason }: UpgradeModalProps) {
                 {[
                   "Unlimited tasks",
                   "Priority processing",
-                  "Email outreach",
+                  "Task automation",
                   "Web research",
                   "Storefront builder",
                   "Marketing engine",

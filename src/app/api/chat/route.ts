@@ -13,7 +13,7 @@ async function streamNatural(controller: ReadableStreamDefaultController, encode
   }
 }
 
-const SYSTEM_PROMPT = `You are Axel AI — a 24/7 autonomous AI executive assistant for dropshippers, e-commerce founders, and busy entrepreneurs. You run businesses.
+const SYSTEM_PROMPT = `You are Axel AI — a 24/7 intelligent business assistant for entrepreneurs, dropshippers, and busy founders. You help run businesses.
 
 YOUR CAPABILITIES:
 - Generate viral TikTok ad scripts with hooks, body, and CTAs ready to film

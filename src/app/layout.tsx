@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Axel AI — Tell it what to do. It does the rest.",
-    description: "Your autonomous AI executive assistant. One AI employee that works 24/7 across all your ventures — researches, writes, emails, builds, analyzes.",
+    description: "Your intelligent business assistant. One AI assistant that works 24/7 across all your ventures — organizes, drafts, plans, analyzes.",
     type: "website",
     url: "https://axelai-eight.vercel.app",
     siteName: "Axel AI",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Axel AI — Tell it what to do. It does the rest.",
-    description: "Your autonomous AI executive assistant. One AI employee that works 24/7 across all your ventures.",
+    description: "Your intelligent business assistant. One AI assistant that works 24/7 across all your ventures.",
     images: ["/og-image.png"],
   },
   icons: {

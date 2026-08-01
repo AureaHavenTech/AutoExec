@@ -97,8 +97,8 @@ export const brand = {
 
   /** Pricing tiers */
   pricing: [
-    { name: "Starter", price: 39, features: ["50 tasks/mo", "Basic research", "Email outreach"] },
-    { name: "Pro", price: 99, features: ["200 tasks/mo", "Full web research", "Send emails", "Strategy generation"] },
+    { name: "Starter", price: 39, features: ["50 tasks/mo", "AI assistant", "Task organization"] },
+    { name: "Pro", price: 99, features: ["200 tasks/mo", "Advanced AI research", "Draft content & emails", "Strategy planning"] },
     { name: "Unlimited", price: 249, features: ["No task cap", "Priority processing", "All features"] },
   ],
 
