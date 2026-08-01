@@ -23,7 +23,7 @@ export default function TermsPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">1. Acceptance of Terms</h2>
           <p>By using Axel AI (&quot;the Service&quot;), you agree to these Terms. Axel AI is a product of <strong className="text-white">Aura Haven Tech</strong>. If you do not agree, do not use the Service.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">2. Service Description</h2>
-          <p>Axel AI is an autonomous AI executive assistant that executes business tasks — research, content creation, email outreach, data gathering, storefront building, and analytics. Features include AI chat, task execution, business organizer, marketing engine, and storefront builder. We reserve the right to modify features with reasonable notice.</p></section>
+          <p>Axel AI is an intelligent business assistant that helps with business tasks — research, content creation, task management, data organization, storefront building, and analytics. Features include AI chat, task execution, business organizer, marketing engine, and storefront builder. We reserve the right to modify features with reasonable notice.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">3. Account & Subscriptions</h2>
           <p>You must be 18+ to use the Service. Paid plans ($39/mo Starter, $99/mo Pro, $249/mo Unlimited) are billed monthly. All plans include a 30-day money-back guarantee. See our <Link href="/refund" className="text-brand-400 hover:text-brand-300">Refund Policy</Link>. Payments via Stripe.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. User Responsibilities</h2>

@@ -61,7 +61,7 @@ function detectActionableCommand(message: string): boolean {
     /shopify/i,
     /product page/i,
     /landing page/i,
-    /email outreach/i,
+    /task automation|workflow|organize/i,
     /ad (copy|creative|campaign)/i,
     /cross.?promot/i,
   ];

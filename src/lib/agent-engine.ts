@@ -412,8 +412,8 @@ export const faqKnowledge: Array<{ keywords: string[]; answer: string; category:
     category: "pricing",
     answer:
       "Axel AI offers three plans:\n\n" +
-      "**Starter** — $39/mo\n- 50 tasks per month\n- Basic web research & email\n\n" +
-      "**Pro** — $99/mo\n- 200 tasks per month\n- Deep web research & scraping\n- Multi-step email outreach\n- Priority processing\n\n" +
+      "**Starter** — $39/mo\n- 50 tasks per month\n- AI chat assistant & task organization\n\n" +
+      "**Pro** — $99/mo\n- 200 tasks per month\n- Advanced AI research & analysis\n- Multi-step task workflows\n- Priority processing\n\n" +
       "**Unlimited** — $249/mo\n- No task cap\n- All features + priority\n- Dedicated support\n\n" +
       "💰 **Save ~20%** with annual billing! You can upgrade or downgrade anytime from the Billing page."
   },

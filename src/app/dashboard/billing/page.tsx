@@ -68,12 +68,12 @@ export default function BillingPage() {
       id: "starter",
       name: "Starter",
       price: 39,
-      description: "Basic research & email outreach capabilities.",
+      description: "Get started with AI-powered business assistance.",
       features: [
         "50 tasks per month",
-        "Basic web research",
-        "Single-step email templates",
-        "Email delivery support",
+        "AI chat assistant (GPT-4o)",
+        "Task organization & notes",
+        "Calendar & reminders",
         "Standard execution speed",
         "Community support"
       ]
@@ -82,15 +82,15 @@ export default function BillingPage() {
       id: "pro",
       name: "Pro",
       price: 99,
-      description: "Full research and outreach automation power.",
+      description: "Advanced AI automation for growing businesses.",
       features: [
         "200 tasks per month",
-        "Deep web research & scraping",
-        "Multi-step automated email outreach",
+        "Advanced AI research & analysis",
+        "Multi-step task workflows",
         "AI-driven personalization",
         "Priority task processing",
         "Email & chat support",
-        "Custom agent triggers"
+        "Custom workflow templates"
       ],
       popular: true
     },
@@ -98,12 +98,12 @@ export default function BillingPage() {
       id: "unlimited",
       name: "Unlimited",
       price: 249,
-      description: "Zero restrictions. Uncapped outreach scaling.",
+      description: "No limits. Full AI business assistant at scale.",
       features: [
         "No task limit (uncapped)",
-        "Deep web research + browser agents",
-        "Bulk outbound email campaigns",
-        "Dedicated proxy configuration",
+        "Advanced AI + priority processing",
+        "Unlimited task automation",
+        "Priority support & onboarding",
         "Instant execution speed",
         "Dedicated account manager",
         "Custom API integrations"

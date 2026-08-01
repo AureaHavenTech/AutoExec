@@ -15,7 +15,7 @@ export const brand = {
   nameMeaning:
     "Just like an axle keeps your car moving, Axel AI keeps your business running — your personal assistant that drives everything forward.",
   description:
-    "Your autonomous AI executive assistant. Describe any task in plain language — research, email outreach, webpages, data gathering, content, analytics — and it executes end-to-end.",
+    "Your intelligent business assistant. Describe what you need in plain language — task management, content drafting, research, planning, analytics — and Axel AI handles it end-to-end.",
 
   /** Vibe & personality */
   vibe: "Modern, high-end, smart, cutting-edge, savvy — neutral",

@@ -23,7 +23,7 @@ export default function DPAPage() {
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">1. Parties</h2>
           <p>This DPA is between you (&quot;Controller&quot;) and Aura Haven Tech (&quot;Processor&quot;), operator of Axel AI. It forms part of the Terms of Service.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">2. Processing Details</h2>
-          <p><strong className="text-white">Subject Matter:</strong> AI-powered business task execution. <strong className="text-white">Duration:</strong> Subscription term + 30 days. <strong className="text-white">Data Types:</strong> Task descriptions, business data, research results, email outreach content, storefront data, and analytics.</p></section>
+          <p><strong className="text-white">Subject Matter:</strong> AI-powered business task assistance. <strong className="text-white">Duration:</strong> Subscription term + 30 days. <strong className="text-white">Data Types:</strong> Task descriptions, business data, research results, content drafts, storefront data, and analytics.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">3. Processor Obligations</h2>
           <p>Process data only on your instructions. Implement security measures (AES-256, TLS 1.3, access controls). Notify you within 48 hours of data breaches. Delete or return data at end of service.</p></section>
           <section><h2 className="text-2xl font-bold text-white mb-3 font-serif">4. Sub-processors</h2>

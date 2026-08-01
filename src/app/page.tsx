@@ -289,7 +289,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-lg font-bold text-white font-serif mb-3">Agent Processes</h3>
               <p className="text-sm text-slate-200 leading-relaxed max-w-xs">
-                Our web browser agent initializes in the cloud, performing searches, parsing details, and composing outreaches.
+                Our AI assistant runs in the cloud, processing your requests, organizing data, and preparing deliverables in real time.
               </p>
             </div>
             <div className="flex flex-col items-center text-center">

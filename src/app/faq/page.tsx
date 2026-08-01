@@ -9,15 +9,15 @@ import { Zap, ChevronDown, ChevronRight, Search, ShieldCheck } from "lucide-reac
 const faqs = [
   {
     q: "What is Axel AI?",
-    a: "Axel AI is an autonomous AI executive assistant. You describe any digital task in plain language — research, list-building, email outreach, data gathering, building webpages — and Axel AI completes it end-to-end without you needing to lift a finger."
+    a: "Axel AI is an intelligent business assistant. You describe what you need in plain language — task management, content drafting, research, planning, data organization — and Axel AI handles the heavy lifting so you can focus on growing your business."
   },
   {
     q: "How is Axel AI different from ChatGPT or other AI tools?",
-    a: "Axel AI doesn't just chat — it executes. While ChatGPT gives you text answers, Axel AI actually performs tasks: it searches the web, scrapes data, compiles spreadsheets, drafts and sends emails, builds webpages, and more. It's like having a full-time employee who can do anything you describe."
+    a: "Axel AI doesn't just chat — it executes. While ChatGPT gives you text answers, Axel AI actually performs tasks: it organizes your business, drafts content, manages your calendar, builds storefronts, and more. It's like having a full-time employee who can handle anything you describe."
   },
   {
     q: "What kind of tasks can Axel AI do?",
-    a: "Axel AI can: research companies and people on the web, build prospect lists with verified contacts, draft and send personalized email campaigns, gather competitive intelligence, scrape websites for structured data, build and host simple webpages, analyze market trends, and more. If it can be done digitally, Axel AI can do it."
+    a: "Axel AI can: research topics and organize information, draft content and business documents, manage your calendar and tasks, build and organize storefronts, analyze data, plan marketing campaigns, and more. If it can be organized or drafted digitally, Axel AI can help."
   },
   {
     q: "How much does Axel AI cost?",
