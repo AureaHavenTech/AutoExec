@@ -34,23 +34,23 @@ export default function LandingPage() {
   const features = [
     {
       icon: Search,
-      title: "Deep Web Research",
-      description: "Axel AI autonomously navigates directories, search engines, and social platforms to find verified prospects.",
+      title: "AI-Powered Assistant",
+      description: "Chat with GPT-4o to research topics, plan projects, draft content, and organize your business — all from one dashboard.",
     },
     {
       icon: Mail,
-      title: "Personalized Email Outreach",
-      description: "Drafts hyper-personalized email templates based on recipient profiles and sends them immediately.",
+      title: "Smart Task Automation",
+      description: "Describe what you need in plain language. Axel AI drafts, organizes, and prepares your work — ready when you are.",
     },
     {
       icon: Cog,
-      title: "Autonomous Agent Core",
-      description: "No APIs required. Our AI browsers click, scroll, and retrieve data like a human assistant.",
+      title: "Connected Dashboard",
+      description: "Business Organizer, Marketing Engine, and Storefront Builder — manage your entire business from one intelligent workspace.",
     },
     {
       icon: Sparkles,
-      title: "Context-Aware Leads",
-      description: "Filter leads dynamically by specific triggers, e.g., 'SaaS companies in SF hiring full-stack devs'.",
+      title: "One-Click Workflows",
+      description: "Pre-built templates for common business tasks. Coming soon: connect your email, calendar, and Shopify for true automation.",
     },
     {
       icon: Workflow,
@@ -65,12 +65,12 @@ export default function LandingPage() {
       name: "Starter",
       monthlyPrice: 39,
       annualPrice: 31,
-      description: "Essential tools for solo founders beginning outreach.",
+      description: "Get started with AI-powered business assistance.",
       features: [
         "50 tasks per month",
-        "Basic web research",
-        "Single-step email templates",
-        "Email delivery support",
+        "AI chat assistant (GPT-4o)",
+        "Task organization & notes",
+        "Calendar & reminders",
         "Standard execution speed",
         "Community support"
       ],
@@ -82,15 +82,15 @@ export default function LandingPage() {
       name: "Pro",
       monthlyPrice: 99,
       annualPrice: 79,
-      description: "Full automation power for active sales and prospecting.",
+      description: "Advanced AI automation for growing businesses.",
       features: [
         "200 tasks per month",
-        "Deep web research & scraping",
-        "Multi-step automated email outreach",
+        "Advanced AI research & analysis",
+        "Multi-step task workflows",
         "AI-driven personalization",
         "Priority task processing",
         "Email & chat support",
-        "Custom agent triggers"
+        "Custom workflow templates"
       ],
       popular: true,
       cta: "Go Pro"
@@ -100,12 +100,12 @@ export default function LandingPage() {
       name: "Unlimited",
       monthlyPrice: 249,
       annualPrice: 199,
-      description: "Zero restrictions. Uncapped research and outreach scaling.",
+      description: "No limits. Full AI business assistant at scale.",
       features: [
         "No task limit (uncapped)",
-        "Deep web research + browser agents",
-        "Bulk outbound email campaigns",
-        "Dedicated proxy configuration",
+        "Advanced AI + priority processing",
+        "Unlimited task automation",
+        "Priority support & onboarding",
         "Instant execution speed",
         "Dedicated account manager",
         "Custom API integrations"
@@ -171,9 +171,9 @@ export default function LandingPage() {
         </h1>
 
         <p className="mt-8 text-lg md:text-xl text-slate-200 max-w-3xl leading-relaxed">
-          Axel AI is your autonomous AI executive assistant. Describe any task in plain language — 
-          research, list-building, email outreach, building webpages — and it handles everything 
-          end-to-end. Like a full-time employee who works 24/7, never sleeps, and does anything you can describe.
+          Axel AI is your intelligent business assistant. Describe what you need in plain language —
+          manage your calendar, organize tasks, draft content, plan your business — and it handles the heavy lifting.
+          Like having an executive assistant who works 24/7 and never misses a detail.
         </p>
 
         {/* Demo command block */}
@@ -181,7 +181,7 @@ export default function LandingPage() {
           <div className="flex items-center space-x-3 text-slate-200">
             <span className="text-brand-500 font-bold">&gt;</span>
             <span className="text-slate-200">
-              Find me 50 SaaS companies hiring in SF and draft an intro email
+              Plan my week: prioritize my tasks, draft meeting notes, and organize my calendar
             </span>
           </div>
           <Link href="/dashboard">
