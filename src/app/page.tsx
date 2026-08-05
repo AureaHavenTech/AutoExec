@@ -173,7 +173,7 @@ export default function LandingPage() {
         <p className="mt-8 text-lg md:text-xl text-slate-200 max-w-3xl leading-relaxed">
           Axel AI is your intelligent business assistant. Describe what you need in plain language —
           manage your calendar, organize tasks, draft content, plan your business — and it handles the heavy lifting.
-          Like having an executive assistant who works 24/7 and never misses a detail.
+          Like having a personal assistant who works 24/7 and never misses a detail.
         </p>
 
         {/* Demo command block */}
@@ -265,11 +265,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white font-serif">
-              Watch Axel AI run autonomously
+              Watch Axel AI at work
             </h2>
             <p className="mt-4 text-slate-200 text-lg">
               Three simple steps to save hours of grinding. Let the agent handle it — 
-              like having a full-time employee who never sleeps.
+              like having a personal business assistant available 24/7.
             </p>
           </div>
 

@@ -123,7 +123,7 @@ export default function TasksHistoryPage() {
           <p className="text-slate-400 text-sm mt-1 leading-relaxed">
             {searchQuery 
               ? "No execution histories match your current keyword search." 
-              : "You haven't dispatched any executive tasks yet. Go to your dashboard to launch your first agent."}
+              : "You haven't dispatched any tasks yet. Go to your dashboard to launch your first agent."}
           </p>
         </Card>
       ) : (

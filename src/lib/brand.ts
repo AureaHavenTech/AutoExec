@@ -19,9 +19,9 @@ export const brand = {
 
   /** Vibe & personality */
   vibe: "Modern, high-end, smart, cutting-edge, savvy — neutral",
-  emotion: "Authoritative, polished, reliable, premium executive assistant",
+  emotion: "Authoritative, polished, reliable, premium personal assistant",
   promise:
-    "One AI employee that works 24/7 across all your ventures — researches, writes, emails, builds, analyzes",
+    "One AI assistant that works 24/7 across all your ventures — organizes, drafts, plans, analyzes",
 
   /** Logo — steering wheel icon in gold on dark gray circle + AXEL AI wordmark */
   logo: {

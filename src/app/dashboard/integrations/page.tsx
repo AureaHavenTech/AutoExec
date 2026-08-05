@@ -22,7 +22,7 @@ export default function IntegrationsPage() {
     // In production: redirect to OAuth flow
     setTimeout(() => {
       setConnecting(null);
-      alert(`${serviceId} connected! Axel AI can now manage it autonomously.`);
+      alert(`${serviceId} connected! Axel AI can now manage it for you.`);
     }, 1500);
   };
 

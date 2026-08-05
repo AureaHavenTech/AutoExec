@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "How is Axel AI different from ChatGPT or other AI tools?",
-    a: "Axel AI doesn't just chat — it executes. While ChatGPT gives you text answers, Axel AI actually performs tasks: it organizes your business, drafts content, manages your calendar, builds storefronts, and more. It's like having a full-time employee who can handle anything you describe."
+    a: "Axel AI doesn't just chat — it executes. While ChatGPT gives you text answers, Axel AI actually performs tasks: it organizes your business, drafts content, manages your calendar, builds storefronts, and more. It's like having a dedicated personal assistant available 24/7."
   },
   {
     q: "What kind of tasks can Axel AI do?",

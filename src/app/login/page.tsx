@@ -83,7 +83,7 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight">Welcome to Axel AI</CardTitle>
           <CardDescription className="text-slate-400">
-            Sign in to your executive assistant dashboard
+            Sign in to your personal assistant dashboard
           </CardDescription>
         </CardHeader>
         <CardContent>

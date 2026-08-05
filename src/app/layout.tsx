@@ -8,7 +8,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 
 export const metadata: Metadata = {
   title: "Axel AI — The Axle That Drives Your Business",
-  description: "Just like an axle keeps your car moving, Axel AI keeps your business running. Describe any task in plain language — it researches, writes, builds, emails, and analyzes for you 24/7.",
+  description: "Your AI business assistant. Describe what you need in plain language — organize tasks, draft content, plan your business, manage your calendar. Like an axle, it keeps everything moving.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
