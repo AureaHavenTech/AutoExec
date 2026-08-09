@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     q: "How is One Post AI related to Axel AI?",
-    a: "One Post AI is our sister product focused on social media content generation and scheduling. Axel AI and One Post AI are designed to work together — Axel AI handles research and outreach, while One Post AI manages your social media presence. Cross-promotion discounts are available."
+    a: "One Post AI is our sister product focused on social media content generation and scheduling. Axel AI and One Post AI are designed to work together — Axel AI handles business organization and planning, while One Post AI manages your social media presence. Cross-promotion discounts are available."
   }
 ];
 

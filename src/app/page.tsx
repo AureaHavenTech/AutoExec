@@ -231,11 +231,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white font-serif">
-              An Executive Assistant built entirely on AI
+              A Personal Assistant built entirely on AI
             </h2>
             <p className="mt-4 text-slate-200 text-lg">
               No complex setup, APIs, or integration connectors needed. Axel AI acts like a real person 
-              — because it was built by one who needed exactly that.
+              — because it was built by someone who needed exactly that.
             </p>
           </div>
 
@@ -268,7 +268,7 @@ export default function LandingPage() {
               Watch Axel AI at work
             </h2>
             <p className="mt-4 text-slate-200 text-lg">
-              Three simple steps to save hours of grinding. Let the agent handle it — 
+              Three simple steps to save hours of grinding. Let your assistant handle it — 
               like having a personal business assistant available 24/7.
             </p>
           </div>
@@ -298,7 +298,7 @@ export default function LandingPage() {
               </div>
               <h3 className="text-lg font-bold text-white font-serif mb-3">Download Results</h3>
               <p className="text-sm text-slate-200 leading-relaxed max-w-xs">
-                Monitor live logs. Once finished, retrieve the compiled list of leads or inspect automated outreach drafts ready to go.
+                Monitor live logs. Once finished, review your organized results and deliverables — ready when you are.
               </p>
             </div>
           </div>
