@@ -12,9 +12,6 @@ export default defineConfig({
         inline: ["openai"],
       },
     },
-    deps: {
-      inline: ["openai"],
-    },
   },
   resolve: {
     alias: {

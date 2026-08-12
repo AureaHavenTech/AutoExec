@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
 
     if (action === "discount" || action === "create_discount") {
       const result = await createDiscount(config, params);
-      return NextResponse.json({ success: result.success, ...result });
+      return NextResponse.json(result);
     }
 
     return NextResponse.json(
