@@ -9,7 +9,10 @@ import {
   getCustomers,
   createDiscount,
   getAnalytics,
+  getOrderDetailsByEmail,
+  refundOrder,
 } from "@/lib/shopify-client";
+import { getRefundPolicyText, refundsAllowedByPolicy } from "@/lib/store-policies";
 
 let shopifyInitialized = false;
 
@@ -89,7 +92,126 @@ export function initShopifyActions(config?: { storeUrl?: string; adminToken?: st
       artifacts: [{ name: "discount.json", type: "application/json" }],
     };
   });
-}
+
+  // ── shopify_get_order_details ───────────
+  registerHandler("shopify_get_order_details", async (params, _userId, onStep) => {
+    onStep({
+      timestamp: new Date().toISOString(),
+      message: "Looking up your order...",
+      type: "progress",
+    });
+    const email = params.email as string;
+    const orderId = params.orderId ? (Number(params.orderId) || undefined) : undefined;
+
+    if (!email) {
+      return {
+        success: false,
+        output: null,
+        summary: "Please provide the customer email address to look up orders.",
+      };
+    }
+
+    const result = await getOrderDetailsByEmail(config, email, orderId);
+
+    if (!result.success) {
+      onStep({
+        timestamp: new Date().toISOString(),
+        message: result.error || "Order lookup failed",
+        type: "error",
+      });
+      return { success: false, output: null, summary: result.error || "Could not find matching order." };
+    }
+
+    const o = result.order!;
+    onStep({
+      timestamp: new Date().toISOString(),
+      message: `Found order #${o.name}`,
+      type: "success",
+      data: {
+        orderId: o.id,
+        total: o.total_price,
+        status: o.financial_status,
+      },
+    });
+
+    return {
+      success: true,
+      output: o,
+      summary:
+        `Order #${o.name} for ${o.customer_name} (${o.email}): ` +
+        `${o.currency} ${o.total_price} — Status: ${o.financial_status}` +
+        (o.fulfillment_status ? `, Fulfillment: ${o.fulfillment_status}` : "") +
+        (o.tracking_number ? `, Tracking: ${o.tracking_number}` : ""),
+      artifacts: [{ name: "order-details.json", type: "application/json" }],
+    };
+  });
+
+  // ── shopify_refund_order ─────────────────
+  registerHandler("shopify_refund_order", async (params, _userId, onStep) => {
+    onStep({
+      timestamp: new Date().toISOString(),
+      message: "Checking refund eligibility...",
+      type: "progress",
+    });
+
+    // CRITICAL GUARDRAIL: Check store policies before processing
+    const policyText = getRefundPolicyText();
+    const allowed = refundsAllowedByPolicy();
+
+    if (!allowed) {
+      return {
+        success: false,
+        output: null,
+        summary: `Refund denied by store policy: "${policyText}". Refunds are not permitted under the current store policies.`,
+      };
+    }
+
+    const orderId = Number(params.orderId);
+    const amount = params.amount ? Number(params.amount) : undefined;
+    const note = (params.note as string) || undefined;
+
+    if (!orderId || orderId <= 0) {
+      return {
+        success: false,
+        output: null,
+        summary: "Refund requires a valid order ID from a verified order lookup.",
+      };
+    }
+
+    onStep({
+      timestamp: new Date().toISOString(),
+      message: `Processing refund for order #${orderId}...`,
+      type: "progress",
+    });
+
+    const result = await refundOrder(config, orderId, amount, note);
+
+    if (!result.success) {
+      onStep({
+        timestamp: new Date().toISOString(),
+        message: result.error || "Refund failed",
+        type: "error",
+      });
+      return { success: false, output: null, summary: result.error || "Refund could not be processed." };
+    }
+
+    onStep({
+      timestamp: new Date().toISOString(),
+      message: `Refund processed successfully (ID: ${result.refundId})`,
+      type: "success",
+    });
+
+    const summary = amount
+      ? `Refund of ${amount} processed for order #${orderId} (refund ID: ${result.refundId}).`
+      : `Full refund processed for order #${orderId} (refund ID: ${result.refundId}).`;
+
+    return {
+      success: true,
+      output: result,
+      summary,
+      artifacts: [{ name: "refund.json", type: "application/json" }],
+    };
+  });
 
 // Auto-initialize on import if env vars are present
 if (process.env.SHOPIFY_STORE_URL && process.env.SHOPIFY_ADMIN_TOKEN) {

@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { getOpenAI } from "@/lib/openai-client";
+import { buildStorePoliciesTextBlock } from "@/lib/store-policies";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -25,6 +26,7 @@ YOUR CAPABILITIES:
 - Find AliExpress/CJ Dropshipping product sourcing insights and pricing comparisons
 - Write email sequences, landing page copy, and brand messaging
 - Analyze what sells and why
+- Look up customer orders and help with order status, tracking, and refunds
 
 When the user describes a product, give them:
 1. A viral hook for TikTok/Instagram Reels
@@ -36,6 +38,11 @@ When the user describes a product, give them:
 If they ask about product sourcing, provide pricing estimates, supplier types, and what to look for based on your knowledge.
 
 If they want image generation, tell them you can generate DALL-E ad images and ask for their product description.
+
+STORE POLICIES:
+{{STORE_POLICIES_TEXT_BLOCK}}
+
+When helping customers with store-related questions (orders, refunds, shipping), use the store policies above. If policies are not configured, tell the customer honestly that store policies haven't been set up yet and suggest they contact the store owner directly.
 
 Be professional, warm, and direct. You're a premium business-building assistant. Take initiative. 
 
@@ -60,8 +67,10 @@ export async function POST(request: NextRequest) {
 
       try {
         // Build messages array
+        const storePolicies = buildStorePoliciesTextBlock();
+        const systemContent = SYSTEM_PROMPT.replace("{{STORE_POLICIES_TEXT_BLOCK}}", storePolicies);
         const messages: any[] = [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemContent },
         ];
 
         // Add conversation history (last 10 messages)

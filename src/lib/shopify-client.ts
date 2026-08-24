@@ -302,6 +302,229 @@ export async function createDiscount(
   }
 }
 
+/** Look up order details by customer email.
+ *  Returns real order info or success:false with a clear message.
+ *  NEVER fabricates data. */
+export async function getOrderDetailsByEmail(
+  config: Partial<ShopifyConfig> | undefined,
+  email: string,
+  orderId?: number
+): Promise<{
+  success: boolean;
+  order?: {
+    id: number;
+    name: string;
+    email: string;
+    total_price: string;
+    currency: string;
+    financial_status: string;
+    fulfillment_status: string | null;
+    created_at: string;
+    customer_name: string;
+    tracking_company?: string;
+    tracking_number?: string;
+    line_items: Array<{ title: string; quantity: number; price: string }>;
+  };
+  error?: string;
+}> {
+  try {
+    const cfg = getConfig(config);
+    if (!cfg.storeUrl || !cfg.adminToken) {
+      return {
+        success: false,
+        error: "Shopify credentials not configured — cannot look up orders.",
+      };
+    }
+
+    // Try fetching by order ID first if provided
+    if (orderId) {
+      const data = await shopifyFetch(`orders/${orderId}.json`, cfg);
+      const o = data.order;
+      if (!o) {
+        return { success: false, error: `No order found with ID #${orderId}.` };
+      }
+      const orderEmail = (o.email || o.customer?.email || "").toLowerCase();
+      if (orderEmail !== email.toLowerCase()) {
+        return {
+          success: false,
+          error: `Order #${orderId} exists but the email (${orderEmail}) does not match the provided email (${email}).`,
+        };
+      }
+      return {
+        success: true,
+        order: formatOrderDetail(o),
+      };
+    }
+
+    // Search by email via orders endpoint
+    const params = new URLSearchParams();
+    params.set("status", "any");
+    params.set("limit", "50");
+    params.set("financial_status", "any");
+
+    const data = await shopifyFetch(`orders.json?${params}`, cfg);
+    const orders: any[] = data.orders || [];
+
+    const match = orders.find(
+      (o: any) => (o.email || o.customer?.email || "").toLowerCase() === email.toLowerCase()
+    );
+
+    if (!match) {
+      // Try customers endpoint as fallback to confirm email exists
+      try {
+        const custParams = new URLSearchParams();
+        custParams.set("search", `email:${email}`);
+        const custData = await shopifyFetch(`customers/search.json?${custParams}`, cfg);
+        const customers = custData.customers || [];
+        if (customers.length > 0) {
+          // Customer exists but no recent orders in the default window
+          return {
+            success: false,
+            error: `Customer "${email}" found in Shopify but no recent orders matched. Try providing a specific order ID.`,
+          };
+        }
+      } catch {
+        // Customer search failed — just report no match
+      }
+      return {
+        success: false,
+        error: `No matching order found for email "${email}". The email may not be associated with any orders in this store.`,
+      };
+    }
+
+    return {
+      success: true,
+      order: formatOrderDetail(match),
+    };
+  } catch (error: any) {
+    return { success: false, error: `Shopify API error: ${error.message}` };
+  }
+}
+
+function formatOrderDetail(o: any) {
+  const fulfillment = o.fulfillments?.[0];
+  return {
+    id: o.id,
+    name: o.name,
+    email: o.email || o.customer?.email || "",
+    total_price: o.total_price,
+    currency: o.currency,
+    financial_status: o.financial_status,
+    fulfillment_status: o.fulfillment_status,
+    created_at: o.created_at,
+    customer_name: o.customer
+      ? `${o.customer.first_name || ""} ${o.customer.last_name || ""}`.trim()
+      : "Unknown",
+    tracking_company: fulfillment?.tracking_company || undefined,
+    tracking_number: fulfillment?.tracking_number || undefined,
+    line_items: (o.line_items || []).map((li: any) => ({
+      title: li.title,
+      quantity: li.quantity,
+      price: li.price,
+    })),
+  };
+}
+
+/** Guarded refund — requires credentials + policy check before processing.
+ *  NEVER processes a refund without all checks passing. */
+export async function refundOrder(
+  config: Partial<ShopifyConfig> | undefined,
+  orderId: number,
+  amount?: number,
+  note?: string
+): Promise<{
+  success: boolean;
+  refundId?: number;
+  error?: string;
+}> {
+  try {
+    const cfg = getConfig(config);
+
+    // CRITICAL GUARDRAIL 1: Credentials must be present
+    if (!cfg.storeUrl || !cfg.adminToken) {
+      return {
+        success: false,
+        error: "Refund disabled — Shopify credentials (SHOPIFY_STORE_URL / SHOPIFY_ADMIN_TOKEN) are not configured.",
+      };
+    }
+
+    // Validate orderId
+    if (!orderId || orderId <= 0) {
+      return {
+        success: false,
+        error: "Refund requires a valid order ID obtained from a real order lookup.",
+      };
+    }
+
+    // Verify the order exists
+    let order: any;
+    try {
+      const data = await shopifyFetch(`orders/${orderId}.json`, cfg);
+      order = data.order;
+    } catch {
+      return {
+        success: false,
+        error: `Could not verify order #${orderId} — the order may not exist or the store may be unreachable.`,
+      };
+    }
+
+    if (!order) {
+      return {
+        success: false,
+        error: `Order #${orderId} not found. Refund requires a valid, confirmed order.`,
+      };
+    }
+
+    // CRITICAL GUARDRAIL 2: Don't refund already-refunded orders
+    if (order.financial_status === "refunded" || order.financial_status === "partially_refunded") {
+      return {
+        success: false,
+        error: `Order #${orderId} is already ${order.financial_status}. Cannot process refund.`,
+      };
+    }
+
+    // Build refund payload - partial or full
+    const refundPayload: any = {
+      refund: {
+        currency: order.currency || "USD",
+        note: note || `Refund processed by Axel AI — Order #${order.name}`,
+        notify: true,
+      },
+    };
+
+    if (amount && amount > 0) {
+      refundPayload.refund.shipping = {
+        full_refund: false,
+      };
+      refundPayload.refund.transactions = [
+        {
+          parent_id: (order.transactions || []).find((t: any) => t.kind === "capture" || t.kind === "sale")?.id,
+          amount: String(amount),
+          kind: "refund",
+          gateway: "manual",
+        },
+      ];
+    }
+
+    const result = await shopifyFetch(
+      `orders/${orderId}/refunds.json`,
+      cfg,
+      "POST",
+      refundPayload
+    );
+
+    return {
+      success: true,
+      refundId: result.refund?.id,
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      error: `Refund failed: ${error.message}`,
+    };
+  }
+}
+
 /** Get basic analytics summary */
 export async function getAnalytics(
   config?: Partial<ShopifyConfig>
