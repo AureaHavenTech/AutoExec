@@ -1,0 +1,14 @@
+{
+  "appId": "com.aurahaventech.axelai",
+  "appName": "Axel AI",
+  "webDir": "www",
+  "server": {
+    "url": "https://axelai-eight.vercel.app",
+    "cleartext": false,
+    "allowNavigation": ["axelai-eight.vercel.app"]
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true
+  }
+}

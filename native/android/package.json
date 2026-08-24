@@ -1,0 +1,17 @@
+{
+  "name": "axel-ai-android",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Axel AI native Android app — Capacitor web-view wrapper pointing at axelai-eight.vercel.app",
+  "scripts": {
+    "cap": "cap",
+    "cap:add": "cap add android",
+    "cap:sync": "cap sync",
+    "cap:open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0"
+  }
+}

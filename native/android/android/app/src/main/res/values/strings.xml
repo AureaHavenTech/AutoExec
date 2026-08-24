@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Axel AI</string>
+    <string name="title_activity_main">Axel AI</string>
+    <string name="package_name">com.aurahaventech.axelai</string>
+    <string name="custom_url_scheme">com.aurahaventech.axelai</string>
+</resources>
