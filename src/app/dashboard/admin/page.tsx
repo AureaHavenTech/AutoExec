@@ -134,7 +134,8 @@ export default function AdminDashboard() {
               type="text"
               value={ownerCodeInput}
               onChange={(e) => setOwnerCodeInput(e.target.value)}
-              placeholder="Enter owner code (e.g. AUREA2026)"
+              placeholder="Enter your owner code"
+              aria-label="Owner code"
               className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
               onKeyDown={(e) => e.key === 'Enter' && handleRedeemOwnerCode()}
             />

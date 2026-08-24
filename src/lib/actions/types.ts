@@ -32,6 +32,8 @@ export type ActionId =
   | "calendar_read_events"
   | "shopify_get_orders"
   | "shopify_get_products"
+  | "shopify_get_order_details"
+  | "shopify_refund_order"
   | "shopify_create_discount"
   | "web_search"
   | "web_scrape"

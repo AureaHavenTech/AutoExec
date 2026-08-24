@@ -10,9 +10,9 @@ interface ChatInputProps {
 }
 
 const EXAMPLE_PROMPTS = [
-  "Find me 50 SaaS companies hiring senior React developers in California and find their recruiter emails",
-  "Research the top 20 AI startups that raised Series A in 2026 and compile founder contact info",
-  "Scrape list of early-stage startups raising Seed rounds in SF and draft a personalized outreach pitch",
+  "Write a viral TikTok ad script for a pet grooming product",
+  "Create Facebook ad copy for a new skincare line",
+  "Draft a product page description with SEO keywords for a smart water bottle",
 ];
 
 export function ChatInput({ onSend, disabled, placeholder }: ChatInputProps) {

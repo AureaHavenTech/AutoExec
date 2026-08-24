@@ -1,48 +1,69 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, createSession, getSession } from '@/lib/db';
+import { rateLimit, clientKey } from '@/lib/rate-limit';
 import bcrypt from 'bcryptjs';
 
 // POST /api/auth - Sign in / Sign up with email + password
 export async function POST(request: Request) {
   try {
+    // Rate limit: 20 auth attempts per 10 minutes per IP
+    const rl = rateLimit(clientKey(request, 'auth'), 20, 10 * 60_000);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { success: false, error: 'Too many attempts. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSeconds) } }
+      );
+    }
+
     const body = await request.json();
     const { email, password, name, adminCode } = body;
     const db = getDb();
 
-    // CODE-ONLY LOGIN: hardcoded access codes - never expire
-    const VALID_CODES: Record<string, { plan: string; is_admin: boolean }> = {
-      'AUREA2026': { plan: 'unlimited', is_admin: true },
-      'FAMILY4EVR': { plan: 'pro', is_admin: false },
-    };
-    
-    if (adminCode && !email && VALID_CODES[adminCode]) {
-      const codeConfig = VALID_CODES[adminCode];
-      // Find or create CEO user
-      let ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
-      if (!ceoUser) {
-        const userId = 'user_ceo_' + Math.random().toString(36).substring(2, 11);
-        db.prepare('INSERT OR IGNORE INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, 'owner@axelai.app', 'Aurea', 1);
-        ceoUser = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
+    // CODE-ONLY LOGIN: database-backed access codes (see src/lib/db.ts adminCodes seed)
+    if (adminCode && !email) {
+      const codeConfig = db.prepare(
+        "SELECT * FROM admin_codes WHERE code = ? AND (uses < max_uses OR max_uses = -1)"
+      ).get(adminCode) as any;
+
+      if (codeConfig) {
+        // Find or create the owner user for admin codes, or a dedicated user for other codes
+        let targetUser: any;
+        if (codeConfig.is_admin) {
+          targetUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
+          if (!targetUser) {
+            const userId = 'user_ceo_' + Math.random().toString(36).substring(2, 11);
+            db.prepare('INSERT OR IGNORE INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, 'owner@axelai.app', 'Aurea', 1);
+            targetUser = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
+          }
+          db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(targetUser.id);
+        } else {
+          // Non-admin code: create a dedicated access-code user
+          const userId = 'user_code_' + Math.random().toString(36).substring(2, 11);
+          db.prepare('INSERT INTO users (id, email, name, is_admin) VALUES (?, ?, ?, ?)').run(userId, `access-${adminCode.toLowerCase()}@axelai.app`, 'Axel AI Member', 0);
+          targetUser = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
+        }
+
+        // Increment usage
+        db.prepare('UPDATE admin_codes SET uses = uses + 1 WHERE code = ?').run(adminCode);
+
+        // Create session
+        const session = createSession(targetUser.id);
+
+        const response = NextResponse.json({
+          success: true,
+          message: 'Access granted',
+          user: { id: targetUser.id, email: targetUser.email, name: targetUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.tier }
+        });
+
+        response.cookies.set('session_token', session.token, {
+          httpOnly: true,
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: '/',
+          sameSite: 'lax',
+        });
+
+        return response;
       }
-      db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(ceoUser.id);
-      
-      // Create session
-      const session = createSession(ceoUser.id);
-      
-      const response = NextResponse.json({
-        success: true,
-        message: 'Access granted',
-        user: { id: ceoUser.id, email: ceoUser.email, name: ceoUser.name, is_admin: codeConfig.is_admin ? 1 : 0, plan: codeConfig.plan }
-      });
-      
-      response.cookies.set('session_token', session.token, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-        path: '/',
-        sameSite: 'lax',
-      });
-      
-      return response;
     }
 
     if (!email || typeof email !== 'string') {
@@ -163,7 +184,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Fallback: check for AUREA2026 code user (owner)
+    // Fallback: return the admin (owner) user if one exists (used by code-login sessions)
     const ceoUser = db.prepare('SELECT * FROM users WHERE is_admin = 1 LIMIT 1').get() as any;
     if (ceoUser) {
       const sub = db.prepare('SELECT * FROM subscriptions WHERE user_id = ?').get(ceoUser.id) as any;

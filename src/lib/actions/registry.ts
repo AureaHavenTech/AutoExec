@@ -126,6 +126,29 @@ const ACTION_CATALOG: Record<ActionId, ActionDefinition> = {
       { name: "endsAt", type: "string", required: false, description: "End date (ISO 8601)" },
     ],
   },
+  shopify_get_order_details: {
+    id: "shopify_get_order_details",
+    category: "shopify",
+    label: "Look Up Order",
+    description: "Look up a customer's order by email address",
+    requiredPermissions: ["shopify:read"],
+    params: [
+      { name: "email", type: "string", required: true, description: "Customer email address" },
+      { name: "orderId", type: "number", required: false, description: "Specific order ID (optional)" },
+    ],
+  },
+  shopify_refund_order: {
+    id: "shopify_refund_order",
+    category: "shopify",
+    label: "Refund Order",
+    description: "Refund a verified Shopify order (subject to store refund policy)",
+    requiredPermissions: ["shopify:write"],
+    params: [
+      { name: "orderId", type: "number", required: true, description: "Order ID to refund" },
+      { name: "amount", type: "number", required: false, description: "Refund amount (omit for full refund)" },
+      { name: "note", type: "string", required: false, description: "Refund note" },
+    ],
+  },
 
   // ── Web ──────────────────────────────────
   web_search: {

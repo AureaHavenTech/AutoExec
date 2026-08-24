@@ -88,8 +88,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: false, error: 'Code has reached its usage limit' }, { status: 400 });
       }
 
-      // Mark user as admin if this is the AUREA2026 owner code
-      if (code === 'AUREA2026') {
+      // Mark user as admin if this code is a database-backed admin code
+      const adminCode = db.prepare('SELECT * FROM admin_codes WHERE code = ?').get(code) as any;
+      if (adminCode && adminCode.is_admin) {
         db.prepare('UPDATE users SET is_admin = 1 WHERE id = ?').run(userId);
         db.prepare('UPDATE owner_codes SET user_id = ?, used = used + 1 WHERE id = ?').run(userId, validCode.id);
 

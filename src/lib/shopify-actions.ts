@@ -212,6 +212,7 @@ export function initShopifyActions(config?: { storeUrl?: string; adminToken?: st
       artifacts: [{ name: "refund.json", type: "application/json" }],
     };
   });
+}
 
 // Auto-initialize on import if env vars are present
 if (process.env.SHOPIFY_STORE_URL && process.env.SHOPIFY_ADMIN_TOKEN) {
