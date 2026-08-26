@@ -60,21 +60,17 @@ export async function POST(request: Request) {
             const finalDb = getDb();
             const mockResult = {
               summary: `Successfully executed: "${description}"`,
-              details: "Analyzed request, queried target databases, retrieved contact info, and prepared automated email draft campaigns.",
-              items_count: 15,
+              details: "Analyzed request and prepared a response. Task execution is simulated in this scaffold build.",
+              items_count: 0,
               execution_time: "8s",
               status: "success",
               logs: [
-                "Initializing web browser daemon...",
-                "Searching directory sources for query targets...",
-                "Found 15 matching leads with validated contacts.",
-                "Generated personalized email template pitches.",
-                "Axel AI agent execution finished."
+                "Initializing task engine...",
+                "Parsing request...",
+                "Preparing response...",
+                "Task execution finished."
               ],
-              results_preview: [
-                { name: "Segment", domain: "segment.com", status: "Validated", email: "founders@segment.com" },
-                { name: "Figma", domain: "figma.com", status: "Validated", email: "growth@figma.com" }
-              ]
+              results_preview: []
             };
             finalDb.prepare('UPDATE app_tasks SET status = ?, result = ?, updated_at = ? WHERE id = ?').run(
               'completed',

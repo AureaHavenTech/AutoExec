@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { getOpenAI } from "@/lib/openai-client";
 import { buildStorePoliciesTextBlock } from "@/lib/store-policies";
+import { rateLimit, clientKey } from "@/lib/rate-limit";
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -95,6 +96,15 @@ RESTRICTIONS:
 All of the above capabilities run through the real, guarded backend: order data is only ever returned from real store records, and refunds are disabled until the owner connects the store and sets policies. Be professional, warm, and direct — a premium assistant and a trusted customer-relations specialist.`;
 
 export async function POST(request: NextRequest) {
+  // Rate limit: 30 chat messages per 5 minutes per IP
+  const rl = rateLimit(clientKey(request, 'chat'), 30, 5 * 60_000);
+  if (!rl.allowed) {
+    return new Response(JSON.stringify({ error: "Too many messages. Please slow down." }), {
+      status: 429,
+      headers: { "Content-Type": "application/json", "Retry-After": String(rl.retryAfterSeconds) },
+    });
+  }
+
   const { message, conversationId, history } = await request.json();
 
   if (!message || typeof message !== "string") {

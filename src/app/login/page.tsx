@@ -101,11 +101,12 @@ export default function LoginPage() {
                       placeholder="Enter your access code"
                       value={accessCode}
                       onChange={(e) => setAccessCode(e.target.value)}
+                      aria-label="Access code"
                       className="w-full bg-yellow-500/5 border border-yellow-500/20 rounded-xl py-2.5 pl-11 pr-4 text-white placeholder:text-yellow-900/40 focus:outline-none focus:ring-2 focus:ring-yellow-500/30 focus:border-yellow-500/30 transition-all"
                       autoFocus
                     />
                   </div>
-                  <p className="text-[10px] text-yellow-500/30 ml-1">Owner? Use AUREA2026 for CEO access</p>
+                  <p className="text-[10px] text-yellow-500/30 ml-1">Enter the access code provided to you.</p>
                 </div>
                 <button
                   type="button"
@@ -126,6 +127,7 @@ export default function LoginPage() {
                       placeholder="name@company.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      aria-label="Email address"
                       className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2.5 pl-11 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all"
                       required
                     />
@@ -141,6 +143,7 @@ export default function LoginPage() {
                       placeholder="At least 6 characters"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      aria-label="Password"
                       className="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2.5 pl-11 pr-11 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500/50 transition-all"
                       required
                       minLength={6}
@@ -148,6 +151,7 @@ export default function LoginPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="absolute right-3 top-3 text-slate-500 hover:text-slate-300 transition-colors"
                     >
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}

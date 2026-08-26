@@ -20,6 +20,7 @@ interface AdminCode {
   uses: number;
   description?: string;
   is_gift?: number;
+  is_admin?: number;
 }
 interface Session {
   token: string;
@@ -45,7 +46,8 @@ const store = {
   sessions: [] as Session[],
   storefront_products: [] as StorefrontProduct[],
   adminCodes: [
-    { code: 'AUREA2026', tier: 'unlimited', max_uses: 9999, uses: 0, description: 'Owner registration code - grants admin access', is_gift: 0 }
+    { code: 'AUREA2026', tier: 'unlimited', max_uses: 9999, uses: 0, description: 'Owner registration code - grants admin access', is_gift: 0, is_admin: 1 },
+    { code: 'FAMILY4EVR', tier: 'pro', max_uses: 9999, uses: 0, description: 'Family/team access code - grants pro access', is_gift: 0, is_admin: 0 }
   ] as AdminCode[],
   ownerCodes: [] as any[],
 };
