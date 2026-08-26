@@ -13,7 +13,7 @@ const nextConfig = {
   reactStrictMode: true,
 
   // Security headers (QA: CSP + rate-limit hardening)
-  // (redeploy trigger marker — no functional change)
+  // (redeploy trigger marker #2 — no functional change)
   async headers() {
     return [
       {
